@@ -14,7 +14,7 @@ module GeoVocabularies
       range:
       label:
       type: "rdf:Property".freeze
-    property :spacial,
+    property :spatial,
       comment:
       domain:
       range:
