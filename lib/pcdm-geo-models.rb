@@ -8,37 +8,36 @@ module GeoHydra
     
     # Base class for all GeoHydra objects
     class GeoWork < ::Hydra::Works::GenericWork::Base
-      # property ???
+      # property :bbox, BoundingBox
+      # ...
     end
   
-    # Vector work like shapefiles
+    # Vector work like shapefiles with attribute tables
     class Vector < GeoWork
-      # property ???
+      # property :projection, String
+      # property :attributeTable, Array
+      # ...
     end
   
-    # Raster work like GeoTIFF
-    class Raster < GeoWork # maybe mix-in with a generic Image class
-      # property ???
+    # Base class for Images that are georeferenced with a bbox
+    class Image < GeoWork # maybe mix-in with a generic Image class
+      # property :height, Integer
+      # property :width, Integer
+      # ...
+    end
+    
+    # A georeferenced map that been warped or Raster work like GeoTIFF
+    class Raster < Image
+      # property :projection, String
+      # property :resolution, Float
+      # ...
     end
   
-    # A raster that is semantically a scanned map
-    class ScannedMap < Raster
-      # property ???
-    end
-  
-    # A scanned map with a bounding box
-    class GeoreferencedMap < ScannedMap
-      # property :bbox
-    end
-
-    # A georeferenced map that been warped
-    class GeorectifiedMap < GeoreferencedMap
-      # property ???
-    end
-  
-    # A vector that has been transcribed from a georectified map
+    # A vector that has been transcribed from a raster (georectified map)
     class FeatureExtraction < Vector
-      # associated_with :georectifiedMap
+      # associated_with :raster
+      # property :transcribedBy, String
+      # ...
     end
   end
 end
