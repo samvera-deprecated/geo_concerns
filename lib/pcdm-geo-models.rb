@@ -1,5 +1,6 @@
 require 'hydra/works'
 require 'curation_concerns'
+require 'pcdm-geo-models/behaviors'
 
 # PCDM based geospatial models for Hydra
 module GeoHydra
@@ -7,23 +8,26 @@ module GeoHydra
   module Works
     
     # Base class for all GeoHydra objects
-    class GeoWork < ::Hydra::Works::GenericWork::Base
+    class Base < ::Hydra::Works::GenericWork::Base
       # property :bbox, BoundingBox
       # ...
+      include GeoHydra::Works::Behaviors::Base
     end
   
     # Vector work like shapefiles with attribute tables
-    class Vector < GeoWork
+    class Vector < Base
       # property :projection, String
       # property :attributeTable, Array
       # ...
+      include GeoHydra::Works::Behaviors::Vector
     end
   
     # Base class for Images that are georeferenced with a bbox
-    class Image < GeoWork # maybe mix-in with a generic Image class
+    class Image < Base # maybe mix-in with a generic Image class
       # property :height, Integer
       # property :width, Integer
       # ...
+      include GeoHydra::Works::Behaviors::Image
     end
     
     # A georeferenced map that been warped or Raster work like GeoTIFF
@@ -31,6 +35,7 @@ module GeoHydra
       # property :projection, String
       # property :resolution, Float
       # ...
+      include GeoHydra::Works::Behaviors::Raster
     end
   
     # A vector that has been transcribed from a raster (georectified map)
@@ -38,6 +43,7 @@ module GeoHydra
       # associated_with :raster
       # property :transcribedBy, String
       # ...
+      include GeoHydra::Works::Behaviors::FeatureExtraction
     end
   end
 end
