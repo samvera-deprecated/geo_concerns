@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/projecthydra-labs/curation_concerns.git
-  revision: 1c169520825b692fb3572c2a80fe43e21e1fff07
+  revision: 7389529d83a47b391b099551697a3671f8c4c80c
   branch: master
   specs:
     curation_concerns (0.0.1)
@@ -73,7 +73,7 @@ GEM
     active_attr (0.8.5)
       activemodel (>= 3.0.2, < 5.0)
       activesupport (>= 3.0.2, < 5.0)
-    active_fedora-noid (1.0.0)
+    active_fedora-noid (1.0.1)
       active-fedora (~> 9.0)
       noid (~> 0.7)
     activefedora-aggregation (0.2.1)
@@ -97,7 +97,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    arel (6.0.2)
+    arel (6.0.3)
     autoprefixer-rails (5.2.1.1)
       execjs
       json
@@ -117,7 +117,7 @@ GEM
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
-    breadcrumbs_on_rails (2.3.0)
+    breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     cancancan (1.12.0)
     childprocess (0.5.6)
@@ -136,13 +136,13 @@ GEM
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
-    globalid (0.3.5)
+    globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt
     htmlentities (4.3.4)
     http_logger (0.5.1)
-    hydra-access-controls (9.2.0)
+    hydra-access-controls (9.2.2)
       active-fedora (~> 9.0)
       activesupport (~> 4.0)
       blacklight (~> 5.10)
@@ -153,9 +153,9 @@ GEM
       blacklight (~> 5.10)
       deprecation (~> 0.1)
       hydra-head (~> 9.1)
-    hydra-core (9.2.0)
+    hydra-core (9.2.2)
       active-fedora (~> 9.1)
-      hydra-access-controls (= 9.2.0)
+      hydra-access-controls (= 9.2.2)
       jettywrapper (>= 2.0.0)
       rails (~> 4.0)
     hydra-derivatives (1.1.0)
@@ -172,9 +172,9 @@ GEM
       simple_form (~> 3.1.0)
     hydra-file_characterization (0.3.1)
       activesupport (>= 3.0.0)
-    hydra-head (9.2.0)
-      hydra-access-controls (= 9.2.0)
-      hydra-core (= 9.2.0)
+    hydra-head (9.2.2)
+      hydra-access-controls (= 9.2.2)
+      hydra-core (= 9.2.2)
       rails (>= 3.2.6)
     hydra-pcdm (0.0.1)
       activefedora-aggregation (~> 0.2.0)
@@ -224,7 +224,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (1.25.1)
-    mini_magick (4.2.7)
+    mini_magick (4.2.9)
     mini_portile (0.6.2)
     minitest (5.7.0)
     mono_logger (1.1.0)
@@ -233,7 +233,7 @@ GEM
     nest (1.1.2)
       redis
     net-http-persistent (2.9.4)
-    noid (0.7.1)
+    noid (0.8.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     nom-xml (0.5.2)
