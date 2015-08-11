@@ -34,13 +34,14 @@ module GeoHydra
     class Raster < Image
       # property :projection, String
       # property :resolution, Float
+      # associated_with :image (derived from, optional)
       # ...
       include GeoHydra::Works::Behaviors::Raster
     end
   
     # A vector that has been transcribed from a raster (georectified map)
     class FeatureExtraction < Vector
-      # associated_with :raster
+      # associated_with :raster (derived from, required)
       # property :transcribedBy, String
       # ...
       include GeoHydra::Works::Behaviors::FeatureExtraction
