@@ -5,8 +5,7 @@ module ImageBehavior
   include ::BasicGeoMetadata
 
   included  do 
-    # property :height, Integer
-    # property :width, Integer
-    # ...
+    validates_presence_of :width,  message: 'Your work must have a width.'
+    validates_presence_of :height,  message: 'Your work must have a height.'
   end
 end

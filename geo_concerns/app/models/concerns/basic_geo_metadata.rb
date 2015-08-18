@@ -16,5 +16,7 @@ module BasicGeoMetadata
       index.as :stored_searchable
     end
     
+    validates_presence_of :title,  message: 'Your work must have a title.'
+    validates_presence_of :georss_box,  message: 'Your work must have a bbox.'
   end
 end

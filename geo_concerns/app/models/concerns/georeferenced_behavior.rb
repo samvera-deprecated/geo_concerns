@@ -11,5 +11,8 @@ module GeoreferencedBehavior
     property :crs, predicate: ::RDF::URI.new("http://www.opengis.net/def/dataType/OGC/1.1/crsURI"), multiple: false do |index|
       index.as :stored_searchable
     end
+    
+    validates_presence_of :crs,  message: 'Your work must have a CRS.'
+    
   end
 end
