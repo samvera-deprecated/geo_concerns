@@ -35,7 +35,7 @@ gem 'rsolr', '~> 1.0.6'
 gem 'devise', '~> 3.0'
 gem 'devise-guests', '~> 0.3'
 
-gem 'curation_concerns', github: 'projecthydra-labs/curation_concerns', branch:'master'
+gem 'curation_concerns', github: 'projecthydra-labs/curation_concerns', branch:'v0.1.0'
 
 group :development do
   gem 'yard'

@@ -1,19 +1,19 @@
 GIT
   remote: git://github.com/projecthydra-labs/curation_concerns.git
-  revision: 416aa76341b4b04256738a480531a8a1947f96e0
-  branch: remove_derivatives_spec
+  revision: bdf54d1b8a0814842e632034a3c9b22b8be4f07f
+  branch: v0.1.0
   specs:
-    curation_concerns (0.0.1)
+    curation_concerns (0.1.0)
       active_attr
       blacklight_advanced_search (>= 5.1.4, < 6.0)
       breadcrumbs_on_rails (~> 2.3.0)
-      curation_concerns-models (= 0.0.1)
+      curation_concerns-models (= 0.1.0)
       hydra-collections
       hydra-derivatives
       hydra-editor
       hydra-head (~> 9.0)
       simple_form (~> 3.1.0)
-    curation_concerns-models (0.0.1)
+    curation_concerns-models (0.1.0)
       active-fedora (~> 9.3.0)
       active_attr
       active_fedora-noid (~> 1.0.2)
@@ -90,7 +90,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.3)
-    autoprefixer-rails (5.2.1.1)
+    autoprefixer-rails (5.2.1.2)
       execjs
       json
     bcp47 (0.3.3)
