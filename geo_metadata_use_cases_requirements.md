@@ -1,37 +1,33 @@
-# Use Cases for Geospatial Metadata
+# Use Cases for Geospatial Metadata and Data Models
 _Please note that these were drafted with descriptive metadata being the primary scope_
 
-## FGDC (Content Standard for Digital Geospatial Metadata)
-  1. Users search by full-text using the "Abstract" or "Purpose" of a data set
-  2. Users search by faceted date range searches using the Time\_Period\_Information of a data set
-  3. Users can facet upon the "Spatial_Domain" spatial bounding box featured by a data set
-  4. Users can facet upon one or many "Theme" authorities tagging a data set
-  5. Users can facet upon one or many "Place" authorities tagging a data set
-  4. Users can facet upon one or many "Stratum" authorities tagging a data set
-  6. Users can facet upon one or many "Temporal" authorities tagging a data set
-  7. Curators can specify a "Theme\_Keyword\_Thesaurus" resolving to a controlled vocabulary for Theme authorities
-  8. Curators can specify a "Place\_Keyword\_Thesaurus" resolving to a controlled vocabulary for Place name authorities
-  9. Curators can specify a "Stratum\_Keyword\_Thesaurus" resolving to a controlled vocabulary for Theme authorities
-  10. Curators can specify a "Temporal\_Keyword\_Thesaurus" resolving to a controlled vocabulary for Place name authorities
-  11. Users can resolve URI's for persons specified as Point\_of\_Contact values
-  11. Users cannot discover or access data sets bearing certain Security_Classification values
-  12. Users can resolve resources specified within Cross_Reference element values
+## Geospatial Resource Metadata
+### Descriptive Metadata (FGDC and ISO 19139 XML Documents)
+  1. Users shall be able to discover georeferenced raster resources (Raster) by specifying a bounding box
 
-## ISO 19139 (Implements ISO 19115)
-  1. Users can resolve URI's for persons specified within gmd:contact/gmd:contactInfo/gmd:CI_Contact child elements
-  2. Users can facet upon date ranges using values specified within the gmd:dateStamp child elements
-  3. Users can facet upon date ranges using values specified within gmd:identificationInfo/gmd:MD\_DataIdentification/gmd:citation/gmd:CI\_Citation/gmd:date child elements
-  4. Users can search by full-text using the values within gmd:identificationInfo/gmd:MD\_DataIdentification/gmd:citation/gmd:CI\_Citation/gmd:title child elements
-  5. Users can facet upon ISBN's using the values within gmd:identificationInfo/gmd:MD\_DataIdentification/gmd:citation/gmd:CI\_Citation/gmd:identifier child elements'
-  6. Users can facet upon the form of the data set using the values within gmd:identificationInfo/gmd:MD\_DataIdentification/gmd:citation/gmd:CI\_Citation/gmd:presentationForm child elements
-  7. Users can search by full-text using the values within gmd:abstract child elements
-  8. Users can facet upon subject authorities using the gmd:topicCategory/gmd:MD_TopicCategoryCode elements values
-  9. Users can facet upon subject authorities using the gmd:descriptiveKeywords elements values
-  10. Users can facet upon the spatial bounding box using the values within gmd:extent/gmd:EX_Extent/gmd:geographicElement child elements
+### Technical Metadata
+  1. Users shall be able to access geospatial EXIF metadata tags in relation to georeferenced resources
+  2. Users shall be able to embed geospatial EXIF metadata tags for [one (or many)][1] georeferenced resources
+    1. _e. g. A user shall be able to georectify or reproject the SRS any given raster resource_
 
-# Functional Requirements for Geospatial Metadata
+### Access Metadata/[Web Access Control][2]
+  1. Repository administrators shall be able to restrict users who can read from a raster resource
+    1. Administrators shall also be able to restrict access to all or some descriptive metadata fields for a raster resource
+      1. _e. g. Users can access the raster resource but not descriptive metadata until it has been published for release_
+  2. Repository administrators shall be able to restrict users who can replace or update the bitstream of a raster resource
+    1. Administrators shall also be able to restrict the writing of all or some descriptive metadata fields for a raster resource
+      1. _e. g. Users can modify only the Abstract (but not the Security_Classification) FGDC field values for a raster resource_
+  3. Repository administrators shall be able to grant users the ability to control ACL privileges for a raster resource (i. e. grant "administrative" privileges)
 
-1. Where possible, file names and network addresses should be structured as valid URI's[1]
-2. Persistent URI schemes implemented by the Fedora Commons should map the persistent URI for the data set to the appropriate geospatial metadata element (e. g. gmd:dataSetURI)
+## Data Modeling
+  1. Users shall be able to upload only one georeferenced image for Raster resources
+  1. Users shall be able to generate one or many derivative images for Raster resources
+    1. _e. g. Users can generate multiple PNG images from a GeoTIFF at various sizes and resolutions_
+  1. Users shall be able to upload (extracted) vector feature sets for Raster resources
+    1. Users shall be able to download vector feature sets in a number of formats for any given Raster resource
+      1. _e. g. Users shall be able to download a Shapefile, KML Document, or GeoJSON Object for a vector feature set_
+  1. Users shall be able to relate georeferenced resources to non-georeferenced resources
+    1. _e. g. Users can link a georeferenced map to a scanned map_
 
-[1] https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/base-metadata/v2_0698.pdf
+[1]: This encompasses use cases addressed using the batch editing functionality offered by the hydra-collections Gem
+[2]: This follows the proposed [WebAccessControl ontology](http://www.w3.org/wiki/WebAccessControl) implemented in the RDF
