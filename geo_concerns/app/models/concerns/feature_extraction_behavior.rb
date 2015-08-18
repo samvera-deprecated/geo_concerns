@@ -3,6 +3,7 @@ module FeatureExtractionBehavior
   include ::CurationConcerns::GenericWorkBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
+  include ::GeoreferencedBehavior
 
   # associated_with :raster (derived from, required)
 

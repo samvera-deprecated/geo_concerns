@@ -3,6 +3,7 @@ module VectorBehavior
   include ::CurationConcerns::GenericWorkBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
+  include ::GeoreferencedBehavior
 
   included  do
     # property :attributeTable, Array
