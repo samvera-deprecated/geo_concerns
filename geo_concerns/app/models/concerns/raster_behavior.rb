@@ -3,7 +3,6 @@ module RasterBehavior
   include ::CurationConcerns::GenericWorkBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
-  include ::GeoreferencedBehavior
 
   # associated_with :image (derived from, optional)
 
