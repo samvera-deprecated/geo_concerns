@@ -5,6 +5,7 @@ module VectorBehavior
   include ::BasicGeoMetadata
 
   included  do
+    # property :primaryCrs, String
     # property :attributeTable, Array
     # ...
   end

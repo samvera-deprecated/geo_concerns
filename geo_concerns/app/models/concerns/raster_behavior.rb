@@ -7,6 +7,7 @@ module RasterBehavior
   # associated_with :image (derived from, optional)
 
   included  do
+    # property :primaryCrs, String
     # property :resolution, Float
     # ...
   end
