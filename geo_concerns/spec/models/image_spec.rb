@@ -12,4 +12,33 @@ describe Image do
     subject.georss_box = '17.881242 -179.14734 71.390482 179.778465'
     expect(subject.georss_box).to eq '17.881242 -179.14734 71.390482 179.778465'
   end
+
+  describe 'with a Raster' do
+
+    it 'has related content' do
+
+      # jrgriffinii: I'm uncertain as to how this shall be related using the CurationConcerns behavior
+      # Perhaps by means of validating the relationship with Raster resources?
+      nil
+    end
+
+    describe "containing a GeoTIFF" do
+
+      before do
+
+        # Please see the comments above
+        nil
+      end
+
+      it 'has a width' do
+    
+        expect(subject.width).to eq(380)
+      end
+
+      it 'has a height' do
+        
+        expect(subject.height).to eq(765)
+      end
+    end
+  end
 end
