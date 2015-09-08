@@ -2,4 +2,3 @@
 class FeatureExtraction < ActiveFedora::Base
   include ::GeoConcerns::FeatureExtractionBehavior
 end
-

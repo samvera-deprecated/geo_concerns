@@ -3,6 +3,10 @@ require 'rake'
 require File.expand_path("../../config/environment", __FILE__)
 require 'factory_girl'
 require 'database_cleaner'
+
+# require 'engine_cart'
+# EngineCart.load_application!
+
 require 'devise'
 require 'rspec/its'
 require 'rspec/rails'

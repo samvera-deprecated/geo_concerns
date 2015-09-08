@@ -2,4 +2,3 @@
 class Vector < ActiveFedora::Base
   include ::GeoConcerns::VectorBehavior
 end
-
