@@ -1,6 +1,9 @@
 require: rubocop-rspec
 
+
+
 AllCops:
+  UseCache: false
   RunRailsCops: true
   DisplayCopNames: true
   Include:
@@ -123,6 +126,12 @@ Style/SingleLineBlockParams:
 
 Style/SignalException:
   Enabled: false
+
+# griffinj
+Style/AsciiComments:
+  Enabled: false
+
+
 
 Rails/Date:
   Enabled: false
