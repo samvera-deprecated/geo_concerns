@@ -2,7 +2,7 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
-# Rails.application.load_tasks
+Rails.application.load_tasks
 
 require 'bundler/gem_tasks'
 require 'bundler/setup'
@@ -30,7 +30,7 @@ task spec: :rubocop do
 end
 
 # Could not find jetty:config within release 2.0.3
-task ci: ['engine_cart:generate', 'jetty:clean', 'jetty:config'] do
+task ci: ['engine_cart:generate', 'jetty:clean', 'jetty:config', 'db:test:prepare'] do
   puts 'running continuous integration'
   jetty_params = Jettywrapper.load_config
   jetty_params[:startup_wait] = 90
