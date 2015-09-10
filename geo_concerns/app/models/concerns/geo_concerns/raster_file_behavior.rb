@@ -17,5 +17,15 @@ module GeoConcerns
     def works_raster_file?
       true
     end
+
+    # Aliases the thumbnail method
+    def preview
+      thumbnail
+    end
+
+    # Aliases the generic_works method
+    def rasters
+      generic_works
+    end
   end
 end

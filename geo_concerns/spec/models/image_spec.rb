@@ -32,14 +32,14 @@ describe Image do
 
       it 'has a width' do
     
-        subject.title = [380]
-        expect(subject.width).to eq(380)
+        subject.width = [380]
+        expect(subject.width).to eq([380])
       end
 
       it 'has a height' do
         
-        subject.title = [765]
-        expect(subject.height).to eq(765)
+        subject.height = [765]
+        expect(subject.height).to eq([765])
       end
     end
   end

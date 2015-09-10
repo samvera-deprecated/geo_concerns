@@ -116,11 +116,13 @@ describe RasterFile do
 
     it 'is georeferenced to a bbox' do
     
+      subject.georss_box = '-12.511 109.036 129.0530000 -5.0340000'
       expect(subject.georss_box).to eq '-12.511 109.036 129.0530000 -5.0340000'
     end
 
     it 'has a CRS' do
 
+      subject.crs = 'urn:ogc:def:crs:EPSG::6326'
       expect(subject.crs).to eq 'urn:ogc:def:crs:EPSG::6326'
     end
   end
