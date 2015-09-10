@@ -15,8 +15,8 @@ module GeoConcerns
         index.as :stored_searchable
       end
 
-      validates :title, presence: { message: 'Your work must have a title.' }
-      validates :georss_box, presence: { message: 'Your work must have a bbox.' }
+      # validates :title, presence: { message: 'Your work must have a title.' }
+      # validates :georss_box, presence: { message: 'Your work must have a bbox.' }
     end
   end
 end

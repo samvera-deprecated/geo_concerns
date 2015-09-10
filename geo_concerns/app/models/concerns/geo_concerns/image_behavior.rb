@@ -6,8 +6,11 @@ module GeoConcerns
     include ::GeoConcerns::BasicGeoMetadata
 
     included do
-      validates :width, presence: { message: 'Your work must have a width.' }
-      validates :height, presence: { message: 'Your work must have a height.' }
+      property :width, predicate: RDF::Vocab::EXIF.width
+      property :height, predicate: RDF::Vocab::EXIF.height
+
+      # validates :width, presence: { message: 'Your work must have a width.' }
+      # validates :height, presence: { message: 'Your work must have a height.' }
     end
   end
 end

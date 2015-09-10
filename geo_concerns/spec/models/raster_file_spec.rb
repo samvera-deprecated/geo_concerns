@@ -6,6 +6,14 @@ describe RasterFile do
 
   # For the PCDM File Resource
   let(:file)                { subject.files.build }
+
+  before do
+    subject.apply_depositor_metadata('depositor')
+    subject.save!
+    
+    file.content = "I'm a file"
+  end
+
   let(:pcdm_preview_uri)  { ::RDF::URI('http://pcdm.org/use#ThumbnailImage') } # This seems to encompasses cases such as preview images
   let(:preview) do
     file = subject.files.build
@@ -23,17 +31,17 @@ describe RasterFile do
         original_file = subject.build_original_file
         original_file.content = 'original_file'
       end
-      subject { subject.original_file }
+      let(:original_file) { subject.original_file } # Using `subject` raises a SystemStackError in relation to recursion
 
       it 'can be saved without errors' do
-        expect(subject.save).to be_truthy
+        expect(original_file.save).to be_truthy
       end
       it 'retrieves content of the original_file as a PCDM File' do
-        expect(subject.content).to eql 'original_file'
-        expect(subject).to be_instance_of Hydra::PCDM::File
+        expect(original_file.content).to eql 'original_file'
+        expect(original_file).to be_instance_of Hydra::PCDM::File
       end
       it 'retains origin pcdm.File RDF type' do
-        expect(subject.original_file.metadata_node.type).to include(Hydra::PCDM::Vocab::PCDMTerms.File)
+        expect(original_file.metadata_node.type).to include(Hydra::PCDM::Vocab::PCDMTerms.File)
       end
     end
   end
@@ -42,32 +50,31 @@ describe RasterFile do
   describe '#preview' do
     context 'when a preview is present' do
       before do
-        original_file = subject.build_preview
+        original_file = subject.build_thumbnail
         original_file.content = 'preview'
       end
-      subject { subject.preview }
+      let(:preview) { subject.preview } # Using subject.preview as a subject leads to recursive error
       it 'retrieves content of the preview' do
-        expect(subject.content).to eql 'preview'
+        expect(preview.content).to eql 'preview'
       end
       it 'retains origin pcdm.File RDF type' do
-        expect(subject.metadata_node.type).to include(Hydra::PCDM::Vocab::PCDMTerms.File)
+        expect(preview.metadata_node.type).to include(Hydra::PCDM::Vocab::PCDMTerms.File)
       end
     end
 
     context 'when building new thumbnail' do
-      subject { subject.build_thumbnail }
+      let(:preview) { subject.build_thumbnail } # Using subject.preview as a subject leads to recursive error
       it 'initializes an unsaved File object with Thumbnail type' do
-        expect(subject).to be_new_record
-        expect(subject.metadata_node.type).to include(pcdm_thumbnail_uri)
-        expect(subject.metadata_node.type).to include(Hydra::PCDM::Vocab::PCDMTerms.File)
+        expect(preview).to be_new_record
+        expect(preview.metadata_node.type).to include(pcdm_preview_uri)
+        expect(preview.metadata_node.type).to include(Hydra::PCDM::Vocab::PCDMTerms.File)
       end
     end
   end
 
-
   it 'has attached content' do
 
-    expect(subject.association(:original_file).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation)
+    expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
   end
 
   describe 'metadata' do
@@ -82,22 +89,22 @@ describe RasterFile do
     let!(:f1) { described_class.new }
 
     context 'when there are related files' do
-      let(:parent_raster)   { FactoryGirl.create(:raster_with_files) }
+      let(:parent_raster)   { FactoryGirl.create(:raster_with_files, title: ['Test title 2'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
       let(:f1)            { parent_raster.raster_files.first }
       let(:f2)            { parent_raster.raster_files.last }
-      subject { f1.reload.related_files }
+      let(:files) { f1.reload.related_files }
       it 'returns all raster_files contained in parent raster(s) but excludes itself' do
-        expect(subject).to include(f2)
-        expect(subject).to_not include(f1)
+        expect(files).to include(f2)
+        expect(files).to_not include(f1)
       end
     end
   end
 
   describe 'raster associations' do
-    let(:raster) { FactoryGirl.create(:raster_with_one_file) }
+    let(:raster) { FactoryGirl.create(:raster_with_one_file, title: ['Test title 3'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
     subject { raster.raster_files.first.reload }
     it 'belongs to rasters' do
-      expect(subject.raster_rasters).to eq [raster]
+      expect(subject.rasters).to eq [raster]
     end
   end
 

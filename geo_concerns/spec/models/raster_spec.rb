@@ -17,7 +17,7 @@ describe Raster do
 
   # Like a GenericWork, Rasters contain one or many Rasters
   context 'with attached files' do
-    subject { FactoryGirl.create(:raster_with_files) }
+    subject { FactoryGirl.create(:raster_with_files, title: ['Test title 4'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'has two files' do
       expect(subject.generic_files.size).to eq 2

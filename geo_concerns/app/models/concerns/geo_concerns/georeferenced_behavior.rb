@@ -12,7 +12,7 @@ module GeoConcerns
         index.as :stored_searchable
       end
 
-      validates :crs, presence: { message: 'Your work must have a CRS.' }
+      # validates :crs, presence: { message: 'Your work must have a CRS.' }
     end
   end
 end

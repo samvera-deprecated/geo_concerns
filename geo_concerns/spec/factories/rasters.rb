@@ -2,6 +2,10 @@ FactoryGirl.define do
   factory :raster, aliases: [:private_raster], class: Raster do
     transient do
       user { FactoryGirl.create(:user) }
+
+      title = ["Test title"]
+      georss_box = '17.881242 -179.14734 71.390482 179.778465'
+      visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
     end
 
     after(:build) do |raster, evaluator|
@@ -19,13 +23,25 @@ FactoryGirl.define do
     end
 
     factory :raster_with_one_file do
+
       before(:create) do |raster, evaluator|
+        raster.title = ["Test title"]
+        raster.georss_box = '17.881242 -179.14734 71.390482 179.778465'
+        raster.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
         raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user, title:['A Contained Raster File'], filename:['filename.pdf'])
       end
     end
 
     factory :raster_with_files do
-      before(:create) { |raster, evaluator| 2.times { raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user) } }
+
+      before(:create) do |raster, evaluator|
+        raster.title = ["Test title"]
+        raster.georss_box = '17.881242 -179.14734 71.390482 179.778465'
+        raster.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+        2.times { raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user) }
+      end
     end
 
     factory :with_embargo_date do
