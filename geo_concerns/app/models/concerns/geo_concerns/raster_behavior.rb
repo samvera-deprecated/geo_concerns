@@ -12,8 +12,10 @@ module GeoConcerns
       # property :resolution, Float
       # ...
 
+      aggregates :images, predicate: RDF::Vocab::ORE.aggregates,
+                          class_name: 'GeoConcerns::Image',
+                          type_validator: type_validator
       filters_association :members, as: :raster_files, condition: :concerns_raster_file?
-      # filters_association :aggregated_by, as: :vectors, condition: :concerns_vector?
     end
 
     def concerns_raster?
@@ -25,12 +27,10 @@ module GeoConcerns
       false
     end
 
-    # def raster_files
-    #  members
-    # end
-
     def image
-      aggregated_by.find { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
+      # Work-around for "Couldn't find ActiveFedora::Base without an ID" ArgumentError when using Array#find
+      image_set = images.select { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
+      image_set.first
     end
 
     def vectors

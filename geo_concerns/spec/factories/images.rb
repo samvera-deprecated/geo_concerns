@@ -26,7 +26,7 @@ FactoryGirl.define do
         image.title = ["Test title"]
         image.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
 
-        image.image_file = FactoryGirl.create(:image_file, user: evaluator.user)
+        image.image_files << FactoryGirl.create(:image_file, user: evaluator.user)
       end
     end
 
@@ -36,7 +36,10 @@ FactoryGirl.define do
         image.title = ["Test title"]
         image.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
 
-        2.times { image.rasters << FactoryGirl.create(:raster, user: evaluator.user) }
+        2.times do
+          raster = FactoryGirl.create(:raster, user: evaluator.user)
+          raster.images << image
+        end
       end
     end
 

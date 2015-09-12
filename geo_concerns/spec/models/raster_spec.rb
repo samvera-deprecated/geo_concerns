@@ -27,9 +27,11 @@ describe Raster do
 
   # Image
   context 'georectified from an image' do
-    let(:image) { FactoryGirl.create(:image_with_one_file, title: ['Test title 3']) }
-    subject { image.rasters.first.reload }
+    let(:image) { FactoryGirl.create(:image, title: ['Test title 3']) }
+    
     it 'is related to an image' do
+      subject.images << image
+
       expect(subject.image).to eq image
     end
   end

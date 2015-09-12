@@ -3,6 +3,8 @@ require 'spec_helper'
 # This tests the Image model. It includes the ImageBehavior module and nothing else.
 # So this test covers both the ImageBehavior module and the generated Image model
 describe Image do
+  let(:user) { FactoryGirl.find_or_create(:jill) }
+
   it "has a title" do
     subject.title = ['foo']
     expect(subject.title).to eq ['foo']
@@ -26,11 +28,10 @@ describe Image do
   end
 
   context 'with an image file' do
-    let(:image_file) { FactoryGirl.create(:image_file) }
-    subject { image_file.image.reload }
+    subject { FactoryGirl.create(:image_with_one_file, title: ['Test title 3']) }
 
     it 'has an image file' do
-      expect(subject.image_file).to eq image_file
+      expect(subject.image_file).to be_kind_of ImageFile
     end
   end
 
