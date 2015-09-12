@@ -1,10 +1,9 @@
 module GeoConcerns
-  module RasterFileBehavior
+  module ImageFileBehavior
     extend ActiveSupport::Concern
     include Hydra::Works::GenericFileBehavior # Added
+    include ::CurationConcerns::BasicMetadata
     include ::CurationConcerns::GenericFileBehavior
-    include ::GeoConcerns::BasicGeoMetadata
-    include ::GeoConcerns::GeoreferencedBehavior
 
     included do
       # associated_with :image (derived from, optional)
@@ -14,17 +13,8 @@ module GeoConcerns
     end
 
     # @return [Boolean] whether this instance is a GeoConcerns Raster File.
-    def concerns_raster_file?
+    def concerns_image_file?
       true
-    end
-
-    # Aliases the thumbnail method
-    def preview
-      thumbnail
-    end
-
-    def raster
-      parents.find { |parent| parent.class.included_modules.include?(GeoConcerns::RasterBehavior) }
     end
   end
 end

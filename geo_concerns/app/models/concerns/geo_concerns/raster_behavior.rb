@@ -12,16 +12,29 @@ module GeoConcerns
       # property :resolution, Float
       # ...
 
-      filters_association :members, as: :raster_files, condition: :works_raster_file?
+      filters_association :members, as: :raster_files, condition: :concerns_raster_file?
+      # filters_association :aggregated_by, as: :vectors, condition: :concerns_vector?
     end
 
-    # @return [Boolean] whether this instance is a Hydra::Works Generic File.
-    def works_raster_file?
+    def concerns_raster?
+      true
+    end
+
+    # @return [Boolean] whether this instance is a GeoConcerns Raster File.
+    def concerns_raster_file?
       false
     end
 
-    def rasters
-      generic_works
+    # def raster_files
+    #  members
+    # end
+
+    def image
+      aggregated_by.find { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
+    end
+
+    def vectors
+      aggregated_by.select { |parent| parent.class.included_modules.include?(GeoConcerns::VectorBehavior) }
     end
   end
 end

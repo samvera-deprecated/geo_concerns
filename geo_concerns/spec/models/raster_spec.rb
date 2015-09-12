@@ -16,15 +16,32 @@ describe Raster do
   end
 
   # Like a GenericWork, Rasters contain one or many Rasters
-  context 'with attached files' do
+  context 'with raster files' do
     subject { FactoryGirl.create(:raster_with_files, title: ['Test title 4'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'has two files' do
-      expect(subject.generic_files.size).to eq 2
-      expect(subject.generic_files.first).to be_kind_of RasterFile
+      expect(subject.raster_files.size).to eq 2
+      expect(subject.raster_files.first).to be_kind_of RasterFile
     end
+  end
 
+  # Image
+  context 'georectified from an image' do
+    let(:image) { FactoryGirl.create(:image_with_one_file, title: ['Test title 3']) }
+    subject { image.rasters.first.reload }
+    it 'is related to an image' do
+      expect(subject.image).to eq image
+    end
+  end
 
+  # Vectors
+  context 'with vector feature extractions' do
+    subject { FactoryGirl.create(:raster_with_vectors) }
+
+    it 'relates to two vectors' do
+      expect(subject.vectors.size).to eq 2
+      expect(subject.vectors.first).to be_kind_of Vector
+    end
   end
 
   context 'when it is initialized' do

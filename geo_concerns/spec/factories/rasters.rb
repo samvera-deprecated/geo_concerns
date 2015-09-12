@@ -44,7 +44,18 @@ FactoryGirl.define do
       end
     end
 
-    factory :with_embargo_date do
+    factory :raster_with_vectors do
+
+      after(:create) do |raster, evaluator|
+        raster.title = ["Test title"]
+        raster.georss_box = '17.881242 -179.14734 71.390482 179.778465'
+        raster.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+        2.times { raster.vectors << FactoryGirl.create(:vector, user: evaluator.user) }
+      end
+    end
+
+    factory :raster_with_embargo_date do
       transient do
         embargo_date { Date.tomorrow.to_s }
       end

@@ -103,8 +103,8 @@ describe RasterFile do
   describe 'raster associations' do
     let(:raster) { FactoryGirl.create(:raster_with_one_file, title: ['Test title 3'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
     subject { raster.raster_files.first.reload }
-    it 'belongs to rasters' do
-      expect(subject.rasters).to eq [raster]
+    it 'belongs to raster' do
+      expect(subject.raster).to eq raster
     end
   end
 

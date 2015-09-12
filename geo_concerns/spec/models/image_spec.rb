@@ -13,13 +13,33 @@ describe Image do
     expect(subject.georss_box).to eq '17.881242 -179.14734 71.390482 179.778465'
   end
 
-  describe 'with a Raster' do
+  it 'has a width' do
+    
+    subject.width = [380]
+    expect(subject.width).to eq([380])
+  end
 
-    it 'has related content' do
+  it 'has a height' do
+        
+    subject.height = [765]
+    expect(subject.height).to eq([765])
+  end
 
-      # jrgriffinii: I'm uncertain as to how this shall be related using the CurationConcerns behavior
-      # Perhaps by means of validating the relationship with Raster resources?
-      nil
+  context 'with an image file' do
+    let(:image_file) { FactoryGirl.create(:image_file) }
+    subject { image_file.image.reload }
+
+    it 'has an image file' do
+      expect(subject.image_file).to eq image_file
+    end
+  end
+
+  context 'with georectified rasters' do
+    subject { FactoryGirl.create(:image_with_rasters, title: ['Test title 4']) }
+
+    it 'has two rasters' do
+      expect(subject.rasters.size).to eq 2
+      expect(subject.rasters.first).to be_kind_of Raster
     end
 
     describe "containing a GeoTIFF" do
@@ -30,17 +50,6 @@ describe Image do
         nil
       end
 
-      it 'has a width' do
-    
-        subject.width = [380]
-        expect(subject.width).to eq([380])
-      end
-
-      it 'has a height' do
-        
-        subject.height = [765]
-        expect(subject.height).to eq([765])
-      end
     end
   end
 end
