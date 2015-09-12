@@ -15,7 +15,6 @@ describe Raster do
     expect(subject.georss_box).to eq '17.881242 -179.14734 71.390482 179.778465'
   end
 
-  # Like a GenericWork, Rasters contain one or many Rasters
   context 'with raster files' do
     subject { FactoryGirl.create(:raster_with_files, title: ['Test title 4'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
 
@@ -25,7 +24,6 @@ describe Raster do
     end
   end
 
-  # Image
   context 'georectified from an image' do
     let(:image) { FactoryGirl.create(:image, title: ['Test title 3']) }
     
@@ -36,7 +34,6 @@ describe Raster do
     end
   end
 
-  # Vectors
   context 'with vector feature extractions' do
     subject { FactoryGirl.create(:raster_with_vectors) }
 
@@ -52,8 +49,7 @@ describe Raster do
       # @todo Enforce cardinality constraints for cases in which instantiation should raise an exception
       
     end
-  end
-  
+  end  
 
   describe "to_solr" do
     subject { FactoryGirl.build(:raster, date_uploaded: Date.today).to_solr }

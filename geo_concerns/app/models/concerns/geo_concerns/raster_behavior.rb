@@ -15,6 +15,9 @@ module GeoConcerns
       aggregates :images, predicate: RDF::Vocab::ORE.aggregates,
                           class_name: 'GeoConcerns::Image',
                           type_validator: type_validator
+      aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
+                                  class_name: 'GeoConcerns::MetadataFile',
+                                  type_validator: type_validator
       filters_association :members, as: :raster_files, condition: :concerns_raster_file?
     end
 
