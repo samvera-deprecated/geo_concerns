@@ -36,10 +36,7 @@ FactoryGirl.define do
         image.title = ["Test title"]
         image.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
 
-        2.times do
-          raster = FactoryGirl.create(:raster, user: evaluator.user)
-          raster.images << image
-        end
+        2.times { image.rasters << FactoryGirl.create(:raster, user: evaluator.user) }
       end
     end
 

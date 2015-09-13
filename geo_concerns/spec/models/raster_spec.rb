@@ -24,22 +24,32 @@ describe Raster do
     end
   end
 
-  context 'georectified from an image' do
-    let(:image) { FactoryGirl.create(:image, title: ['Test title 3']) }
-    
-    it 'is related to an image' do
-      subject.images << image
+  context 'georeferenced from an image' do
+    subject { FactoryGirl.create(:raster_with_images, title: ['Test title 4'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
 
-      expect(subject.image).to eq image
+    it 'is aggregated by an image resource' do
+      expect(subject.images.size).to eq 1
+      expect(subject.images.first).to be_kind_of Image
+
+      expect(subject.image).to be_kind_of Image
     end
   end
 
   context 'with vector feature extractions' do
     subject { FactoryGirl.create(:raster_with_vectors) }
 
-    it 'relates to two vectors' do
+    it 'aggregates vector data set resources' do
       expect(subject.vectors.size).to eq 2
       expect(subject.vectors.first).to be_kind_of Vector
+    end
+  end
+
+  context 'with metadata files' do
+    subject { FactoryGirl.create(:raster_with_metadata_files) }
+
+    it 'aggregates external metadata files' do
+      expect(subject.metadata_files.size).to eq 2
+      expect(subject.metadata_files.first).to be_kind_of RasterMetadataFile
     end
   end
 

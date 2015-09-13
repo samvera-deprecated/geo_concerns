@@ -7,16 +7,11 @@ module GeoConcerns
     include ::GeoConcerns::GeoreferencedBehavior
 
     included do
-      # associated_with :image (derived from, optional)
-
-      # property :resolution, Float
-      # ...
-
-      aggregates :images, predicate: RDF::Vocab::ORE.aggregates,
-                          class_name: 'GeoConcerns::Image',
-                          type_validator: type_validator
+      aggregates :vectors, predicate: RDF::Vocab::ORE.aggregates,
+                           class_name: 'GeoConcerns::Vector',
+                           type_validator: type_validator
       aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
-                                  class_name: 'GeoConcerns::MetadataFile',
+                                  class_name: 'GeoConcerns::RasterMetadataFile',
                                   type_validator: type_validator
       filters_association :members, as: :raster_files, condition: :concerns_raster_file?
     end
@@ -30,14 +25,12 @@ module GeoConcerns
       false
     end
 
-    def image
-      # Work-around for "Couldn't find ActiveFedora::Base without an ID" ArgumentError when using Array#find
-      image_set = images.select { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
-      image_set.first
+    def images
+      aggregated_by.select { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
     end
 
-    def vectors
-      aggregated_by.select { |parent| parent.class.included_modules.include?(GeoConcerns::VectorBehavior) }
+    def image
+      images.first
     end
   end
 end

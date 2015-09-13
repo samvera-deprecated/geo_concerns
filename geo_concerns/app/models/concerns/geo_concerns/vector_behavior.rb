@@ -7,14 +7,8 @@ module GeoConcerns
     include ::GeoConcerns::GeoreferencedBehavior
 
     included do
-      # property :attributeTable, Array
-      # ...
-
-      aggregates :rasters, predicate: RDF::Vocab::ORE.aggregates,
-                           class_name: 'GeoConcerns::Raster',
-                           type_validator: type_validator
       aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
-                                  class_name: 'GeoConcerns::MetadataFile',
+                                  class_name: 'GeoConcerns::VectorMetadataFile',
                                   type_validator: type_validator
       filters_association :members, as: :vector_files, condition: :concerns_vector_file?
     end
@@ -25,6 +19,10 @@ module GeoConcerns
 
     def concerns_vector_file?
       false
+    end
+
+    def rasters
+      aggregated_by.select { |parent| parent.class.included_modules.include?(GeoConcerns::RasterBehavior) }
     end
   end
 end

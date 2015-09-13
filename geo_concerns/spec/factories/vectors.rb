@@ -51,7 +51,21 @@ FactoryGirl.define do
         vector.georss_box = '17.881242 -179.14734 71.390482 179.778465'
         vector.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
 
-        2.times { vector.rasters << FactoryGirl.create(:raster, user: evaluator.user) }
+        2.times do
+          raster = FactoryGirl.create(:raster, user: evaluator.user)
+          raster.vectors << vector
+        end
+      end
+    end
+
+    factory :vector_with_metadata_files do
+
+      after(:create) do |vector, evaluator|
+        vector.title = ["A vector with two vectors"]
+        vector.georss_box = '17.881242 -179.14734 71.390482 179.778465'
+        vector.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+        2.times { vector.metadata_files << FactoryGirl.create(:vector_metadata_file, user: evaluator.user) }
       end
     end
 

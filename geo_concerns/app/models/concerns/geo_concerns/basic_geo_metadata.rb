@@ -2,6 +2,16 @@ module GeoConcerns
   module BasicGeoMetadata
     extend ActiveSupport::Concern
 
+    PREFIXES = {
+      bf: 'http://bibframe.org/vocab/',
+      csw: 'http://www.opengis.net/def/serviceType/ogc/csw/2.0.2#',
+      dc: 'http://purl.org/dc/terms/',
+      georss: 'http://www.georss.org/georss/',
+      ogc: 'http://www.opengis.net/def/dataType/OGC/1.1/',
+      ore: 'http://www.openarchives.org/ore/terms/',
+      pcdm: 'http://pcdm.org/models#'
+    }
+
     included do
       # Example value: ENVELOPE(-179.14734, 179.778465, 71.390482, 17.881242)
       # See http://portal.opengeospatial.org/files/?artifact_id=20555
