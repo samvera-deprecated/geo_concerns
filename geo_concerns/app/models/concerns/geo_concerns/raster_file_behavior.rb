@@ -6,13 +6,6 @@ module GeoConcerns
     include ::GeoConcerns::BasicGeoMetadata
     include ::GeoConcerns::GeoreferencedBehavior
 
-    included do
-      # associated_with :image (derived from, optional)
-
-      # property :resolution, Float
-      # ...
-    end
-
     # @return [Boolean] whether this instance is a GeoConcerns Raster File.
     def concerns_raster_file?
       true

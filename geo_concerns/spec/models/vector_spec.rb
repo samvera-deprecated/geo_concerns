@@ -3,14 +3,26 @@ require 'spec_helper'
 # This tests the Vector model. It includes the VectorBehavior module and nothing else.
 # So this test covers both the VectorBehavior module and the Vector model
 describe Vector do
-  it "has a title" do
-    subject.title = ['foo']
-    expect(subject.title).to eq ['foo']
+  let(:user) { FactoryGirl.find_or_create(:jill) }
+
+  it 'updates the title' do
+    subject.attributes = { title: ['A vector work'] }
+    expect(subject.title).to eq(['A vector work'])
   end
 
-  it "has a bbox" do
-    subject.georss_box = '17.881242 -179.14734 71.390482 179.778465'
-    expect(subject.georss_box).to eq '17.881242 -179.14734 71.390482 179.778465'
+  it 'updates the bounding box' do
+    subject.attributes = { georss_box: '17.881242 -179.14734 71.390482 179.778465' }
+    expect(subject.georss_box).to eq('17.881242 -179.14734 71.390482 179.778465')
+  end
+
+  describe 'metadata' do
+    it 'has descriptive metadata' do
+      expect(subject).to respond_to(:title)
+    end
+
+    it 'has geospatial metadata' do
+      expect(subject).to respond_to(:georss_box)
+    end
   end
 
   context 'with files' do
@@ -40,4 +52,10 @@ describe Vector do
     end
   end
 
+  describe "to_solr" do
+    subject { FactoryGirl.build(:vector, date_uploaded: Date.today, georss_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
+    it "indexes bbox field" do
+      expect(subject.keys).to include 'georss_box_tesim'
+    end
+  end
 end

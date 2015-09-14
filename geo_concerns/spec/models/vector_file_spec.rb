@@ -18,7 +18,35 @@ describe VectorFile do
     subject.files = [file]
   end
 
-  # The GeoTIFF case
+  it 'updates the title' do
+    subject.attributes = { title: ['A raster file'] }
+    expect(subject.title).to eq(['A raster file'])
+  end
+
+  it 'updates the bounding box' do
+    subject.attributes = { georss_box: '17.881242 -179.14734 71.390482 179.778465' }
+    expect(subject.georss_box).to eq('17.881242 -179.14734 71.390482 179.778465')
+  end
+
+  it 'updates the CRS' do
+    subject.attributes = { crs: 'urn:ogc:def:crs:EPSG::6326' }
+    expect(subject.crs).to eq('urn:ogc:def:crs:EPSG::6326')
+  end
+
+  describe 'metadata' do
+    it 'has descriptive metadata' do
+      expect(subject).to respond_to(:title)
+    end
+
+    it 'has geospatial metadata' do
+      expect(subject).to respond_to(:georss_box)
+    end
+
+    it 'has an authoritative CRS' do
+      expect(subject).to respond_to(:crs)
+    end
+  end
+
   describe '#original_file' do
     context 'when an original file is present' do
       before do
@@ -41,14 +69,7 @@ describe VectorFile do
   end
 
   it 'has attached content' do
-
     expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
-  end
-
-  describe 'metadata' do
-    it 'has an authoritative CRS' do
-      expect(subject).to respond_to(:crs)
-    end
   end
 
   describe '#related_files' do
@@ -71,6 +92,19 @@ describe VectorFile do
     subject { vector.vector_files.first.reload }
     it 'belongs to vector' do
       expect(subject.vector).to eq vector
+    end
+  end
+
+  describe "to_solr" do
+    let(:solr_doc) { FactoryGirl.build(:vector_file,
+                                 date_uploaded: Date.today,
+                                 georss_box: '17.881242 -179.14734 71.390482 179.778465',
+                                 crs: 'urn:ogc:def:crs:EPSG::6326').to_solr
+    }
+
+    it "indexes bbox field" do
+      expect(solr_doc.keys).to include 'georss_box_tesim'
+      expect(solr_doc.keys).to include 'crs_tesim'
     end
   end
 end

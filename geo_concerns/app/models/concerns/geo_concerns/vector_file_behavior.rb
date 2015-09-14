@@ -6,13 +6,6 @@ module GeoConcerns
     include ::GeoConcerns::BasicGeoMetadata
     include ::GeoConcerns::GeoreferencedBehavior
 
-    included do
-      # associated_with :image (derived from, optional)
-
-      # property :resolution, Float
-      # ...
-    end
-
     def concerns_vector?
       false
     end

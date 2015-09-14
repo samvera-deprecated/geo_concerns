@@ -3,15 +3,11 @@ FactoryGirl.define do
     transient do
       user { FactoryGirl.create(:user) }
 
-      title = ["Test title"]
       visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
     end
 
     after(:build) do |image, evaluator|
       image.apply_depositor_metadata(evaluator.user.user_key)
-
-      image.title = ["Test title"]
-      image.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
     end
 
     factory :public_image do
@@ -21,21 +17,13 @@ FactoryGirl.define do
     end
 
     factory :image_with_one_file do
-
       before(:create) do |image, evaluator|
-        image.title = ["Test title"]
-        image.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
-
         image.image_files << FactoryGirl.create(:image_file, user: evaluator.user)
       end
     end
 
     factory :image_with_rasters do
-
       before(:create) do |image, evaluator|
-        image.title = ["Test title"]
-        image.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
-
         2.times { image.rasters << FactoryGirl.create(:raster, user: evaluator.user) }
       end
     end
@@ -44,6 +32,7 @@ FactoryGirl.define do
       transient do
         embargo_date { Date.tomorrow.to_s }
       end
+
       factory :embargoed_image do
         after(:build) { |image, evaluator| image.apply_embargo(evaluator.embargo_date, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }
       end

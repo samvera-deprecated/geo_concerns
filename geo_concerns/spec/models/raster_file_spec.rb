@@ -24,7 +24,35 @@ describe RasterFile do
     subject.files = [file]
   end
 
-  # The GeoTIFF case
+  it 'updates the title' do
+    subject.attributes = { title: ['A raster file'] }
+    expect(subject.title).to eq(['A raster file'])
+  end
+
+  it 'updates the bounding box' do
+    subject.attributes = { georss_box: '17.881242 -179.14734 71.390482 179.778465' }
+    expect(subject.georss_box).to eq('17.881242 -179.14734 71.390482 179.778465')
+  end
+
+  it 'updates the CRS' do
+    subject.attributes = { crs: 'urn:ogc:def:crs:EPSG::6326' }
+    expect(subject.crs).to eq('urn:ogc:def:crs:EPSG::6326')
+  end
+
+  describe 'metadata' do
+    it 'has descriptive metadata' do
+      expect(subject).to respond_to(:title)
+    end
+
+    it 'has geospatial metadata' do
+      expect(subject).to respond_to(:georss_box)
+    end
+
+    it 'has an authoritative CRS' do
+      expect(subject).to respond_to(:crs)
+    end
+  end
+
   describe '#original_file' do
     context 'when an original file is present' do
       before do
@@ -46,7 +74,6 @@ describe RasterFile do
     end
   end
 
-  # The JPEG2000 case
   describe '#preview' do
     context 'when a preview is present' do
       before do
@@ -73,18 +100,9 @@ describe RasterFile do
   end
 
   it 'has attached content' do
-
     expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
   end
 
-  describe 'metadata' do
-    it 'has an authoritative CRS' do
-      expect(subject).to respond_to(:crs)
-    end
-  end
-
-  # Relationships between Raster and RasterFiles
-  # Following GenericFile/GenericWork, related RasterFile instances are members of any given Raster
   describe '#related_files' do
     let!(:f1) { described_class.new }
 
@@ -108,22 +126,16 @@ describe RasterFile do
     end
   end
 
-  describe "with a GeoTIFF" do
-    before do
+  describe "to_solr" do
+    let(:solr_doc) { FactoryGirl.build(:raster_file,
+                                 date_uploaded: Date.today,
+                                 georss_box: '17.881242 -179.14734 71.390482 179.778465',
+                                 crs: 'urn:ogc:def:crs:EPSG::6326').to_solr
+    }
 
-      Hydra::Works::AddFileToGenericFile.call(subject, File.open("#{fixture_path}/image0.tif", 'rb'), :original_file)
-    end
-
-    it 'is georeferenced to a bbox' do
-    
-      subject.georss_box = '-12.511 109.036 129.0530000 -5.0340000'
-      expect(subject.georss_box).to eq '-12.511 109.036 129.0530000 -5.0340000'
-    end
-
-    it 'has a CRS' do
-
-      subject.crs = 'urn:ogc:def:crs:EPSG::6326'
-      expect(subject.crs).to eq 'urn:ogc:def:crs:EPSG::6326'
+    it "indexes bbox field" do
+      expect(solr_doc.keys).to include 'georss_box_tesim'
+      expect(solr_doc.keys).to include 'crs_tesim'
     end
   end
 end

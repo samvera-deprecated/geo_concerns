@@ -3,14 +3,6 @@ module GeoConcerns
     extend ActiveSupport::Concern
     include Hydra::Works::GenericFileBehavior # Added
     include ::CurationConcerns::GenericFileBehavior
-    # include ::CurationConcerns::BasicMetadata
-
-    included do
-      # associated_with :image (derived from, optional)
-
-      # property :resolution, Float
-      # ...
-    end
 
     def concerns_image?
       false

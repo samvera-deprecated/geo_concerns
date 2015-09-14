@@ -17,6 +17,22 @@ describe VectorMetadataFile do
     subject.files = [file]
   end
 
+  it 'updates the title' do
+    subject.attributes = { title: ['A raster metadata file'] }
+    expect(subject.title).to eq(['A raster metadata file'])
+  end
+
+  it 'updates the metadata schema' do
+    subject.attributes = { conforms_to: ['ISO19139'] }
+    expect(subject.conforms_to).to eq(['ISO19139'])
+  end
+
+  describe 'metadata' do
+    it 'has a metadata schema' do
+      expect(subject).to respond_to(:conforms_to)
+    end
+  end
+
   describe '#original_file' do
     context 'when an original file is present' do
       before do
@@ -39,14 +55,7 @@ describe VectorMetadataFile do
   end
 
   it 'has attached content' do
-
     expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
-  end
-
-  describe 'metadata' do
-    it 'has a metadata schema' do
-      expect(subject).to respond_to(:conforms_to)
-    end
   end
 
   describe '#related_files' do
@@ -69,6 +78,17 @@ describe VectorMetadataFile do
     subject { raster.raster_files.first.reload }
     it 'belongs to raster' do
       expect(subject.raster).to eq raster
+    end
+  end
+
+  describe "to_solr" do
+    let(:solr_doc) { FactoryGirl.build(:vector_metadata_file,
+                                 date_uploaded: Date.today,
+                                 conforms_to: ['ISO19139']).to_solr
+    }
+
+    it "indexes bbox field" do
+      expect(solr_doc.keys).to include 'conforms_to_tesim'
     end
   end
 end

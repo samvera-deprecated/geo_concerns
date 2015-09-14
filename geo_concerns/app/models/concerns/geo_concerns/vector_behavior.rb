@@ -4,7 +4,6 @@ module GeoConcerns
     include ::CurationConcerns::GenericWorkBehavior
     include ::CurationConcerns::BasicMetadata
     include ::GeoConcerns::BasicGeoMetadata
-    include ::GeoConcerns::GeoreferencedBehavior
 
     included do
       aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
