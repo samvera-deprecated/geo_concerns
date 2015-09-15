@@ -3,17 +3,13 @@ require 'rake'
 require File.expand_path("../../config/environment", __FILE__)
 require 'factory_girl'
 require 'database_cleaner'
-
-# require 'engine_cart'
-# EngineCart.load_application!
-
 require 'devise'
 require 'rspec/its'
 require 'rspec/rails'
 require 'rspec/active_model/mocks'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = ENV['TRAVIS'] ? 30 : 15
+Capybara.default_max_wait_time = ENV['TRAVIS'] ? 30 : 15
 require 'capybara/rspec'
 require 'capybara/rails'
 

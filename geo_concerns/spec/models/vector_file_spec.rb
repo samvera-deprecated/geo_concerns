@@ -102,8 +102,10 @@ describe VectorFile do
                                  crs: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 
-    it "indexes bbox field" do
+    it "indexes the bounding box" do
       expect(solr_doc.keys).to include 'georss_box_tesim'
+    end
+    it "indexes the coordinate reference system" do
       expect(solr_doc.keys).to include 'crs_tesim'
     end
   end

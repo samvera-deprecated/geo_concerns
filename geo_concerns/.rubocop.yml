@@ -24,11 +24,11 @@ AllCops:
 
 Lint/UnderscorePrefixedVariableName:
   Exclude:
-    - 'app/models/concerns/geo_concerns/image_behavior.rb'
+    - 'app/models/concerns/image_behavior.rb'
 
 Lint/UselessAssignment:
   Exclude:
-    - 'app/models/concerns/geo_concerns/image_behavior.rb'
+    - 'app/models/concerns/image_behavior.rb'
 
 Metrics/LineLength:
   Enabled: false
@@ -135,13 +135,12 @@ Style/SingleLineBlockParams:
 Style/SignalException:
   Enabled: false
 
-# griffinj
 Style/AsciiComments:
   Enabled: false
 
 Style/SpaceAroundOperators:
   Exclude:
-    - 'app/models/concerns/geo_concerns/image_behavior.rb'
+    - 'app/models/concerns/image_behavior.rb'
 
 Rails/Date:
   Enabled: false
