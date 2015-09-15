@@ -11,7 +11,7 @@ module RasterBehavior
     aggregates :vectors, predicate: RDF::Vocab::ORE.aggregates,
                          class_name: '::Vector',
                          type_validator: type_validator
-    
+
     # Raster Works can aggregate one or many metadata files
     aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
                                 class_name: '::RasterMetadataFile',
