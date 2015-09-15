@@ -1,0 +1,175 @@
+require: rubocop-rspec
+
+
+
+AllCops:
+  UseCache: false
+  RunRailsCops: true
+  DisplayCopNames: true
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+    - 'spec/internal/**/*'
+
+    - 'spec/**/*' # Remove
+    - 'config/**/*' # Remove
+    - 'app/models/user.rb' # Remove
+    - 'app/models/solr_document.rb' # Remove
+    - 'app/controllers/application_controller.rb' # Remove
+    - 'bin/**' # Remove
+
+Lint/UnderscorePrefixedVariableName:
+  Exclude:
+    - 'app/models/concerns/image_behavior.rb'
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'app/models/concerns/image_behavior.rb'
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'curation_concerns-models/app/services/curation_concerns/generic_file_audit_service.rb'
+    - 'app/controllers/concerns/curation_concerns/generic_files_controller_behavior.rb'
+    - 'app/helpers/curation_concerns/curation_concerns_helper_behavior.rb'
+    - 'app/helpers/curation_concerns/attribute_helper.rb'
+    - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
+    - 'curation_concerns-models/app/actors/curation_concerns/work_actor_behavior.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'curation_concerns-models/app/services/curation_concerns/generic_file_audit_service.rb'
+    - 'app/controllers/concerns/curation_concerns/generic_files_controller_behavior.rb'
+    - 'app/helpers/curation_concerns/curation_concerns_helper_behavior.rb'
+    - 'app/helpers/curation_concerns/attribute_helper.rb'
+    - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/generators/curation_concerns/templates/catalog_controller.rb'
+    - 'curation_concerns-models/app/models/datastreams/fits_datastream.rb'
+    - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'app/controllers/concerns/curation_concerns/users_controller_behavior.rb'
+    - 'app/controllers/concerns/curation_concerns/catalog_controller.rb'
+    - 'app/controllers/concerns/curation_concerns/generic_files_controller_behavior.rb'
+    - 'app/helpers/curation_concerns/curation_concerns_helper_behavior.rb'
+    - 'curation_concerns-models/app/models/concerns/curation_concerns/solr_document_behavior.rb'
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+Style/AccessorMethodName:
+  Exclude:
+    - 'app/controllers/concerns/curation_concerns/*_controller.rb'
+
+Style/BlockEndNewline:
+  Exclude:
+    - 'spec/**/*'
+
+Style/MultilineBlockLayout:
+  Exclude:
+    - 'spec/**/*'
+
+Style/Semicolon:
+  Exclude:
+    - 'spec/**/*'
+
+Style/Lambda:
+  Exclude:
+    - 'spec/**/*'
+
+Style/IndentationConsistency:
+  EnforcedStyle: rails
+
+Style/CollectionMethods:
+  PreferredMethods:
+    collect: 'map'
+    collect!: 'map!'
+    inject: 'reduce'
+    detect: 'find'
+    find_all: 'select'
+
+Style/WordArray:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/PredicateName:
+  Exclude:
+    - 'app/helpers/curation_concerns/*_helper_.rb'
+    - 'app/controllers/concerns/curation_concerns/controller.rb'
+
+Style/GlobalVars:
+  Exclude:
+    - 'spec/**/*'
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/SpaceAroundOperators:
+  Exclude:
+    - 'app/models/concerns/image_behavior.rb'
+
+Rails/Date:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+RSpec/ExampleWording:
+  CustomTransform:
+    be: is
+    have: has
+    not: does not
+    NOT: does NOT
+  IgnoredWords:
+    - only
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/javascripts/jasmine_spec.rb'
+    - 'spec/tasks/rake_spec.rb'
+    - 'spec/jobs/event_jobs_spec.rb'
+    - 'spec/abilities/**/*'
+    - 'spec/features/**/*'
+    - 'spec/views/**/*'
+    - 'spec/routing/**/*'
+    - 'spec/inputs/**/*'

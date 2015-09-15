@@ -2,4 +2,3 @@
 class Image < ActiveFedora::Base
   include ::GeoConcerns::ImageBehavior
 end
-
