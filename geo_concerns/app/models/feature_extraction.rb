@@ -1,4 +1,4 @@
-# A vector that has been transcribed from a raster (georectified map)
+# Model for geospatial vector feature extractions derived from a raster data set
 class FeatureExtraction < ActiveFedora::Base
   include ::GeoConcerns::FeatureExtractionBehavior
 end

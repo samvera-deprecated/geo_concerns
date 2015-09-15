@@ -1,4 +1,4 @@
-# Base class for Images that are georeferenced with a bbox
+# Model for Image (Works) which bear basic geospatial metadata
 class Image < ActiveFedora::Base
   include ::GeoConcerns::ImageBehavior
 end
