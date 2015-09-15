@@ -1,7 +1,8 @@
-
+# Attributes and methods for basic geospatial metadata
 module BasicGeoMetadata
   extend ActiveSupport::Concern
 
+  # Namespace prefixes for the RDF predicates
   PREFIXES = {
     csw: 'http://www.opengis.net/def/serviceType/ogc/csw/2.0.2#',
     dc: 'http://purl.org/dc/terms/',
@@ -12,14 +13,19 @@ module BasicGeoMetadata
   }
 
   included do
-    # Example value: ENVELOPE(-179.14734, 179.778465, 71.390482, 17.881242)
-    # See http://portal.opengeospatial.org/files/?artifact_id=20555
+    # Defines the OGC geometric literal for the resource
+    # @see http://portal.opengeospatial.org/files/?artifact_id=20555 OpenGIS Catalogue Services Specification
+    # @example
+    #   raster.solr_geom = "ENVELOPE(-179.14734, 179.778465, 71.390482, 17.881242)"
     property :solr_geom, predicate: ::RDF::URI.new(PREFIXES[:csw] + 'envelope'), multiple: false do |index|
       # Solrizer needs to be configured to use location_rpt; not working here.
       index.as Solrizer::Descriptor.new(:location_rpt, :stored, :indexed)
     end
 
-    # Alternate or additional bbox
+    # Defines the GeoRSS bounding box for the resource
+    # @see http://www.georss.org/simple.html GeoRSS Simple Specification
+    # @example
+    #   vector.georss_box = "42.943 -71.032 43.039 -69.856"
     property :georss_box, predicate: ::RDF::URI.new(PREFIXES[:georss] + 'box'), multiple: false do |index|
       index.as :stored_searchable
     end

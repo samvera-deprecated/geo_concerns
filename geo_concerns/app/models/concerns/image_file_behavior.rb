@@ -1,18 +1,23 @@
-# Defines the behavior for the ImageFile Class
+# Attributes and methods for image files
 module ImageFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior # Added
+  include Hydra::Works::GenericFileBehavior
   include ::CurationConcerns::GenericFileBehavior
 
+  # Inspects whether or not this Object is an Image Work
+  # @return [Boolean]
   def concerns_image?
     false
   end
 
-  # @return [Boolean] whether this instance is a GeoConcerns Raster File.
+  # Inspects whether or not this Object is a Image File
+  # @return [Boolean]
   def concerns_image_file?
     true
   end
 
+  # Retrieve the Image Work of which this Object is a member
+  # @return [GeoConcerns::Image]
   def image
     parents.find { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
   end
