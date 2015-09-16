@@ -4,7 +4,7 @@ version = File.read(File.expand_path("../VERSION", __FILE__)).strip
 Gem::Specification.new do |spec|
   spec.name          = "geo_concerns"
   spec.version       = version
-  spec.authors       = ["Darren Hardy", "Eliot Jordan", "John Huck", "Eric James", "James Griffin"]
+  spec.authors       = [ "James Griffin", "Darren Hardy", "John Huck", "Eric James", "Eliot Jordan" ]
   spec.email         = [""]
   spec.summary       = %q{Rails application for developing Hydra Geo models. Built around Curation Concerns engine. }
   spec.description   = %q{Rails application for developing Hydra Geo models. Built around Curation Concerns engine. }

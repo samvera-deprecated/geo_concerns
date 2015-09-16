@@ -37,3 +37,7 @@ bower.json
 .powenv
 .yardoc
 doc
+
+.DS_Store
+
+*~

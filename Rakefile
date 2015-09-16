@@ -26,10 +26,8 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = true
 end
 
-desc 'Run test suite and style checker'
-task spec: :rubocop do
-  RSpec::Core::RakeTask.new(:spec)
-end
+desc 'Run test suite with style checker'
+task spec: :rubocop
 
 # Could not find jetty:config within release 2.0.3
 task ci: ['jetty:clean', 'jetty:config', 'db:test:prepare'] do

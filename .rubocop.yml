@@ -14,6 +14,7 @@ AllCops:
     - 'script/**/*'
     - 'vendor/**/*'
     - 'spec/internal/**/*'
+    - 'misc/*'
 
     - 'spec/**/*' # Remove
     - 'config/**/*' # Remove
