@@ -5,6 +5,8 @@
 
 Rails application for developing Hydra Geo models. Built around Curation Concerns engine.
 
+[Poster from Hydra Connect 2015](https://drive.google.com/file/d/0B5fLh2mc4FCbOUpWaTFOVmI4Nkk/view?pli=1)
+
 ## Installation
 
 Execute:
