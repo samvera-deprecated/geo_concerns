@@ -6,16 +6,34 @@ module VectorFileBehavior
   include ::BasicGeoMetadata
   include ::GeoreferencedBehavior
 
-  # Inspects whether or not this Object is a Vector Work
-  # @return [Boolean]
-  def concerns_vector?
-    false
+  included do
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object,
+      Hydra::Works::Vocab::WorksTerms.GenericFile,
+      "http://projecthydra.org/geoconcerns/models#VectorFile"]
   end
 
-  # Inspects whether or not this Object is a Vector File
+ # Defines type by what it is and isn't
   # @return [Boolean]
-  def concerns_vector_file?
+  def image?
+    false
+  end
+  def image_file?
+    false
+  end
+  def raster?
+    false
+  end
+  def raster_file?
+    false
+  end
+  def vector?
+    false
+  end
+  def vector_file?
     true
+  end
+  def external_metadata_file?
+    false
   end
 
   # Retrieve the Vector Work of which this Object is a member

@@ -43,7 +43,7 @@ FactoryGirl.define do
 
     factory :raster_with_metadata_files do
       after(:create) do |raster, evaluator|
-        2.times { raster.metadata_files << FactoryGirl.create(:raster_metadata_file, user: evaluator.user) }
+        2.times { raster.metadata_files << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
       end
     end
 

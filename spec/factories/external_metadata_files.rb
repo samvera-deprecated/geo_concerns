@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :raster_metadata_file, class: RasterMetadataFile do
+  factory :external_metadata_file, class: ExternalMetadataFile do
     transient do
       user { FactoryGirl.create(:user) }
       content nil

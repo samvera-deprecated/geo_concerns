@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     factory :image_with_one_file do
       before(:create) do |image, evaluator|
-        image.image_files << FactoryGirl.create(:image_file, user: evaluator.user)
+        image.image_file << FactoryGirl.create(:image_file, user: evaluator.user)
       end
     end
 

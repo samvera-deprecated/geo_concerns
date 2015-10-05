@@ -6,16 +6,34 @@ module RasterFileBehavior
   include ::BasicGeoMetadata
   include ::GeoreferencedBehavior
 
-  # Inspects whether or not this Object is a Raster Work
-  # @return [Boolean]
-  def concerns_raster?
-    false
+  included do
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object,
+      Hydra::Works::Vocab::WorksTerms.GenericFile,
+      "http://projecthydra.org/geoconcerns/models#RasterFile"]
   end
 
-  # Inspects whether or not this Object is a Raster File
+ # Defines type by what it is and isn't
   # @return [Boolean]
-  def concerns_raster_file?
+  def image?
+    false
+  end
+  def image_file?
+    false
+  end
+  def raster?
+    false
+  end
+  def raster_file?
     true
+  end
+  def vector?
+    false
+  end
+  def vector_file?
+    false
+  end
+  def external_metadata_file?
+    false
   end
 
   # Retrieve the JPEG preview for the raster data set

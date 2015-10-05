@@ -39,7 +39,7 @@ FactoryGirl.define do
 
     factory :vector_with_metadata_files do
       after(:create) do |vector, evaluator|
-        2.times { vector.metadata_files << FactoryGirl.create(:vector_metadata_file, user: evaluator.user) }
+        2.times { vector.metadata_files << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
       end
     end
 

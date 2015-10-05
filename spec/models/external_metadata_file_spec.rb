@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RasterMetadataFile do
+describe ExternalMetadataFile do
   let(:user) { FactoryGirl.find_or_create(:jill) }
 
   # For the PCDM File Resource
@@ -82,7 +82,7 @@ describe RasterMetadataFile do
   end
 
   describe "to_solr" do
-    let(:solr_doc) { FactoryGirl.build(:raster_metadata_file,
+    let(:solr_doc) { FactoryGirl.build(:external_metadata_file,
                                  date_uploaded: Date.today,
                                  conforms_to: ['ISO19139']).to_solr
     }
