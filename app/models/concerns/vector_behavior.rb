@@ -6,7 +6,7 @@ module VectorBehavior
   include ::BasicGeoMetadata
 
   included do
-    type Vocab::GeoTerms.Vector
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object, Vocab::WorksTerms.GenericWork,Vocab::GeoTerms.Vector]
 
     #specifiy the types of members
     filters_association :members, as: :vector_file, condition: :isType?(:concerns_vector_file)

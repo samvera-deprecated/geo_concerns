@@ -6,7 +6,7 @@ module RasterBehavior
   include ::BasicGeoMetadata
 
   included do
-    type Vocab::GeoTerms.Raster
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object, Vocab::WorksTerms.GenericWork,Vocab::GeoTerms.Raster]
 
     #specifiy the types of members
     filters_association :members, as: :raster_file, condition: :isType?(:concerns_raster_file)
