@@ -6,7 +6,9 @@ module ImageBehavior
   include ::BasicGeoMetadata
 
   included do
-    type [Hydra::PCDM::Vocab::PCDMTerms.Object, Vocab::WorksTerms.GenericWork,Vocab::GeoTerms.Image]
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object,
+      Hydra::Works::Vocab::WorksTerms.GenericWork,
+      Vocab::GeoTerms.Image]
 
     #specifiy the types of members
     filters_association :members, as: :image_file, condition: :isType?(:concerns_image_file)
