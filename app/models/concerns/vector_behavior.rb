@@ -13,7 +13,7 @@ module VectorBehavior
     filters_association :members, as: :external_metadata_files, condition: :isType?(:concerns_metadata_file)
   end
 
- # Inspects whether or not this Object is a RasterWork
+ # Inspects whether or not this Object is a VectorWork
   # @return [Boolean]
   def isType?(type)
     return true if type==:concerns_vector
