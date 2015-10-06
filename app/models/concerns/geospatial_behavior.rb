@@ -6,21 +6,18 @@ module GeospatialBehavior
   include ::BasicGeoMetadata
 
   included do
-   #allow members to be of any ActiveFedora::Base
-   aggregates :members, predicate: Vocab::PCDMTerms.hasMember,
-                         class_name: 'ActiveFedora::Base',
-                         type_validator: type_validator
+    type Vocab::GeoTerms.Geospatial
 
     #specifiy the types of members
-    filters_association :members, as: :image_work, condition: :isType?(concerns_image)
-    filters_association :members, as: :raster_works, condition: :isType?(concerns_raster)
-    filters_association :members, as: :vector_works, condition: :isType?(concerns_vector)
+    filters_association :members, as: :image_work, condition: :isType?(:concerns_image)
+    filters_association :members, as: :raster_works, condition: :isType?(:concerns_raster)
+    filters_association :members, as: :vector_works, condition: :isType?(:concerns_vector)
   end
 
   # Inspects whether or not this Object is a GeospatialWork
   # @return [Boolean]
   def isType?(type)
-    return true if type=="concerns_geospatial"
+    return true if type==:concerns_geospatial
     return false
   end
 

@@ -6,25 +6,18 @@ module VectorBehavior
   include ::BasicGeoMetadata
 
   included do
-    # Vector Works can aggregate one or many metadata files
-    aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
-                                class_name: '::VectorMetadataFile',
-                                type_validator: type_validator
+    type Vocab::GeoTerms.Vector
 
-    # Vector Works can only link to GenericFile resources as members if they are instances of GeoConcerns::VectorFile
-    filters_association :members, as: :vector_files, condition: :concerns_vector_file?
+    #specifiy the types of members
+    filters_association :members, as: :vector_file, condition: :isType?(:concerns_vector_file)
+    filters_association :members, as: :external_metadata_files, condition: :isType?(:concerns_metadata_file)
   end
 
-  # Inspects whether or not this Object is a Vector Work
+ # Inspects whether or not this Object is a RasterWork
   # @return [Boolean]
-  def concerns_vector?
-    true
-  end
-
-  # Inspects whether or not this Object is a Vector File
-  # @return [Boolean]
-  def concerns_vector_file?
-    false
+  def isType?(type)
+    return true if type==:concerns_vector
+    return false
   end
 
   # Retrieve all Raster Works for which this Vector Work can be extracted

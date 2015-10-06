@@ -6,31 +6,19 @@ module RasterBehavior
   include ::BasicGeoMetadata
 
   included do
-    # Raster Works can aggregate one or many Vector Works
-    # This provides the the ability to link extracted vector features projected to different CRS's to the source raster data set
-    aggregates :vectors, predicate: RDF::Vocab::ORE.aggregates,
-                         class_name: '::Vector',
-                         type_validator: type_validator
+    type Vocab::GeoTerms.Raster
 
-    # Raster Works can aggregate one or many metadata files
-    aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
-                                class_name: '::RasterMetadataFile',
-                                type_validator: type_validator
-
-    # Raster Works can only link to GenericFile resources as members if they are instances of GeoConcerns::RasterFile
-    filters_association :members, as: :raster_files, condition: :concerns_raster_file?
+    #specifiy the types of members
+    filters_association :members, as: :raster_file, condition: :isType?(:concerns_raster_file)
+    filters_association :members, as: :external_metadata_files, condition: :isType?(:concerns_metadata_file)
+    filters_association :members, as: :vector_works, condition: :isType?(:concerns_vector)
   end
 
-  # Inspects whether or not this Object is a Raster Work
+ # Inspects whether or not this Object is a RasterWork
   # @return [Boolean]
-  def concerns_raster?
-    true
-  end
-
-  # Inspects whether or not this Object is a Raster File
-  # @return [Boolean]
-  def concerns_raster_file?
-    false
+  def isType?(type)
+    return true if type==:concerns_raster
+    return false
   end
 
   # Retrieve all Image Works for which georeferencing generates this Raster Work

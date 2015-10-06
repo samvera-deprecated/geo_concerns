@@ -6,26 +6,19 @@ module ImageBehavior
   include ::BasicGeoMetadata
 
   included do
-    # Image Works can aggregate one or many Raster Works
-    # This provides the the ability to link raster data sets projected to different CRS's to the source images for which they were georeferenced
-    aggregates :rasters, predicate: RDF::Vocab::ORE.aggregates,
-                         class_name: '::Raster',
-                         type_validator: type_validator
+    type Vocab::GeoTerms.Image
 
-    # Image Works can only link to GenericFile resources as members if they are instances of GeoConcerns::ImageFile
-    filters_association :members, as: :image_files, condition: :concerns_image_file?
+    #specifiy the types of members
+    filters_association :members, as: :image_file, condition: :isType?(:concerns_image_file)
+    filters_association :members, as: :external_metadata_files, condition: :isType?(:concerns_metadata_file)
+    filters_association :members, as: :raster_works, condition: :isType?(:concerns_raster)
   end
 
-  # Inspects whether or not this Object is an Image Work
+ # Inspects whether or not this Object is a ImageWork
   # @return [Boolean]
-  def concerns_image?
-    true
-  end
-
-  # Inspects whether or not this Object is a Image File
-  # @return [Boolean]
-  def concerns_image_file?
-    false
+  def isType?(type)
+    return true if type==:concerns_image
+    return false
   end
 
   # Retrieve the only the first Image File managing metadata in relation to the content of a bitstream
