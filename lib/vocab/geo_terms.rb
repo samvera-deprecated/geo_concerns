@@ -5,3 +5,5 @@ module Vocab
     term :Image
     term :Raster
     term :Vector
+  end
+end

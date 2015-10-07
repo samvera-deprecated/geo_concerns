@@ -8,19 +8,39 @@ module GeospatialBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
       Hydra::Works::Vocab::WorksTerms.GenericWork,
-      Vocab::GeoTerms.Geospatial]
+      "http://projecthydra.org/geoconcerns/models#Geospatial"]
 
     #specifiy the types of members
-    filters_association :members, as: :image_work, condition: :isType?(:concerns_image)
-    filters_association :members, as: :raster_works, condition: :isType?(:concerns_raster)
-    filters_association :members, as: :vector_works, condition: :isType?(:concerns_vector)
+    filters_association :members, as: :image_work, condition: :concerns_image?
+    filters_association :members, as: :raster_works, condition: :concerns_raster?
+    filters_association :members, as: :vector_works, condition: :concerns_vector?
   end
 
-  # Inspects whether or not this Object is a GeospatialWork
+ # Defines type by what it is and isn't
   # @return [Boolean]
-  def isType?(type)
-    return true if type==:concerns_geospatial
-    return false
+  def concerns_geospatial?
+    true
+  end
+  def concerns_image?
+    false
+  end
+  def concerns_image_file?
+    false
+  end
+  def concerns_raster?
+    false
+  end
+  def concerns_raster_file?
+    false
+  end
+  def concerns_vector?
+    false
+  end
+  def concerns_vector_file?
+    false
+  end
+  def concerns_external_metadata_file?
+    false
   end
 
   # Retrieve the 1 image
