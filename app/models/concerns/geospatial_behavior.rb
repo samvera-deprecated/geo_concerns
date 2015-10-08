@@ -1,5 +1,5 @@
 # Attributes and methods for image works
-module ImageBehavior
+module GeospatialBehavior
   extend ActiveSupport::Concern
   include ::CurationConcerns::GenericWorkBehavior
   include ::CurationConcerns::BasicMetadata
@@ -8,21 +8,21 @@ module ImageBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
       Hydra::Works::Vocab::WorksTerms.GenericWork,
-      "http://projecthydra.org/geoconcerns/models#Image"]
+      "http://projecthydra.org/geoconcerns/models#Geospatial"]
 
     #specifiy the types of members
-    filters_association :members, as: :image_file, condition: :concerns_image_file?
-    filters_association :members, as: :external_metadata_files, condition: :concerns_external_metadata_file?
+    filters_association :members, as: :image_work, condition: :concerns_image?
     filters_association :members, as: :raster_works, condition: :concerns_raster?
+    filters_association :members, as: :vector_works, condition: :concerns_vector?
   end
 
  # Defines type by what it is and isn't
   # @return [Boolean]
   def concerns_geospatial?
-    false
+    true
   end
   def concerns_image?
-    true
+    false
   end
   def concerns_image_file?
     false
@@ -43,18 +43,18 @@ module ImageBehavior
     false
   end
 
-=begin
-  # Retrieve the only the first Image File managing metadata in relation to the content of a bitstream
-  # @return [GeoConcerns::ImageFile]
-  def image_file
-    image_files.first
+  # Retrieve the 1 image
+  def image_work
+    image_work.first
   end
 
-  # Overrides the mutation of the Image Files managed for this work
-  # (Ensures that a single ImageFile instance is related from within an Array)
-  # @param _file [ImageFile] the Image File to be related
-  def image_file=(_file)
-    image_files=([_file])
+  # retrieve 
+  def raster_works
+    raster_works
   end
-=end
+
+  def vector_works
+    vector_works
+  end
+
 end

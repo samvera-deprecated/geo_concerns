@@ -6,30 +6,40 @@ module RasterBehavior
   include ::BasicGeoMetadata
 
   included do
-    # Raster Works can aggregate one or many Vector Works
-    # This provides the the ability to link extracted vector features projected to different CRS's to the source raster data set
-    aggregates :vectors, predicate: RDF::Vocab::ORE.aggregates,
-                         class_name: '::Vector',
-                         type_validator: type_validator
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object, 
+      Hydra::Works::Vocab::WorksTerms.GenericWork,
+      "http://projecthydra.org/geoconcerns/models#Raster"]
 
-    # Raster Works can aggregate one or many metadata files
-    aggregates :metadata_files, predicate: RDF::Vocab::ORE.aggregates,
-                                class_name: '::RasterMetadataFile',
-                                type_validator: type_validator
-
-    # Raster Works can only link to GenericFile resources as members if they are instances of GeoConcerns::RasterFile
-    filters_association :members, as: :raster_files, condition: :concerns_raster_file?
+    #specifiy the types of members
+    filters_association :members, as: :raster_file, condition: :concerns_raster_file?
+    filters_association :members, as: :external_metadata_files, condition: :concerns_external_metadata_file?
+    filters_association :members, as: :vector_works, condition: :concerns_vector?
   end
 
-  # Inspects whether or not this Object is a Raster Work
+ # Defines type by what it is and isn't
   # @return [Boolean]
+  def concerns_geospatial?
+    false
+  end
+  def concerns_image?
+    false
+  end
+  def concerns_image_file?
+    false
+  end
   def concerns_raster?
     true
   end
-
-  # Inspects whether or not this Object is a Raster File
-  # @return [Boolean]
   def concerns_raster_file?
+    false
+  end
+  def concerns_vector?
+    false
+  end
+  def concerns_vector_file?
+    false
+  end
+  def concerns_external_metadata_file?
     false
   end
 
