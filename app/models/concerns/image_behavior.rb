@@ -43,6 +43,7 @@ module ImageBehavior
     false
   end
 
+=begin
   # Retrieve the only the first Image File managing metadata in relation to the content of a bitstream
   # @return [GeoConcerns::ImageFile]
   def image_file
@@ -55,4 +56,5 @@ module ImageBehavior
   def image_file=(_file)
     image_files=([_file])
   end
+=end
 end
