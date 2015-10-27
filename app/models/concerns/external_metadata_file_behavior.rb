@@ -1,13 +1,17 @@
-# Attributes and methods for image files
-module ImageFileBehavior
+# Attributes and methods for vector metadata files
+module ExternalMetadataFileBehavior
   extend ActiveSupport::Concern
   include Hydra::Works::GenericFileBehavior
   include ::CurationConcerns::GenericFileBehavior
+  include ::MetadataFileBehavior
 
-  included do
+  # Retrieve the Vector Work of which this Object is a member
+  # @return [GeoConcerns::Vector]
+
+   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
       Hydra::Works::Vocab::WorksTerms.GenericFile,
-      "http://projecthydra.org/geoconcerns/models#ImageFile"]
+      "http://projecthydra.org/geoconcerns/models#ExternalMetadataFile"]
   end
 
  # Defines type by what it is and isn't
@@ -16,7 +20,7 @@ module ImageFileBehavior
     false
   end
   def image_file?
-    true
+    false
   end
   def raster?
     false
@@ -31,12 +35,10 @@ module ImageFileBehavior
     false
   end
   def external_metadata_file?
-    false
-  end
+    true
+  end 
 
-  # Retrieve the Image Work of which this Object is a member
-  # @return [GeoConcerns::Image]
-  def image
-    parents.find { |parent| parent.class.included_modules.include?(GeoConcerns::ImageBehavior) }
-  end
+  #def vector
+  #  aggregated_by.find { |parent| parent.class.included_modules.include?(GeoConcerns::VectorBehavior) }
+  #end
 end

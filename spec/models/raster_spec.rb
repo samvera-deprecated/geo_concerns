@@ -4,6 +4,12 @@ require 'spec_helper'
 # So this test covers both the RasterBehavior module and the Raster model
 describe Raster do
   let(:user) { FactoryGirl.find_or_create(:jill) }
+  let(:raster_file1) { RasterFile.new }
+  let(:raster_file2) { RasterFile.new }
+  let(:ext_metadata_file1 ) { ExternalMetadataFile.new}
+  let(:ext_metadata_file2 ) { ExternalMetadataFile.new}
+  let(:vector1 ) { Vector.new}
+  let(:vector2 ) { Vector.new}
 
   it 'updates the title' do
     subject.attributes = { title: ['A raster work'] }
@@ -22,6 +28,21 @@ describe Raster do
 
     it 'has geospatial metadata' do
       expect(subject).to respond_to(:georss_box)
+    end
+  end
+
+  describe 'with acceptable inputs' do
+    subject { described_class.new } 
+    it 'add rasterfile,metadata,vector to file' do
+      subject.members << raster_file1
+      subject.members << raster_file2
+      subject.members << ext_metadata_file1
+      subject.members << ext_metadata_file2
+      subject.members << vector1
+      subject.members << vector2
+      expect(subject.raster_files).to eq [raster_file1,raster_file2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
+      expect(subject.vectors).to eq [vector1,vector2]
     end
   end
 
@@ -59,7 +80,7 @@ describe Raster do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first).to be_kind_of RasterMetadataFile
+      expect(subject.metadata_files.first).to be_kind_of ExternalMetadataFile
     end
   end
 

@@ -6,38 +6,52 @@ module ImageBehavior
   include ::BasicGeoMetadata
 
   included do
-    # Image Works can aggregate one or many Raster Works
-    # This provides the the ability to link raster data sets projected to different CRS's to the source images for which they were georeferenced
-    aggregates :rasters, predicate: RDF::Vocab::ORE.aggregates,
-                         class_name: '::Raster',
-                         type_validator: type_validator
-
-    # Image Works can only link to GenericFile resources as members if they are instances of GeoConcerns::ImageFile
-    filters_association :members, as: :image_files, condition: :concerns_image_file?
+    type [Hydra::PCDM::Vocab::PCDMTerms.Object,
+      Hydra::Works::Vocab::WorksTerms.GenericWork,
+      "http://projecthydra.org/geoconcerns/models#Image"]
   end
 
-  # Inspects whether or not this Object is an Image Work
+ # Defines type by what it is and isn't
   # @return [Boolean]
-  def concerns_image?
+  def image?
     true
   end
-
-  # Inspects whether or not this Object is a Image File
-  # @return [Boolean]
-  def concerns_image_file?
+  def image_file?
+    false
+  end
+  def raster?
+    false
+  end
+  def raster_file?
+    false
+  end
+  def vector?
+    false
+  end
+  def vector_file?
+    false
+  end
+  def external_metadata_file?
     false
   end
 
-  # Retrieve the only the first Image File managing metadata in relation to the content of a bitstream
-  # @return [GeoConcerns::ImageFile]
+  #get types of members
   def image_file
-    image_files.first
+    members.select(&:image_file?)
   end
-
-  # Overrides the mutation of the Image Files managed for this work
-  # (Ensures that a single ImageFile instance is related from within an Array)
-  # @param _file [ImageFile] the Image File to be related
-  def image_file=(_file)
-    image_files=([_file])
+  def image_file_id
+    image_file.map(&:id)
+  end
+  def metadata_files
+    members.select(&:external_metadata_file?)
+  end
+  def metadata_files_ids
+    metadata_files.map(&:id)
+  end
+  def rasters
+    members.select(&:raster?)
+  end
+  def rasters_ids
+    rasters.map(&:id)
   end
 end

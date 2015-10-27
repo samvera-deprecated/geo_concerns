@@ -4,6 +4,22 @@ require 'spec_helper'
 # So this test covers both the VectorBehavior module and the Vector model
 describe Vector do
   let(:user) { FactoryGirl.find_or_create(:jill) }
+  let(:vector_file1) { VectorFile.new }
+  let(:vector_file2) { VectorFile.new }
+  let(:ext_metadata_file1 ) { ExternalMetadataFile.new}
+  let(:ext_metadata_file2 ) { ExternalMetadataFile.new}
+
+  describe 'with acceptable inputs' do
+    subject { described_class.new } 
+    it 'add vectorfile,metadatato file' do
+      subject.members << vector_file1
+      subject.members << vector_file2
+      subject.members << ext_metadata_file1
+      subject.members << ext_metadata_file2
+      expect(subject.vector_files).to eq [vector_file1,vector_file2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
+    end
+  end
 
   it 'updates the title' do
     subject.attributes = { title: ['A vector work'] }
@@ -48,7 +64,7 @@ describe Vector do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first).to be_kind_of VectorMetadataFile
+      expect(subject.metadata_files.first).to be_kind_of ExternalMetadataFile
     end
   end
 
