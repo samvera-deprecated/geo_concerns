@@ -70,6 +70,12 @@ Post-install message from rdf-xsd:
 gem 'nokogiri'
 gem 'equivalent-xml'
 
+# /home/vagrant/ruby.d/jrgriffiniii/geo_concerns/config/initializers/redis_config.rb:23:in `<top (required)>': uninitialized constant Nest (NameError)
+gem 'nest'
+
+# /home/vagrant/ruby.d/jrgriffiniii/geo_concerns/config/initializers/resque_config.rb:2:in `<top (required)>': uninitialized constant Resque (NameError)
+gem 'resque'
+
 group :development do
   gem 'yard'
 end

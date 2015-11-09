@@ -1,4 +1,7 @@
-# Model for (Works of) Raster geospatial data sets which bear basic geospatial metadata
+# Generated via
+#  `rails generate curation_concerns:work Raster`
 class Raster < ActiveFedora::Base
-  include ::GeoConcerns::RasterBehavior
+  include ::CurationConcerns::WorkBehavior
+  include ::CurationConcerns::BasicMetadata
+  validates :title, presence: { message: 'Your work must have a title.' }
 end

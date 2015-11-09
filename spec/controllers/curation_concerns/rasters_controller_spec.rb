@@ -1,7 +1,9 @@
-require 'spec_helper'
+# Generated via
+#  `rails generate curation_concerns:work Raster`
+require 'rails_helper'
 
 describe CurationConcerns::RastersController do
-  it "has correct concern type" do
-    expect(subject.curation_concern_type).to eq Raster
+  it "has tests" do
+    skip "Add your tests here"
   end
 end

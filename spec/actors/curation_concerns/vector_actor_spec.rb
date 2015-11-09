@@ -1,7 +1,9 @@
-require 'spec_helper'
+# Generated via
+#  `rails generate curation_concerns:work Vector`
+require 'rails_helper'
 
 describe CurationConcerns::VectorActor do
-  it "class includes WorkActorBehavior" do
-    expect(described_class.ancestors).to include(::CurationConcerns::WorkActorBehavior)
+  it "has tests" do
+    skip "Add your tests here"
   end
 end

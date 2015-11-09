@@ -1,4 +1,7 @@
-# Model for geospatial Vector feature files which bear basic geospatial metadata and an authoritative CRS
+# Generated via
+#  `rails generate curation_concerns:work VectorFile`
 class VectorFile < ActiveFedora::Base
-  include ::GeoConcerns::VectorFileBehavior
+  include ::CurationConcerns::WorkBehavior
+  include ::CurationConcerns::BasicMetadata
+  validates :title, presence: { message: 'Your work must have a title.' }
 end
