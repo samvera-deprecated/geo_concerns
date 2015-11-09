@@ -1,7 +1,7 @@
 # Geo Concerns
-[![Build Status](https://travis-ci.org/jrgriffiniii/pcdm-geo-models.svg?branch=issues-29-jrgriffiniii)](https://travis-ci.org/jrgriffiniii/pcdm-geo-models)
-[![Coverage Status](https://coveralls.io/repos/jrgriffiniii/pcdm-geo-models/badge.svg?branch=issues-29-jrgriffiniii&service=github)](https://coveralls.io/github/jrgriffiniii/pcdm-geo-models?branch=issues-29-jrgriffiniii)
-[![API Docs](http://img.shields.io/badge/API-docs-blue.svg)](http://rubydoc.info/github/jrgriffiniii/pcdm-geo-models)
+[![Build Status](https://travis-ci.org/projecthydra-labs/geo_concerns.svg)](https://travis-ci.org/projecthydra-labs/geo_concerns)
+[![Coverage Status](https://coveralls.io/repos/projecthydra-labs/geo_concerns/badge.svg?branch=master&service=github)](https://coveralls.io/github/projecthydra-labs/geo_concerns?branch=master)
+[![API Docs](http://img.shields.io/badge/API-docs-blue.svg)](http://www.rubydoc.info/github/projecthydra-labs/geo_concerns)
 
 Rails application for developing Hydra Geo models. Built around Curation Concerns engine.
 
