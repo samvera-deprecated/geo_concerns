@@ -36,9 +36,9 @@ gem 'rsolr', '~> 1.0.6'
 gem 'devise', '~> 3.0'
 gem 'devise-guests', '~> 0.3'
 
-gem 'curation_concerns', '~> 0.1.0'
-gem 'curation_concerns-models', '~> 0.1.0'
-
+gem 'curation_concerns', '~> 0.3'
+# gem 'curation_concerns-models', '~> 0.1.0'
+ 
 gem 'slop', '~> 3.6.0' # This just helps us generate a valid Gemfile.lock when Rails 4.2 is installed (which requires byebug which has a dependency on slop)
 
 # @todo Structure for gemspec
@@ -60,6 +60,15 @@ gem 'hydra-collections' # allow curation_concerns-models to specify the version
 gem 'hydra-derivatives' # allow hydra-works to specify the version
 gem 'hydra-editor'
 gem 'blacklight_advanced_search', ['>= 5.1.4', '< 6.0']
+
+=begin
+Post-install message from rdf-xsd:
+
+  For best results, use nokogiri and equivalent-xml gems as well.
+  These are not hard requirements to preserve pure-ruby dependencies.
+=end
+gem 'nokogiri'
+gem 'equivalent-xml'
 
 group :development do
   gem 'yard'
