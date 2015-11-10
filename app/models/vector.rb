@@ -1,4 +1,9 @@
-# Model for (Works of) geospatial Vector features which bear basic geospatial metadata
+# Generated via
+#  `rails generate curation_concerns:work Vector`
 class Vector < ActiveFedora::Base
-  include ::GeoConcerns::VectorBehavior
+  include ::CurationConcerns::WorkBehavior
+  include ::VectorBehavior
+  include ::CurationConcerns::BasicMetadata
+  include ::BasicGeoMetadata
+  validates :title, presence: { message: 'Your work must have a title.' }
 end

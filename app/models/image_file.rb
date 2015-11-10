@@ -1,4 +1,7 @@
-# Model for Image (Files) which bear basic geospatial metadata and an authoritative CRS
+# Generated via
+#  `rails generate curation_concerns:work ImageFile`
 class ImageFile < ActiveFedora::Base
-  include ::GeoConcerns::ImageFileBehavior
+  include ::CurationConcerns::WorkBehavior
+  include ::CurationConcerns::BasicMetadata
+  validates :title, presence: { message: 'Your work must have a title.' }
 end

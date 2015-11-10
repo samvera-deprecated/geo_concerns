@@ -1,4 +1,7 @@
-# Model for Raster geospatial data files which bear basic geospatial metadata and an authoritative CRS
+# Generated via
+#  `rails generate curation_concerns:work RasterFile`
 class RasterFile < ActiveFedora::Base
-  include ::GeoConcerns::RasterFileBehavior
+  include ::CurationConcerns::WorkBehavior
+  include ::CurationConcerns::BasicMetadata
+  validates :title, presence: { message: 'Your work must have a title.' }
 end

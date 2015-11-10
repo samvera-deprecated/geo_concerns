@@ -36,30 +36,49 @@ gem 'rsolr', '~> 1.0.6'
 gem 'devise', '~> 3.0'
 gem 'devise-guests', '~> 0.3'
 
-gem 'curation_concerns', '~> 0.1.0'
-gem 'curation_concerns-models', '~> 0.1.0'
-
+gem 'curation_concerns', '~> 0.3'
+gem 'curation_concerns-models', '~> 0.3'
+ 
 gem 'slop', '~> 3.6.0' # This just helps us generate a valid Gemfile.lock when Rails 4.2 is installed (which requires byebug which has a dependency on slop)
 
 # @todo Structure for gemspec
 
 # Added in response to https://github.com/projecthydra-labs/hydra-works/issues/203
-gem "hydra-pcdm", :git => 'https://github.com/projecthydra-labs/hydra-pcdm.git'
+# gem "hydra-pcdm", :git => 'https://github.com/projecthydra-labs/hydra-pcdm.git'
+gem "hydra-pcdm", '~> 0.3'
+
+# Rake tasks were not available from the 0.1.0 Gem releast on RubyGems
+# (Please see lib/tasks/geo_concerns_tasks.rake)
+# @todo Properly integrate after the next stable release
+# gem 'hydra-works', :git => 'https://github.com/projecthydra-labs/hydra-works.git'
+
+gem "hydra-works", '~> 0.3'
 
 gem 'hydra-head', '~> 9.0'
 gem "breadcrumbs_on_rails", "~> 2.3.0"
 gem "jquery-ui-rails"
 gem "simple_form", '~> 3.1.0'
 
-# Rake tasks were not available from the 0.1.0 Gem releast on RubyGems
-# (Please see lib/tasks/geo_concerns_tasks.rake)
-# @todo Properly integrate after the next stable release
-gem 'hydra-works', :git => 'https://github.com/projecthydra-labs/hydra-works.git'
 
 gem 'hydra-collections' # allow curation_concerns-models to specify the version
 gem 'hydra-derivatives' # allow hydra-works to specify the version
-gem 'hydra-editor'
+gem 'hydra-editor', '~> 1.1'
 gem 'blacklight_advanced_search', ['>= 5.1.4', '< 6.0']
+
+=begin
+Post-install message from rdf-xsd:
+
+  For best results, use nokogiri and equivalent-xml gems as well.
+  These are not hard requirements to preserve pure-ruby dependencies.
+=end
+gem 'nokogiri'
+gem 'equivalent-xml'
+
+# /home/vagrant/ruby.d/jrgriffiniii/geo_concerns/config/initializers/redis_config.rb:23:in `<top (required)>': uninitialized constant Nest (NameError)
+gem 'nest'
+
+# /home/vagrant/ruby.d/jrgriffiniii/geo_concerns/config/initializers/resque_config.rb:2:in `<top (required)>': uninitialized constant Resque (NameError)
+gem 'resque'
 
 group :development do
   gem 'yard'
@@ -83,7 +102,7 @@ group :development, :test do
   gem 'database_cleaner', '< 1.1.0'
 
   # @todo Restructure for a gemspec
-  gem "engine_cart", "~> 0.7"
+  gem "engine_cart", "~> 0.8"
 
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false

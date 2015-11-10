@@ -1,40 +1,55 @@
 # Attributes and methods for image works
 module ImageBehavior
   extend ActiveSupport::Concern
-  include ::CurationConcerns::GenericWorkBehavior
-  include ::CurationConcerns::BasicMetadata
-  include ::BasicGeoMetadata
-
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
-      Hydra::Works::Vocab::WorksTerms.GenericWork,
-      "http://projecthydra.org/geoconcerns/models#Image"]
-      filters_association :members, as: :image_files, condition: :image_file?
-      filters_association :members, as: :metadata_files, condition: :external_metadata_file?
-      filters_association :members, as: :rasters, condition: :raster?
+          Hydra::Works::Vocab::WorksTerms.GenericWork,
+          "http://projecthydra.org/geoconcerns/models#Image"]
+    filters_association :members, as: :image_files, condition: :image_file?
+    filters_association :members, as: :metadata_files, condition: :external_metadata_file?
+    filters_association :members, as: :rasters, condition: :raster?
   end
 
+  # Defines type by what it is and isn't
 
- # Defines type by what it is and isn't
+  # This is an Image Resource
   # @return [Boolean]
   def image?
     true
   end
+
+  # This is not an ImageFile Resource
+  # @return [Boolean]
   def image_file?
     false
   end
+
+  # This is not an ImageFile Resource
+  # @return [Boolean]
   def raster?
     false
   end
+
+  # This is not an ImageFile Resource
+  # @return [Boolean]
   def raster_file?
     false
   end
+
+  # This is not an ImageFile Resource
+  # @return [Boolean]
   def vector?
     false
   end
+
+  # This is not an ImageFile Resource
+  # @return [Boolean]
   def vector_file?
     false
   end
+
+  # This is not an ExternalMetadataFile Resource
+  # @return [Boolean]
   def external_metadata_file?
     false
   end
