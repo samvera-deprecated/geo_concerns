@@ -8,30 +8,36 @@ module VectorFileBehavior
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
-      Hydra::Works::Vocab::WorksTerms.GenericFile,
-      "http://projecthydra.org/geoconcerns/models#VectorFile"]
+          Hydra::Works::Vocab::WorksTerms.GenericFile,
+          "http://projecthydra.org/geoconcerns/models#VectorFile"]
   end
 
- # Defines type by what it is and isn't
+  # Defines type by what it is and isn't
   # @return [Boolean]
   def image?
     false
   end
+
   def image_file?
     false
   end
+
   def raster?
     false
   end
+
   def raster_file?
     false
   end
+
   def vector?
     false
   end
+
   def vector_file?
     true
   end
+
   def external_metadata_file?
     false
   end
