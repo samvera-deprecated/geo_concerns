@@ -5,4 +5,3 @@ module CurationConcerns
     self.model_class = ::ImageFile
   end
 end
-

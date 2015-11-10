@@ -1,7 +1,5 @@
 require: rubocop-rspec
 
-
-
 AllCops:
   UseCache: false
   RunRailsCops: true
@@ -62,6 +60,7 @@ Metrics/ClassLength:
     - 'lib/generators/curation_concerns/templates/catalog_controller.rb'
     - 'curation_concerns-models/app/models/datastreams/fits_datastream.rb'
     - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
+    - 'app/controllers/catalog_controller.rb'
 
 Metrics/ModuleLength:
   Exclude:
