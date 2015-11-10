@@ -3,5 +3,5 @@
 class RasterFile < ActiveFedora::Base
   include ::CurationConcerns::WorkBehavior
   include ::CurationConcerns::BasicMetadata
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :cartographic_projection, presence: { message: 'Your work must have a cartographic projection.' }
 end

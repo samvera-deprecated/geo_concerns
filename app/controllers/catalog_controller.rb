@@ -56,6 +56,11 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name('format', :stored_searchable)
     config.add_index_field solr_name('identifier', :stored_searchable)
 
+    # Indexed geospatial metadata fields
+    config.add_index_field solr_name('bounding_box', :stored_searchable)
+    config.add_index_field solr_name('cartographic_projection', :stored_searchable)
+    config.add_index_field solr_name('conforms_to', :stored_searchable)
+
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #

@@ -1,8 +1,8 @@
 # Attributes and methods for vector metadata files
 module ExternalMetadataFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior
-  include ::CurationConcerns::GenericFileBehavior
+  include Hydra::Works::FileSetBehavior
+  include ::CurationConcerns::FileSetBehavior
   include ::MetadataFileBehavior
 
   included do
