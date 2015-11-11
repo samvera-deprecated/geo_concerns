@@ -60,4 +60,16 @@ module RasterBehavior
   def image
     images.first
   end
+
+  # Extracts properties from the constitutent external metadata file
+  # @return [Hash]
+  # TODO: Does not support multiple external metadata files
+  def extract_metadata
+    return {} if metadata_files.blank?
+    h = metadata_files.first.extract_metadata
+    h.each do |k, v|
+      send("#{k}=".to_sym, v) # set each property
+    end
+    h
+  end
 end

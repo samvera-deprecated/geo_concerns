@@ -88,3 +88,7 @@ else
     end
   end
 end
+
+def read_test_data_fixture(name)
+  File.read(File.join(File.dirname(__FILE__), '..', 'test-data', name))
+end

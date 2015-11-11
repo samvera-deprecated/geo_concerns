@@ -26,8 +26,8 @@ describe ExternalMetadataFile do
   end
 
   it 'updates the metadata schema' do
-    subject.attributes = { conforms_to: ['ISO19139'] }
-    expect(subject.conforms_to).to eq(['ISO19139'])
+    subject.attributes = { conforms_to: 'ISO19139' }
+    expect(subject.conforms_to).to eq('ISO19139')
   end
 
   describe 'metadata' do
@@ -64,7 +64,7 @@ describe ExternalMetadataFile do
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:external_metadata_file,
                                  date_uploaded: Date.today,
-                                 conforms_to: ['ISO19139']).to_solr
+                                 conforms_to: 'ISO19139').to_solr
     }
 
     it "indexes bbox field" do
