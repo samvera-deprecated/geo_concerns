@@ -1,8 +1,6 @@
 # Attributes and methods for image files
 module ImageFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior
-  include ::CurationConcerns::GenericFileBehavior
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,

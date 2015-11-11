@@ -1,6 +1,7 @@
 # Generated via
 #  `rails generate curation_concerns:work Image`
 require 'rails_helper'
+require 'spec_helper'
 
 describe Image do
   let(:user) { FactoryGirl.find_or_create(:jill) }

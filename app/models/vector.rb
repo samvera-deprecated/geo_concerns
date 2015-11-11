@@ -5,5 +5,4 @@ class Vector < ActiveFedora::Base
   include ::VectorBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
-  validates :title, presence: { message: 'Your work must have a title.' }
 end

@@ -1,10 +1,6 @@
 # Attributes and methods for raster files
 module RasterFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior
-  include ::CurationConcerns::GenericFileBehavior
-  include ::BasicGeoMetadata
-  include ::GeoreferencedBehavior
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
