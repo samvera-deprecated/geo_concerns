@@ -50,15 +50,6 @@ describe Vector do
     end
   end
 
-  context 'extracting features from rasters' do
-    subject { FactoryGirl.create(:vector_with_rasters) }
-
-    it 'is aggregated by two raster data set resources' do
-      expect(subject.rasters.size).to eq 2
-      expect(subject.rasters.first).to be_kind_of Raster
-    end
-  end
-
   context 'with metadata files' do
     subject { FactoryGirl.create(:vector_with_metadata_files) }
 

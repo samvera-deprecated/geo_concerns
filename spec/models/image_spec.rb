@@ -35,4 +35,13 @@ describe Image do
       expect(subject.rasters).to eq [raster1,raster2]
     end
   end
+
+  context 'georeferenced to a raster' do
+    subject { FactoryGirl.create(:image_with_rasters, title: ['Test title 4'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
+
+    it 'aggregates by raster resources' do
+      expect(subject.rasters.size).to eq 2
+      expect(subject.rasters.first).to be_kind_of Raster
+    end
+  end
 end

@@ -27,7 +27,7 @@ end
 
 require 'curation_concerns'
 
-# Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
+Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 # require File.expand_path('../matchers', __FILE__)
 
 FactoryGirl.definition_file_paths = [File.expand_path("../factories", __FILE__)]
