@@ -3,5 +3,6 @@
 class ExternalMetadataFile < ActiveFedora::Base
   include ::CurationConcerns::WorkBehavior
   include ::CurationConcerns::BasicMetadata
-  validates :title, presence: { message: 'Your work must have a title.' }
+  include ::ExternalMetadataFileBehavior
+  validates :conforms_to, presence: { message: 'Your work must specify the metadata standard.' }
 end

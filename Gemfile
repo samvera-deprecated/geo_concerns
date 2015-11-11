@@ -108,6 +108,9 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'simplecov', '~> 0.9', require: false
   gem 'coveralls', require: false
-  gem 'pry' unless ENV['CI']
-  gem 'pry-byebug' unless ENV['CI']
+  unless ENV['CI']
+    gem 'pry' 
+    gem 'pry-byebug'
+    gem 'pry-rails'
+  end
 end
