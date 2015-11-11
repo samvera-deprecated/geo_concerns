@@ -1,8 +1,7 @@
 # Attributes and methods for external metadata files
 module MetadataFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior
-  include ::CurationConcerns::GenericFileBehavior
+  include ::CurationConcerns::FileSetBehavior
 
   included do
     # Specifies the metadata standard to which the metadata file conforms

@@ -3,5 +3,6 @@
 class ExternalMetadataFile < ActiveFedora::Base
   include ::CurationConcerns::FileSetBehavior
   include ::CurationConcerns::BasicMetadata
+  include ::MetadataFileBehavior
   include ::ExternalMetadataFileBehavior
 end

@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     factory :vector_with_one_file do
       before(:create) do |vector, evaluator|
-        vector.vector_files << FactoryGirl.create(:vector_file, user: evaluator.user, title:['A shapefile'], filename:['filename.zip'])
+        vector.vector_files << FactoryGirl.create(:vector_file, user: evaluator.user, title:['A shapefile'], filename:'filename.zip')
       end
     end
 
