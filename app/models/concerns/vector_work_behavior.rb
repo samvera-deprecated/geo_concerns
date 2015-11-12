@@ -1,22 +1,18 @@
-# Attributes and methods for raster works
-module RasterBehavior
+# Attributes and methods for vector works
+module VectorWorkBehavior
   extend ActiveSupport::Concern
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          "http://projecthydra.org/geoconcerns/models#Raster"]
+          "http://projecthydra.org/geoconcerns/models#Vector"]
   end
 
-  def raster_files
-    members.select(&:raster_file?)
+  def vector_files
+    members.select(&:vector_file?)
   end
 
   def metadata_files
     members.select(&:external_metadata_file?)
-  end
-
-  def vectors
-    members.select(&:vector?)
   end
 
   # Defines type by what it is and isn't
@@ -30,7 +26,7 @@ module RasterBehavior
   end
 
   def raster?
-    true
+    false
   end
 
   def raster_file?
@@ -38,7 +34,7 @@ module RasterBehavior
   end
 
   def vector?
-    false
+    true
   end
 
   def vector_file?
@@ -49,16 +45,10 @@ module RasterBehavior
     false
   end
 
-  # Retrieve all Image Works for which georeferencing generates this Raster Work
+  # Retrieve all Raster Works for which this Vector Work can be extracted
   # @return [Array]
-  def images
-    aggregated_by.select { |parent| parent.class.included_modules.include?(::ImageBehavior) }
-  end
-
-  # Retrieve the only Image Works for which georeferencing generates this Raster Work
-  # @return [GeoConcerns::Image]
-  def image
-    images.first
+  def rasters
+    aggregated_by.select { |parent| parent.class.included_modules.include?(::RasterBehavior) }
   end
 
   # Extracts properties from the constitutent external metadata file

@@ -2,7 +2,7 @@
 #  `rails generate curation_concerns:work Vector`
 require 'rails_helper'
 
-describe Vector do
+describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:vector_file1) { VectorFile.new }
   let(:vector_file2) { VectorFile.new }
@@ -42,7 +42,7 @@ describe Vector do
   end
 
   context 'with files' do
-    subject { FactoryGirl.create(:vector_with_files, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:vector_work_with_files, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'has two files' do
       expect(subject.vector_files.size).to eq 2
@@ -51,7 +51,7 @@ describe Vector do
   end
 
   context 'with metadata files' do
-    subject { FactoryGirl.create(:vector_with_metadata_files) }
+    subject { FactoryGirl.create(:vector_work_with_metadata_files) }
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
@@ -60,7 +60,7 @@ describe Vector do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:vector, date_uploaded: Date.today, bounding_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
+    subject { FactoryGirl.build(:vector_work, date_uploaded: Date.today, bounding_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
     it "indexes bbox field" do
       expect(subject.keys).to include 'bounding_box_tesim'
     end

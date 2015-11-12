@@ -3,13 +3,13 @@
 require 'rails_helper'
 require 'spec_helper'
 
-describe Image do
+describe ImageWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:image_file1) { ImageFile.new }
   let(:ext_metadata_file1 ) { ExternalMetadataFile.new}
   let(:ext_metadata_file2 ) { ExternalMetadataFile.new}
-  let(:raster1 ) { Raster.new}
-  let(:raster2 ) { Raster.new}
+  let(:raster1 ) { RasterWork.new}
+  let(:raster2 ) { RasterWork.new}
 
   it 'updates the title' do
     subject.attributes = { title: ['An image work'] }
@@ -37,11 +37,11 @@ describe Image do
   end
 
   context 'georeferenced to a raster' do
-    subject { FactoryGirl.create(:image_with_rasters, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:image_work_with_rasters, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'aggregates by raster resources' do
       expect(subject.rasters.size).to eq 2
-      expect(subject.rasters.first).to be_kind_of Raster
+      expect(subject.rasters.first).to be_kind_of RasterWork
     end
   end
 end
