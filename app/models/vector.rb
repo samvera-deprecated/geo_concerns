@@ -5,4 +5,5 @@ class Vector < ActiveFedora::Base
   include ::VectorBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
+  include ::GeoreferencedBehavior
 end

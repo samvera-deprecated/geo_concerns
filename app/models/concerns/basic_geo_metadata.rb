@@ -13,20 +13,15 @@ module BasicGeoMetadata
   }
 
   included do
-    # Defines the OGC geometric literal for the resource
-    # @see http://portal.opengeospatial.org/files/?artifact_id=20555 OpenGIS Catalogue Services Specification
-    # @example
-    #   raster.solr_geom = "ENVELOPE(-179.14734, 179.778465, 71.390482, 17.881242)"
-    property :solr_geom, predicate: ::RDF::URI.new(PREFIXES[:csw] + 'envelope'), multiple: false do |index|
-      # Solrizer needs to be configured to use location_rpt; not working here.
-      index.as Solrizer::Descriptor.new(:location_rpt, :stored, :indexed)
-    end
-
     # Defines the GeoRSS bounding box for the resource
+    # From the spec: A bounding box is a rectangular region, often used to define the extents of a map
+    # or a rough area of interest. A box contains two space seperate latitude-longitude pairs, with each
+    # pair separated by whitespace. The first pair is the lower corner, the second is the upper corner.
+    #
     # @see http://www.georss.org/simple.html GeoRSS Simple Specification
     # @example
-    #   vector.georss_box = "42.943 -71.032 43.039 -69.856"
-    property :georss_box, predicate: ::RDF::URI.new(PREFIXES[:georss] + 'box'), multiple: false do |index|
+    #   vector.bounding_box = "42.943 -71.032 43.039 -69.856"
+    property :bounding_box, predicate: ::RDF::URI.new(PREFIXES[:georss] + 'box'), multiple: false do |index|
       index.as :stored_searchable
     end
   end

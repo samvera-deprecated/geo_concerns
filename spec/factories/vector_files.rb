@@ -6,7 +6,7 @@ FactoryGirl.define do
     end
 
     after(:build) do |file, evaluator|
-      file.crs = 'urn:ogc:def:crs:EPSG::6326'
+      file.cartographic_projection = 'urn:ogc:def:crs:EPSG::6326'
       file.apply_depositor_metadata(evaluator.user.user_key)
     end
 

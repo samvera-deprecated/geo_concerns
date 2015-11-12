@@ -17,8 +17,8 @@ describe Raster do
   end
 
   it 'updates the bounding box' do
-    subject.attributes = { georss_box: '17.881242 -179.14734 71.390482 179.778465' }
-    expect(subject.georss_box).to eq('17.881242 -179.14734 71.390482 179.778465')
+    subject.attributes = { bounding_box: '17.881242 -179.14734 71.390482 179.778465' }
+    expect(subject.bounding_box).to eq('17.881242 -179.14734 71.390482 179.778465')
   end
 
   describe 'metadata' do
@@ -27,7 +27,7 @@ describe Raster do
     end
 
     it 'has geospatial metadata' do
-      expect(subject).to respond_to(:georss_box)
+      expect(subject).to respond_to(:bounding_box)
     end
   end
 
@@ -47,7 +47,7 @@ describe Raster do
   end
 
   context 'with raster files' do
-    subject { FactoryGirl.create(:raster_with_files, title: ['Test title 4'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:raster_with_files, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'has two files' do
       expect(subject.raster_files.size).to eq 2
@@ -74,9 +74,9 @@ describe Raster do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:raster, date_uploaded: Date.today, georss_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
+    subject { FactoryGirl.build(:raster, date_uploaded: Date.today, bounding_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
     it "indexes bbox field" do
-      expect(subject.keys).to include 'georss_box_tesim'
+      expect(subject.keys).to include 'bounding_box_tesim'
     end
   end
 end
