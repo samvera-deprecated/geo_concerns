@@ -48,7 +48,7 @@ module VectorWorkBehavior
   # Retrieve all Raster Works for which this Vector Work can be extracted
   # @return [Array]
   def rasters
-    aggregated_by.select { |parent| parent.class.included_modules.include?(::RasterBehavior) }
+    aggregated_by.select { |parent| parent.class.included_modules.include?(::RasterWorkBehavior) }
   end
 
   # Extracts properties from the constitutent external metadata file

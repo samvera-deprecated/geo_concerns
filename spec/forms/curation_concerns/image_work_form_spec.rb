@@ -1,9 +1,10 @@
 # Generated via
-#  `rails generate curation_concerns:work Vector`
+#  `rails generate curation_concerns:work Image`
 require 'rails_helper'
 
-describe CurationConcerns::VectorActor do
+describe CurationConcerns::ImageWorkForm do
   it "has tests" do
     skip "Add your tests here"
   end
 end
+
