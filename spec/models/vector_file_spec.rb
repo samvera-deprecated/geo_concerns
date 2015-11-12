@@ -75,29 +75,6 @@ describe VectorFile do
     expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
   end
 
-#  describe '#related_files' do
-#    let!(:f1) { described_class.new }
-
-#    context 'when there are related files' do
-#      let(:parent_vector)   { FactoryGirl.create(:vector_with_files, title: ['Test title 2'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
-#      let(:f1)            { parent_vector.vector_files.first }
-#      let(:f2)            { parent_vector.vector_files.last }
-#      let(:files) { f1.reload.related_files }
-#      it 'returns all vector_files contained in parent vector(s) but excludes itself' do
-#        expect(files).to include(f2)
-#        expect(files).to_not include(f1)
-#      end
-#    end
-#  end
-
-#  describe 'vector associations' do
-#    let(:vector) { FactoryGirl.create(:vector_with_one_file, title: ['Test title 3'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
-#    subject { vector.vector_files.first.reload }
-#    it 'belongs to vector' do
-#      expect(subject.vector).to eq vector
-#    end
-#  end
-
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:vector_file,
                                  date_uploaded: Date.today,

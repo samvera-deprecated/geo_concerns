@@ -61,29 +61,6 @@ describe ExternalMetadataFile do
     expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
   end
 
-#  describe '#related_files' do
-#    let!(:f1) { described_class.new }
-
-#    context 'when there are related files' do
-#      let(:parent_raster)   { FactoryGirl.create(:raster_with_metadata_files, title: ['Test title 2'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
-#      let(:f1)            { parent_raster.metadata_files.first }
-#      let(:f2)            { parent_raster.metadata_files.last }
-#      let(:files) { f1.reload.related_files }
-#      it 'returns all raster_files contained in parent raster(s) but excludes itself' do
-#        expect(files).to include(f2)
-#        expect(files).to_not include(f1)
-#      end
-#    end
-#  end
-
-#  describe 'raster associations' do
-#    let(:raster) { FactoryGirl.create(:raster_with_one_file, title: ['Test title 3'], georss_box: '17.881242 -179.14734 71.390482 179.778465') }
-#    subject { raster.raster_files.first.reload }
-#    it 'belongs to raster' do
-#      expect(subject.raster).to eq raster
-#    end
-#  end
-
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:external_metadata_file,
                                  date_uploaded: Date.today,

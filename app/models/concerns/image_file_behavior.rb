@@ -38,6 +38,13 @@ module ImageFileBehavior
     false
   end
 
+  # Retrieve the JPEG preview for the raster data set
+  # @return [Hydra::PCDM::File]
+  # @see Hydra::Works::GenericFile#thumbnail
+  def preview
+    thumbnail
+  end
+
   # Retrieve the Image Work of which this Object is a member
   # @return [GeoConcerns::Image]
   def image
