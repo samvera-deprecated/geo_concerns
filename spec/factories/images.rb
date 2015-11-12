@@ -18,13 +18,13 @@ FactoryGirl.define do
 
     factory :image_with_one_file do
       before(:create) do |image, evaluator|
-        image.image_file << FactoryGirl.create(:image_file, user: evaluator.user)
+        image.ordered_members << FactoryGirl.create(:image_file, user: evaluator.user)
       end
     end
 
     factory :image_with_rasters do
       before(:create) do |image, evaluator|
-        2.times { image.rasters << FactoryGirl.create(:raster, user: evaluator.user) }
+        2.times { image.ordered_members << FactoryGirl.create(:raster, user: evaluator.user) }
       end
     end
 

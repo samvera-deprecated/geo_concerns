@@ -30,7 +30,7 @@ describe Image do
       subject.members << ext_metadata_file2
       subject.members << raster1
       subject.members << raster2
-      expect(subject.image_files).to eq [image_file1]
+      expect(subject.image_file).to eq image_file1
       expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
       expect(subject.rasters).to eq [raster1,raster2]
     end

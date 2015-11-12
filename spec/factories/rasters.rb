@@ -18,34 +18,39 @@ FactoryGirl.define do
 
     factory :raster_with_one_file do
       before(:create) do |raster, evaluator|
-        raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user, title:['A GeoTIFF file'], filename:'filename.tif')
+        raster.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title:['A GeoTIFF file'], filename:'filename.tif')
       end
     end
 
     factory :raster_with_files do
       before(:create) do |raster, evaluator|
-        2.times { raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user) }
+        2.times { raster.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user) }
       end
     end
 
     factory :raster_with_images do
       before(:create) do |raster, evaluator|
         image = FactoryGirl.create(:image, user: evaluator.user)
-        image.rasters << raster
+        image.ordered_members << raster
       end
     end
 
     factory :raster_with_vectors do
       after(:create) do |raster, evaluator|
-        2.times { raster.vectors << FactoryGirl.create(:vector, user: evaluator.user) }
+        2.times { raster.ordered_members << FactoryGirl.create(:vector, user: evaluator.user) }
       end
     end
 
     factory :raster_with_metadata_files do
       after(:create) do |raster, evaluator|
-        2.times { raster.metadata_files << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+#        2.times { raster.metadata_files << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+        2.times { raster.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
       end
     end
+
+#    factory :work_with_files do
+#        before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryGirl.create(:file_set, user: evaluator.user) } }
+#    end
 
     factory :raster_with_embargo_date do
       transient do
@@ -57,7 +62,7 @@ FactoryGirl.define do
 
       factory :embargoed_raster_with_files do
         after(:build) { |raster, evaluator| raster.apply_embargo(evaluator.embargo_date, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }
-        after(:create) { |raster, evaluator| 2.times { raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user) } }
+        after(:create) { |raster, evaluator| 2.times { raster.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user) } }
       end
 
       factory :leased_raster do
@@ -66,7 +71,7 @@ FactoryGirl.define do
 
       factory :leased_raster_with_files do
         after(:build) { |raster, evaluator| raster.apply_lease(evaluator.embargo_date, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE) }
-        after(:create) { |raster, evaluator| 2.times { raster.raster_files << FactoryGirl.create(:raster_file, user: evaluator.user) } }
+        after(:create) { |raster, evaluator| 2.times { raster.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user) } }
       end
     end
   end

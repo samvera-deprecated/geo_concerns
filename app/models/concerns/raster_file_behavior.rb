@@ -48,6 +48,6 @@ module RasterFileBehavior
   # Retrieve the Raster Work of which this Object is a member
   # @return [GeoConcerns::Raster]
   def raster
-    parents.find { |parent| parent.class.included_modules.include?(::RasterBehavior) }
+    generic_works.find { |parent| parent.class.included_modules.include?(::RasterBehavior) }
   end
 end

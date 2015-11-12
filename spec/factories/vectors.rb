@@ -18,13 +18,13 @@ FactoryGirl.define do
 
     factory :vector_with_one_file do
       before(:create) do |vector, evaluator|
-        vector.vector_files << FactoryGirl.create(:vector_file, user: evaluator.user, title:['A shapefile'], filename:'filename.zip')
+        vector.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user, title:['A shapefile'], filename:'filename.zip')
       end
     end
 
     factory :vector_with_files do
       before(:create) do |vector, evaluator|
-        2.times { vector.vector_files << FactoryGirl.create(:vector_file, user: evaluator.user) }
+        2.times { vector.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user) }
       end
     end
 
@@ -32,14 +32,14 @@ FactoryGirl.define do
       before(:create) do |vector, evaluator|
         2.times do
           raster = FactoryGirl.create(:raster, user: evaluator.user)
-          raster.vectors << vector
+          raster.ordered_members << vector
         end
       end
     end
 
     factory :vector_with_metadata_files do
       after(:create) do |vector, evaluator|
-        2.times { vector.metadata_files << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+        2.times { vector.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
       end
     end
 
@@ -54,7 +54,7 @@ FactoryGirl.define do
 
       factory :embargoed_vector_with_files do
         after(:build) { |vector, evaluator| vector.apply_embargo(evaluator.embargo_date, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }
-        after(:create) { |vector, evaluator| 2.times { vector.vector_files << FactoryGirl.create(:vector_file, user: evaluator.user) } }
+        after(:create) { |vector, evaluator| 2.times { vector.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user) } }
       end
 
       factory :leased_vector do
@@ -63,7 +63,7 @@ FactoryGirl.define do
 
       factory :leased_vector_with_files do
         after(:build) { |vector, evaluator| vector.apply_lease(evaluator.embargo_date, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE) }
-        after(:create) { |vector, evaluator| 2.times { vector.vector_files << FactoryGirl.create(:vector_file, user: evaluator.user) } }
+        after(:create) { |vector, evaluator| 2.times { vector.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user) } }
       end
     end
   end

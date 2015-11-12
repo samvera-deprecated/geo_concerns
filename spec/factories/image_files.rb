@@ -18,7 +18,6 @@ FactoryGirl.define do
 
     factory :image_file_with_image do
       after(:build) do |file, evaluator|
-        # file.title = ['An image file']
         FactoryGirl.create(:image, user: evaluator.user).image_files << file
       end
       after(:create) do |file, evaluator|

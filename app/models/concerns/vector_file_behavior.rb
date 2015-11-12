@@ -41,6 +41,6 @@ module VectorFileBehavior
   # Retrieve the Vector Work of which this Object is a member
   # @return [GeoConcerns::Vector]
   def vector
-    parents.find { |parent| parent.class.included_modules.include?(::VectorBehavior) }
+    generic_works.find { |parent| parent.class.included_modules.include?(::VectorBehavior) }
   end
 end
