@@ -1,10 +1,6 @@
 # Attributes and methods for raster files
 module RasterFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior
-  include ::CurationConcerns::GenericFileBehavior
-  include ::BasicGeoMetadata
-  include ::GeoreferencedBehavior
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
@@ -52,6 +48,6 @@ module RasterFileBehavior
   # Retrieve the Raster Work of which this Object is a member
   # @return [GeoConcerns::Raster]
   def raster
-    parents.find { |parent| parent.class.included_modules.include?(::RasterBehavior) }
+    generic_works.find { |parent| parent.class.included_modules.include?(::RasterBehavior) }
   end
 end

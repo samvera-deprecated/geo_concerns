@@ -1,9 +1,6 @@
 # Attributes and methods for vector metadata files
 module ExternalMetadataFileBehavior
   extend ActiveSupport::Concern
-  include Hydra::Works::GenericFileBehavior
-  include ::CurationConcerns::GenericFileBehavior
-  include ::MetadataFileBehavior
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,

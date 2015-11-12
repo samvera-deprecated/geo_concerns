@@ -5,11 +5,18 @@ module RasterBehavior
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
           "http://projecthydra.org/geoconcerns/models#Raster"]
+  end
 
-    # Specify the types of members
-    filters_association :members, as: :raster_files, condition: :raster_file?
-    filters_association :members, as: :metadata_files, condition: :external_metadata_file?
-    filters_association :members, as: :vectors, condition: :vector?
+  def raster_files
+    members.select(&:raster_file?)
+  end
+
+  def metadata_files
+    members.select(&:external_metadata_file?)
+  end
+
+  def vectors
+    members.select(&:vector?)
   end
 
   # Defines type by what it is and isn't

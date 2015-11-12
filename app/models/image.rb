@@ -5,5 +5,4 @@ class Image < ActiveFedora::Base
   include ::ImageBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
-  validates :title, presence: { message: 'Your work must have a title.' }
 end

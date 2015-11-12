@@ -5,9 +5,18 @@ module ImageBehavior
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
           "http://projecthydra.org/geoconcerns/models#Image"]
-    filters_association :members, as: :image_files, condition: :image_file?
-    filters_association :members, as: :metadata_files, condition: :external_metadata_file?
-    filters_association :members, as: :rasters, condition: :raster?
+  end
+
+  def image_file
+    members.select(&:image_file?).to_a.first
+  end
+
+  def metadata_files
+    members.select(&:external_metadata_file?)
+  end
+
+  def rasters
+    members.select(&:raster?)
   end
 
   # Defines type by what it is and isn't
