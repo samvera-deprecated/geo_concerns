@@ -1,5 +1,5 @@
 # Attributes and methods for image works
-module ImageBehavior
+module ImageWorkBehavior
   extend ActiveSupport::Concern
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,

@@ -1,5 +1,5 @@
 # Attributes and methods for raster works
-module RasterBehavior
+module RasterWorkBehavior
   extend ActiveSupport::Concern
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,

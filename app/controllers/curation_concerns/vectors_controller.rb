@@ -3,5 +3,5 @@
 
 class CurationConcerns::VectorsController < ApplicationController
   include CurationConcerns::CurationConcernController
-  set_curation_concern_type Vector
+  set_curation_concern_type VectorWork
 end

@@ -1,5 +1,5 @@
 # Attributes and methods for vector works
-module VectorBehavior
+module VectorWorkBehavior
   extend ActiveSupport::Concern
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
