@@ -5,4 +5,5 @@ class Raster < ActiveFedora::Base
   include ::RasterBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
+  include ::GeoreferencedBehavior
 end

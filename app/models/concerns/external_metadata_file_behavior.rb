@@ -3,6 +3,12 @@ module ExternalMetadataFileBehavior
   extend ActiveSupport::Concern
 
   included do
+    # Specifies the metadata standard to which the metadata file conforms
+    # @see http://dublincore.org/documents/dcmi-terms/#terms-conformsTo
+    property :conforms_to, predicate: ::RDF::DC.conformsTo do |index|
+      index.as :stored_searchable, :facetable
+    end
+
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
           "http://projecthydra.org/geoconcerns/models#ExternalMetadataFile"]

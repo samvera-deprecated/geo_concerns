@@ -27,13 +27,13 @@ describe VectorFile do
   end
 
   it 'updates the bounding box' do
-    subject.attributes = { georss_box: '17.881242 -179.14734 71.390482 179.778465' }
-    expect(subject.georss_box).to eq('17.881242 -179.14734 71.390482 179.778465')
+    subject.attributes = { bounding_box: '17.881242 -179.14734 71.390482 179.778465' }
+    expect(subject.bounding_box).to eq('17.881242 -179.14734 71.390482 179.778465')
   end
 
   it 'updates the CRS' do
-    subject.attributes = { crs: 'urn:ogc:def:crs:EPSG::6326' }
-    expect(subject.crs).to eq('urn:ogc:def:crs:EPSG::6326')
+    subject.attributes = { cartographic_projection: 'urn:ogc:def:crs:EPSG::6326' }
+    expect(subject.cartographic_projection).to eq('urn:ogc:def:crs:EPSG::6326')
   end
 
   describe 'metadata' do
@@ -42,11 +42,11 @@ describe VectorFile do
     end
 
     it 'has geospatial metadata' do
-      expect(subject).to respond_to(:georss_box)
+      expect(subject).to respond_to(:bounding_box)
     end
 
-    it 'has an authoritative CRS' do
-      expect(subject).to respond_to(:crs)
+    it 'has an authoritative cartographic projection' do
+      expect(subject).to respond_to(:cartographic_projection)
     end
   end
 
@@ -78,15 +78,15 @@ describe VectorFile do
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:vector_file,
                                  date_uploaded: Date.today,
-                                 georss_box: '17.881242 -179.14734 71.390482 179.778465',
-                                 crs: 'urn:ogc:def:crs:EPSG::6326').to_solr
+                                 bounding_box: '17.881242 -179.14734 71.390482 179.778465',
+                                 cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 
     it "indexes the bounding box" do
-      expect(solr_doc.keys).to include 'georss_box_tesim'
+      expect(solr_doc.keys).to include 'bounding_box_tesim'
     end
     it "indexes the coordinate reference system" do
-      expect(solr_doc.keys).to include 'crs_tesim'
+      expect(solr_doc.keys).to include 'cartographic_projection_tesim'
     end
   end
 end
