@@ -52,7 +52,7 @@ module RasterWorkBehavior
   # Retrieve all Image Works for which georeferencing generates this Raster Work
   # @return [Array]
   def images
-    aggregated_by.select { |parent| parent.class.included_modules.include?(::ImageBehavior) }
+    aggregated_by.select { |parent| parent.class.included_modules.include?(::ImageWorkBehavior) }
   end
 
   # Retrieve the only Image Works for which georeferencing generates this Raster Work

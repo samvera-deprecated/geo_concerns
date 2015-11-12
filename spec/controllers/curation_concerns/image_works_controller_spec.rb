@@ -2,9 +2,8 @@
 #  `rails generate curation_concerns:work Image`
 require 'rails_helper'
 
-describe CurationConcerns::ImageForm do
+describe CurationConcerns::ImageWorksController do
   it "has tests" do
     skip "Add your tests here"
   end
 end
-

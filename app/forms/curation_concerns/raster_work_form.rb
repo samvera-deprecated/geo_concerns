@@ -1,7 +1,7 @@
 # Generated via
 #  `rails generate curation_concerns:work Raster`
 module CurationConcerns
-  class RasterActor < CurationConcerns::BaseActor
-    include ::CurationConcerns::WorkActorBehavior
+  class RasterWorkForm < CurationConcerns::Forms::WorkForm
+    self.model_class = ::RasterWork
   end
 end
