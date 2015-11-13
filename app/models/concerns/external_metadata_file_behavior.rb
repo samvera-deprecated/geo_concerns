@@ -11,12 +11,12 @@ module ExternalMetadataFileBehavior
 
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          "http://projecthydra.org/geoconcerns/models#ExternalMetadataFile"]
+          'http://projecthydra.org/geoconcerns/models#ExternalMetadataFile']
   end
 
   # Defines type by what it is and isn't
   # @return [Boolean]
-  def image?
+  def image_work?
     false
   end
 
@@ -24,7 +24,7 @@ module ExternalMetadataFileBehavior
     false
   end
 
-  def raster?
+  def raster_work?
     false
   end
 
@@ -32,7 +32,7 @@ module ExternalMetadataFileBehavior
     false
   end
 
-  def vector?
+  def vector_work?
     false
   end
 

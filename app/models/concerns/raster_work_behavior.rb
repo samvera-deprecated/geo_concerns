@@ -1,10 +1,10 @@
 # Attributes and methods for raster works
-module RasterBehavior
+module RasterWorkBehavior
   extend ActiveSupport::Concern
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          "http://projecthydra.org/geoconcerns/models#Raster"]
+          'http://projecthydra.org/geoconcerns/models#RasterWork']
   end
 
   def raster_files
@@ -15,13 +15,13 @@ module RasterBehavior
     members.select(&:external_metadata_file?)
   end
 
-  def vectors
-    members.select(&:vector?)
+  def vector_works
+    members.select(&:vector_work?)
   end
 
   # Defines type by what it is and isn't
   # @return [Boolean]
-  def image?
+  def image_work?
     false
   end
 
@@ -29,7 +29,7 @@ module RasterBehavior
     false
   end
 
-  def raster?
+  def raster_work?
     true
   end
 
@@ -37,7 +37,7 @@ module RasterBehavior
     false
   end
 
-  def vector?
+  def vector_work?
     false
   end
 
@@ -51,13 +51,13 @@ module RasterBehavior
 
   # Retrieve all Image Works for which georeferencing generates this Raster Work
   # @return [Array]
-  def images
-    aggregated_by.select { |parent| parent.class.included_modules.include?(::ImageBehavior) }
+  def image_works
+    aggregated_by.select { |parent| parent.class.included_modules.include?(::ImageWorkBehavior) }
   end
 
   # Retrieve the only Image Works for which georeferencing generates this Raster Work
-  # @return [GeoConcerns::Image]
-  def image
-    images.first
+  # @return [GeoConcerns::ImageWork]
+  def image_work
+    image_works.first
   end
 end
