@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" version="3.4" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd">
+    <titleInfo>
+        <title>Sectional maps : [of western Canada, three miles to one inch, new style]</title>
+        <partNumber>566</partNumber>
+        <partName>McKay sheet, west of fourth meridian, Alberta</partName>
+    </titleInfo>
+    <name type="corporate">
+        <namePart>Canada. Department of the Interior</namePart>
+        <role>
+            <roleTerm type="text" authority="marcrelator">creator</roleTerm>
+        </role>
+    </name>
+    <typeOfResource>cartographic</typeOfResource>
+    <typeOfResource>still image</typeOfResource>
+    <genre authority="lcgft" valueURI="http://id.loc.gov/authorities/genreForms/gf2011026113">Cartographic materials</genre>
+    <genre authority="rdacontent" valueURI="http://rdvocab.info/termList/RDAContentType/1002">cartographic image</genre>
+    <originInfo>
+        <publisher>Department of the Interior</publisher>
+        <place>
+            <placeTerm type="text">Ottawa, Ontario</placeTerm>
+        </place>
+        <dateIssued encoding="w3cdtf" keyDate="yes">1914</dateIssued>
+        <edition>1</edition>
+    </originInfo>
+    <language>
+        <languageTerm authority="iso639-2b">eng</languageTerm>
+    </language>
+    <physicalDescription>
+        <form>Map : color</form>
+        <digitalOrigin>digitized other analog</digitalOrigin>
+    </physicalDescription>
+    <note>Scanned by University of Alberta Libraries, 2014.</note>
+    <note>Relief shown by hachures.</note>
+    <subject>
+        <cartographics>
+            <scale>1:190080</scale>
+            <coordinates>(W 112°08ʹ--W 112°02ʹ/N 57°24ʹ--N 56°40ʹ)</coordinates>
+        </cartographics>
+    </subject>
+    <subject>
+        <topic authority="lcsh" authorityURI="http://id.loc.gov/authorities/subjects.html" lang="eng">Fort McMurray (Alta.)--Maps</topic>
+    </subject>
+    <subject>
+        <geographic lang="eng" valueURI="http://sws.geonames.org/5955895/" authority="geonames" authorityURI="http://www.geonames.org/ontology#">Fort McMurray</geographic>
+    </subject>
+    <subject>
+        <temporal encoding="w3cdtf">1914</temporal>
+    </subject>
+    <location>
+        <url>http://dx.doi.org/10.7939/DVN/10200</url>
+    </location>
+    <recordInfo>
+        <recordContentSource>University of Alberta</recordContentSource>
+        <recordIdentifier>http://example.com/id3141592</recordIdentifier>
+        <recordOrigin>This record was created for demonstration purposes.</recordOrigin>
+        <languageOfCataloging>
+            <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+        </languageOfCataloging>
+    </recordInfo>
+</mods>
