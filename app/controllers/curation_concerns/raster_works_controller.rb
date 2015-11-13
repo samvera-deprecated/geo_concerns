@@ -1,5 +1,5 @@
 # Generated via
-#  `rails generate curation_concerns:work Raster`
+#  `rails generate curation_concerns:work RasterWork`
 
 class CurationConcerns::RasterWorksController < ApplicationController
   include CurationConcerns::CurationConcernController

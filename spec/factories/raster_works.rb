@@ -28,14 +28,14 @@ FactoryGirl.define do
       end
     end
 
-    factory :raster_work_with_images do
+    factory :raster_work_with_image_works do
       before(:create) do |raster_work, evaluator|
         image = FactoryGirl.create(:image, user: evaluator.user)
         image.ordered_members << raster_work
       end
     end
 
-    factory :raster_work_with_vectors do
+    factory :raster_work_with_vector_works do
       after(:create) do |raster_work, evaluator|
         2.times { raster_work.ordered_members << FactoryGirl.create(:vector_work, user: evaluator.user) }
       end

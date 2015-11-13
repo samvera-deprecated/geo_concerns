@@ -1,5 +1,5 @@
 # Generated via
-#  `rails generate curation_concerns:work Raster`
+#  `rails generate curation_concerns:work RasterWork`
 module CurationConcerns
   class RasterWorkForm < CurationConcerns::Forms::WorkForm
     self.model_class = ::RasterWork

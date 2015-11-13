@@ -1,5 +1,5 @@
 # Generated via
-#  `rails generate curation_concerns:work Image`
+#  `rails generate curation_concerns:work ImageWork`
 
 class CurationConcerns::ImageWorksController < ApplicationController
   include CurationConcerns::CurationConcernController

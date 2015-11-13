@@ -5,12 +5,12 @@ module RasterFileBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          "http://projecthydra.org/geoconcerns/models#RasterFile"]
+          'http://projecthydra.org/geoconcerns/models#RasterFile']
   end
 
   # Defines type by what it is and isn't
   # @return [Boolean]
-  def image?
+  def image_work?
     false
   end
 
@@ -18,7 +18,7 @@ module RasterFileBehavior
     false
   end
 
-  def raster?
+  def raster_work?
     false
   end
 
@@ -26,7 +26,7 @@ module RasterFileBehavior
     true
   end
 
-  def vector?
+  def vector_work?
     false
   end
 
@@ -47,7 +47,7 @@ module RasterFileBehavior
 
   # Retrieve the Raster Work of which this Object is a member
   # @return [GeoConcerns::Raster]
-  def raster
+  def raster_work
     generic_works.find { |parent| parent.class.included_modules.include?(::RasterWorkBehavior) }
   end
 end

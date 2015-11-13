@@ -4,7 +4,7 @@ module VectorWorkBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          "http://projecthydra.org/geoconcerns/models#Vector"]
+          'http://projecthydra.org/geoconcerns/models#VectorWork']
   end
 
   def vector_files
@@ -17,7 +17,7 @@ module VectorWorkBehavior
 
   # Defines type by what it is and isn't
   # @return [Boolean]
-  def image?
+  def image_work?
     false
   end
 
@@ -25,7 +25,7 @@ module VectorWorkBehavior
     false
   end
 
-  def raster?
+  def raster_work?
     false
   end
 
@@ -33,7 +33,7 @@ module VectorWorkBehavior
     false
   end
 
-  def vector?
+  def vector_work?
     true
   end
 
@@ -47,7 +47,7 @@ module VectorWorkBehavior
 
   # Retrieve all Raster Works for which this Vector Work can be extracted
   # @return [Array]
-  def rasters
+  def raster_works
     aggregated_by.select { |parent| parent.class.included_modules.include?(::RasterWorkBehavior) }
   end
 end
