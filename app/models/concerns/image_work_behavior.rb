@@ -4,7 +4,7 @@ module ImageWorkBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          "http://projecthydra.org/geoconcerns/models#Image"]
+          'http://projecthydra.org/geoconcerns/models#ImageWork']
   end
 
   def image_file
@@ -15,8 +15,8 @@ module ImageWorkBehavior
     members.select(&:external_metadata_file?)
   end
 
-  def rasters
-    members.select(&:raster?)
+  def raster_works
+    members.select(&:raster_work?)
   end
 
   # Defines type by what it is and isn't
@@ -35,7 +35,7 @@ module ImageWorkBehavior
 
   # This is not an ImageFile Resource
   # @return [Boolean]
-  def raster?
+  def raster_work?
     false
   end
 
@@ -47,7 +47,7 @@ module ImageWorkBehavior
 
   # This is not an ImageFile Resource
   # @return [Boolean]
-  def vector?
+  def vector_work?
     false
   end
 
@@ -62,26 +62,6 @@ module ImageWorkBehavior
   def external_metadata_file?
     false
   end
-
-  # #get types of members
-  # def image_file
-  #   members.select(&:image_file?)
-  # end
-  # def image_file_id
-  #   image_file.map(&:id)
-  # end
-  # def metadata_files
-  #   members.select(&:external_metadata_file?)
-  # end
-  # def metadata_files_ids
-  #   metadata_files.map(&:id)
-  # end
-  # def rasters
-  #   members.select(&:raster?)
-  # end
-  # def rasters_ids
-  #   rasters.map(&:id)
-  # end
 
   # Extracts properties from the constitutent external metadata file
   # @return [Hash]

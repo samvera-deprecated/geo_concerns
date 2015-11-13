@@ -28,7 +28,7 @@ FactoryGirl.define do
       end
     end
 
-    factory :vector_work_with_rasters do
+    factory :vector_work_with_raster_works do
       before(:create) do |vector_work, evaluator|
         2.times do
           raster = FactoryGirl.create(:raster, user: evaluator.user)

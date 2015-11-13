@@ -1,5 +1,5 @@
 # Generated via
-#  `rails generate curation_concerns:work Vector`
+#  `rails generate curation_concerns:work VectorWork`
 
 class CurationConcerns::VectorWorksController < ApplicationController
   include CurationConcerns::CurationConcernController

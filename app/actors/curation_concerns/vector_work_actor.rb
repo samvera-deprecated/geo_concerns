@@ -1,5 +1,5 @@
 # Generated via
-#  `rails generate curation_concerns:work Vector`
+#  `rails generate curation_concerns:work VectorWork`
 module CurationConcerns
   class VectorWorkActor < CurationConcerns::BaseActor
     include ::CurationConcerns::WorkActorBehavior

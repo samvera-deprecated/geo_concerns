@@ -1,5 +1,5 @@
 # Generated via
-#  `rails generate curation_concerns:work Image`
+#  `rails generate curation_concerns:work ImageWork`
 require 'rails_helper'
 require 'spec_helper'
 
@@ -32,16 +32,16 @@ describe ImageWork do
       subject.members << raster2
       expect(subject.image_file).to eq image_file1
       expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
-      expect(subject.rasters).to eq [raster1,raster2]
+      expect(subject.raster_works).to eq [raster1,raster2]
     end
   end
 
   context 'georeferenced to a raster' do
-    subject { FactoryGirl.create(:image_work_with_rasters, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:image_work_with_raster_works, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'aggregates by raster resources' do
-      expect(subject.rasters.size).to eq 2
-      expect(subject.rasters.first).to be_kind_of RasterWork
+      expect(subject.raster_works.size).to eq 2
+      expect(subject.raster_works.first).to be_kind_of RasterWork
     end
   end
 end

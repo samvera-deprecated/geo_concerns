@@ -42,7 +42,7 @@ describe RasterWork do
       subject.members << vector2
       expect(subject.raster_files).to eq [raster_file1,raster_file2]
       expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
-      expect(subject.vectors).to eq [vector1,vector2]
+      expect(subject.vector_works).to eq [vector1,vector2]
     end
   end
 
@@ -56,11 +56,11 @@ describe RasterWork do
   end
 
   context 'with vector feature extractions' do
-    subject { FactoryGirl.create(:raster_work_with_vectors) }
+    subject { FactoryGirl.create(:raster_work_with_vector_works) }
 
     it 'aggregates vector data set resources' do
-      expect(subject.vectors.size).to eq 2
-      expect(subject.vectors.first).to be_kind_of VectorWork
+      expect(subject.vector_works.size).to eq 2
+      expect(subject.vector_works.first).to be_kind_of VectorWork
     end
   end
 
