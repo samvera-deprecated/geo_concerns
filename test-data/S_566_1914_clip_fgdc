@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <pubdate>20141106</pubdate>
+        <title>S_566_1914_clip.tif</title>
+        <geoform>remote-sensing image</geoform>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This raster file is the result of georeferencing using esri's ArcScan of Sheet 566: McKay, Alberta, 1st ed. 1st of July, 1914. This sheet is part of the 3-mile to 1-inch sectional maps of Western Canada. vectorization was undertaken to extract a measure of line work density in order to measure Cartographic Intactness. The map series is described in Dubreuil, Lorraine. 1989. Sectional maps of western Canada, 1871-1955: An early Canadian topographic map series. Occasional paper no. 2, Association of Canadian Map Libraries and Archives.</abstract>
+    </descript>
+    <status>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-112.470330</westbc>
+        <eastbc>-109.622454</eastbc>
+        <northbc>57.465375</northbc>
+        <southbc>56.580532</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>http://id.loc.gov/authorities/subjects.html</themekt>
+        <themekey>Land cover</themekey>
+      </theme>
+      <theme>
+        <themekt>http://id.loc.gov/authorities/subjects.html</themekt>
+        <themekey>Land use, rural</themekey>
+      </theme>
+      <theme>
+        <themekt>ISO 19115 Topic Categories</themekt>
+        <themekey>society</themekey>
+        <themekey>imageryBaseMapsEarthCover</themekey>
+        <themekey>biota</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Alberta</placekey>
+      </place>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Western Canada</placekey>
+      </place>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Fort McMurray (Alta.)</placekey>
+      </place>
+      <place>
+        <placekt>None</placekt>
+        <placekey>McKay (Alta.)</placekey>
+      </place>
+      <temporal>
+        <tempkt>None</tempkt>
+        <tempkey>1914</tempkey>
+      </temporal>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>None</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>University of Alberta</cntorg>
+          <cntper>Larry Laliberte</cntper>
+        </cntorgp>
+        <cntpos>GIS Librarian</cntpos>
+      </cntinfo>
+    </ptcontac>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>University of Alberta</cntorg>
+          <cntper>John Huck</cntper>
+        </cntorgp>
+        <cntpos>Metadata Librarian</cntpos>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Laliberte, Larry W.</datacred>
+    <native>Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.2.2.3552</native>
+  </idinfo>
+  <spdoinfo>
+    <direct>Raster</direct>
+    <rastinfo>
+      <rasttype>Pixel</rasttype>
+      <rowcount>6212</rowcount>
+      <colcount>11731</colcount>
+    </rastinfo>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>NAD 1983 10TM AEP Forest</mapprojn>
+          <transmer>
+            <sfctrmer>0.9992</sfctrmer>
+            <longcm>-115.0</longcm>
+            <latprjo>0.0</latprjo>
+            <feast>500000.0</feast>
+            <fnorth>0.0</fnorth>
+          </transmer>
+        </mapproj>
+        <planci>
+          <plance>coordinate pair</plance>
+          <coordrep>
+            <absres>0.000000002219135986081256</absres>
+            <ordres>0.000000002219135986081256</ordres>
+          </coordrep>
+          <plandu>meter</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>D North American 1983</horizdn>
+        <ellips>GRS 1980</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257222101</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <metainfo>
+    <metd>20151113</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>University of Alberta</cntorg>
+          <cntper>John Huck</cntper>
+        </cntorgp>
+        <cntpos>Metadata Librarian</cntpos>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+    <mettc>local time</mettc>
+  </metainfo>
+</metadata>
