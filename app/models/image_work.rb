@@ -1,8 +1,8 @@
 # Generated via
-#  `rails generate curation_concerns:work Image`
-class Image < ActiveFedora::Base
+#  `rails generate curation_concerns:work ImageWork`
+class ImageWork < ActiveFedora::Base
   include ::CurationConcerns::WorkBehavior
-  include ::ImageBehavior
+  include ::ImageWorkBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
 end

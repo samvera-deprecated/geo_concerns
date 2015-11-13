@@ -1,8 +1,8 @@
 # Generated via
-#  `rails generate curation_concerns:work Vector`
-class Vector < ActiveFedora::Base
+#  `rails generate curation_concerns:work VectorWork`
+class VectorWork < ActiveFedora::Base
   include ::CurationConcerns::WorkBehavior
-  include ::VectorBehavior
+  include ::VectorWorkBehavior
   include ::CurationConcerns::BasicMetadata
   include ::BasicGeoMetadata
   include ::GeoreferencedBehavior

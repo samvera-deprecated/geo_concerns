@@ -5,12 +5,12 @@ module ImageFileBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          "http://projecthydra.org/geoconcerns/models#ImageFile"]
+          'http://projecthydra.org/geoconcerns/models#ImageFile']
   end
 
   # Defines type by what it is and isn't
   # @return [Boolean]
-  def image?
+  def image_work?
     false
   end
 
@@ -18,7 +18,7 @@ module ImageFileBehavior
     true
   end
 
-  def raster?
+  def raster_work?
     false
   end
 
@@ -26,7 +26,7 @@ module ImageFileBehavior
     false
   end
 
-  def vector?
+  def vector_work?
     false
   end
 
@@ -46,8 +46,8 @@ module ImageFileBehavior
   end
 
   # Retrieve the Image Work of which this Object is a member
-  # @return [GeoConcerns::Image]
-  def image
-    generic_works.find { |parent| parent.class.included_modules.include?(::ImageBehavior) }
+  # @return [GeoConcerns::ImageWork]
+  def image_work
+    generic_works.find { |parent| parent.class.included_modules.include?(::ImageWorkBehavior) }
   end
 end

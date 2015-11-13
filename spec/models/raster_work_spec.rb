@@ -2,14 +2,14 @@
 #  `rails generate curation_concerns:work Raster`
 require 'rails_helper'
 
-describe Raster do
+describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:raster_file1) { RasterFile.new }
   let(:raster_file2) { RasterFile.new }
   let(:ext_metadata_file1 ) { ExternalMetadataFile.new}
   let(:ext_metadata_file2 ) { ExternalMetadataFile.new}
-  let(:vector1 ) { Vector.new}
-  let(:vector2 ) { Vector.new}
+  let(:vector1 ) { VectorWork.new}
+  let(:vector2 ) { VectorWork.new}
 
   it 'updates the title' do
     subject.attributes = { title: ['A raster work'] }
@@ -42,12 +42,12 @@ describe Raster do
       subject.members << vector2
       expect(subject.raster_files).to eq [raster_file1,raster_file2]
       expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
-      expect(subject.vectors).to eq [vector1,vector2]
+      expect(subject.vector_works).to eq [vector1,vector2]
     end
   end
 
   context 'with raster files' do
-    subject { FactoryGirl.create(:raster_with_files, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:raster_work_with_files, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
 
     it 'has two files' do
       expect(subject.raster_files.size).to eq 2
@@ -56,16 +56,16 @@ describe Raster do
   end
 
   context 'with vector feature extractions' do
-    subject { FactoryGirl.create(:raster_with_vectors) }
+    subject { FactoryGirl.create(:raster_work_with_vector_works) }
 
     it 'aggregates vector data set resources' do
-      expect(subject.vectors.size).to eq 2
-      expect(subject.vectors.first).to be_kind_of Vector
+      expect(subject.vector_works.size).to eq 2
+      expect(subject.vector_works.first).to be_kind_of VectorWork
     end
   end
 
   context 'with metadata files' do
-    subject { FactoryGirl.create(:raster_with_metadata_files) }
+    subject { FactoryGirl.create(:raster_work_with_metadata_files) }
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
@@ -74,7 +74,7 @@ describe Raster do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:raster, date_uploaded: Date.today, bounding_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
+    subject { FactoryGirl.build(:raster_work, date_uploaded: Date.today, bounding_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
     it "indexes bbox field" do
       expect(subject.keys).to include 'bounding_box_tesim'
     end
