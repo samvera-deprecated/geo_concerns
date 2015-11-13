@@ -65,4 +65,41 @@ describe Vector do
       expect(subject.keys).to include 'bounding_box_tesim'
     end
   end
+
+  describe 'extract_metadata' do
+    subject { FactoryGirl.create(:vector_with_metadata_files) }
+
+    it 'has an extraction method' do
+      expect(subject).to respond_to(:extract_metadata)
+    end
+
+    it 'can route extraction' do
+      doc = Nokogiri::XML(read_test_data_fixture('S_566_1914_clip.xml'))
+      externalMetadataFile = subject.metadata_files.first
+      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
+      allow(externalMetadataFile).to receive(:metadata_xml) { doc }
+      subject.extract_metadata
+      expect(subject.title).to eq([ 'S_566_1914_clip' ])
+    end
+    
+    it 'can extract ISO 19139 metadata' do
+      doc = Nokogiri::XML(read_test_data_fixture('S_566_1914_clip.xml'))
+      externalMetadataFile = subject.metadata_files.first
+      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
+      expect(externalMetadataFile.extract_iso19139_metadata(doc)).to eq({ 
+        title: ['S_566_1914_clip'],
+        bounding_box: '56.407644 -112.469675 57.595712 -109.860605',
+        description: ['This .shp file (lines) is the result of georeferencing and performing a raster to vector conversion using esri\'s ArcScan of Sheet 566: McKay, Alberta, 1st ed. 1st of July, 1914. This sheet is part of the 3-mile to 1-inch sectional maps of Western Canada. vectorization was undertaken to extract a measure of line work density in order to measure Cartographic Intactness. The original georeferenced scan, and world file of the original map, published by the Department of the Interior, is included in the study for reference purposes.'],
+        source: ['Larry Laliberte']
+      })
+    end
+
+    it 'can extract MODS metadata' do
+      doc = Nokogiri::XML(read_test_data_fixture('bb099zb1450_mods.xml'))
+      externalMetadataFile = subject.metadata_files.first
+      externalMetadataFile.conforms_to = 'MODS'
+      expect(externalMetadataFile.conforms_to.downcase).to eq('mods')
+      expect(externalMetadataFile.extract_mods_metadata(doc)).to eq({ title: 'Department Boundary: Haute-Garonne, France, 2010 ' })
+    end
+  end
 end

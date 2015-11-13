@@ -6,6 +6,7 @@ FactoryGirl.define do
     end
 
     after(:build) do |file, evaluator|
+      file.conforms_to = 'ISO19139'
       file.apply_depositor_metadata(evaluator.user.user_key)
     end
 
