@@ -41,6 +41,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :raster_work_with_one_metadata_file do
+      after(:create) do |raster_work, evaluator|
+
+        1.times { raster_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+      end
+    end
+
     factory :raster_work_with_metadata_files do
       after(:create) do |raster_work, evaluator|
 

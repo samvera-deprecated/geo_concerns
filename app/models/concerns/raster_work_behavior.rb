@@ -1,6 +1,7 @@
 # Attributes and methods for raster works
 module RasterWorkBehavior
   extend ActiveSupport::Concern
+  include ::MetadataExtractionHelper
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,

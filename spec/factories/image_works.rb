@@ -22,6 +22,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :image_work_with_one_metadata_file do
+      after(:create) do |image_work, evaluator|
+
+        1.times { image_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+      end
+    end
+
     factory :image_work_with_raster_works do
       before(:create) do |image_work, evaluator|
         2.times { image_work.ordered_members << FactoryGirl.create(:raster_work, user: evaluator.user) }

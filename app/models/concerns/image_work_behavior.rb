@@ -1,6 +1,7 @@
 # Attributes and methods for image works
 module ImageWorkBehavior
   extend ActiveSupport::Concern
+  include ::MetadataExtractionHelper
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
