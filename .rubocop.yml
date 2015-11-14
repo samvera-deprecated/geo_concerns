@@ -12,7 +12,7 @@ AllCops:
     - 'script/**/*'
     - 'vendor/**/*'
     - 'spec/internal/**/*'
-    - 'misc/*'
+    - 'misc/**/*'
 
     - 'spec/**/*' # Remove
     - 'config/**/*' # Remove
