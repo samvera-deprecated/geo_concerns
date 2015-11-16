@@ -5,7 +5,7 @@ module VectorWorkBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          Vocab::GeoTerms.VectorWork]
+          ::Vocab::GeoTerms.VectorWork]
   end
 
   def vector_files

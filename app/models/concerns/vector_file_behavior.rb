@@ -5,7 +5,7 @@ module VectorFileBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          Vocab::GeoTerms.VectorFile]
+          ::Vocab::GeoTerms.VectorFile]
   end
 
   # Defines type by what it is and isn't

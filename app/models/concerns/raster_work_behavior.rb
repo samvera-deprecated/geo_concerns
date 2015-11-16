@@ -5,7 +5,7 @@ module RasterWorkBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          Vocab::GeoTerms.RasterWork]
+          ::Vocab::GeoTerms.RasterWork]
   end
 
   def raster_files

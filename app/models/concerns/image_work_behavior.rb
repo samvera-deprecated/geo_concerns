@@ -5,7 +5,7 @@ module ImageWorkBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          Vocab::GeoTerms.ImageWork]
+          ::Vocab::GeoTerms.ImageWork]
   end
 
   def image_file
