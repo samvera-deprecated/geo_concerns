@@ -1,10 +1,11 @@
 # Attributes and methods for vector works
 module VectorWorkBehavior
   extend ActiveSupport::Concern
+
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          'http://projecthydra.org/geoconcerns/models#VectorWork']
+          Vocab::GeoTerms.VectorWork]
   end
 
   def vector_files

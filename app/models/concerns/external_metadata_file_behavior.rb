@@ -11,7 +11,7 @@ module ExternalMetadataFileBehavior
 
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          'http://projecthydra.org/geoconcerns/models#ExternalMetadataFile']
+          Vocab::GeoTerms.ExternalMetadataFile]
   end
 
   # Defines type by what it is and isn't
