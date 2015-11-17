@@ -5,7 +5,7 @@ module ImageFileBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          'http://projecthydra.org/geoconcerns/models#ImageFile']
+          ::Vocab::GeoTerms.ImageFile]
   end
 
   # Defines type by what it is and isn't

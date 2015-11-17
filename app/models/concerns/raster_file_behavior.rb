@@ -5,7 +5,7 @@ module RasterFileBehavior
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericFile,
-          'http://projecthydra.org/geoconcerns/models#RasterFile']
+          ::Vocab::GeoTerms.RasterFile]
   end
 
   # Defines type by what it is and isn't

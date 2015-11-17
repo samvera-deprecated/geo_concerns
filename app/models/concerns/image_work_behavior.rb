@@ -1,10 +1,11 @@
 # Attributes and methods for image works
 module ImageWorkBehavior
   extend ActiveSupport::Concern
+
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          'http://projecthydra.org/geoconcerns/models#ImageWork']
+          ::Vocab::GeoTerms.ImageWork]
   end
 
   def image_file

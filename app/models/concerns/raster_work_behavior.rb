@@ -1,10 +1,11 @@
 # Attributes and methods for raster works
 module RasterWorkBehavior
   extend ActiveSupport::Concern
+
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
           Hydra::Works::Vocab::WorksTerms.GenericWork,
-          'http://projecthydra.org/geoconcerns/models#RasterWork']
+          ::Vocab::GeoTerms.RasterWork]
   end
 
   def raster_files
