@@ -79,4 +79,21 @@ describe RasterWork do
       expect(subject.keys).to include 'bounding_box_tesim'
     end
   end
+
+  describe 'extract_metadata' do
+    subject { FactoryGirl.create(:raster_work_with_one_metadata_file) }
+
+    it 'has an extraction method' do
+      expect(subject).to respond_to(:extract_metadata)
+    end
+
+    it 'can perform extraction for ISO 19139' do
+      doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml'))
+      externalMetadataFile = subject.metadata_files.first
+      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
+      allow(externalMetadataFile).to receive(:metadata_xml) { doc }
+      subject.extract_metadata
+      expect(subject.title).to eq(['S_566_1914_clip.tif'])
+    end
+  end
 end
