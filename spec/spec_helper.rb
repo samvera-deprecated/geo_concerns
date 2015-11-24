@@ -90,5 +90,5 @@ else
 end
 
 def read_test_data_fixture(name)
-  File.read(File.join(File.dirname(__FILE__), '..', 'test-data', name))
+  File.read(File.join(File.dirname(__FILE__), 'fixtures', name))
 end
