@@ -1,12 +1,12 @@
 FactoryGirl.define do
-  factory :external_metadata_file, class: ExternalMetadataFile do
+  factory :external_metadata_file, class: FileSet do
+    initialize_with { new({ geo_file_format: 'ISO19139' }) }
     transient do
       user { FactoryGirl.create(:user) }
       content nil
     end
 
     after(:build) do |file, evaluator|
-      file.conforms_to = 'ISO19139'
       file.apply_depositor_metadata(evaluator.user.user_key)
     end
 

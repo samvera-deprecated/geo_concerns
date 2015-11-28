@@ -4,10 +4,10 @@ require 'rails_helper'
 
 describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:vector_file1) { VectorFile.new }
-  let(:vector_file2) { VectorFile.new }
-  let(:ext_metadata_file1 ) { ExternalMetadataFile.new}
-  let(:ext_metadata_file2 ) { ExternalMetadataFile.new}
+  let(:vector_file1) { FileSet.new(geo_file_format: 'SHAPEFILE') }
+  let(:vector_file2) { FileSet.new(geo_file_format: 'SHAPEFILE') }
+  let(:ext_metadata_file1 ) { FileSet.new(geo_file_format: 'ISO19139') }
+  let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
 
   describe 'with acceptable inputs' do
     subject { described_class.new } 
@@ -46,7 +46,7 @@ describe VectorWork do
 
     it 'has two files' do
       expect(subject.vector_files.size).to eq 2
-      expect(subject.vector_files.first).to be_kind_of VectorFile
+      expect(subject.vector_files.first.geo_file_format).to eq 'SHAPEFILE'
     end
   end
 
@@ -55,7 +55,7 @@ describe VectorWork do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first).to be_kind_of ExternalMetadataFile
+      expect(subject.metadata_files.first.geo_file_format).to eq 'ISO19139'
     end
   end
 
@@ -76,7 +76,7 @@ describe VectorWork do
     it 'can perform extraction for ISO 19139' do
       doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml'))
       externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
+      expect(externalMetadataFile.geo_file_format.downcase).to eq('iso19139')
       allow(externalMetadataFile).to receive(:metadata_xml) { doc }
       subject.extract_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])

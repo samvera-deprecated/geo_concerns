@@ -5,11 +5,11 @@ require 'spec_helper'
 
 describe ImageWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:image_file1) { ImageFile.new }
-  let(:ext_metadata_file1 ) { ExternalMetadataFile.new}
-  let(:ext_metadata_file2 ) { ExternalMetadataFile.new}
-  let(:raster1 ) { RasterWork.new}
-  let(:raster2 ) { RasterWork.new}
+  let(:image_file1) { FileSet.new(geo_file_format: 'TIFF') }
+  let(:ext_metadata_file1 ) { FileSet.new(geo_file_format: 'ISO19139') }
+  let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
+  let(:raster1 ) { RasterWork.new }
+  let(:raster2 ) { RasterWork.new }
 
   it 'updates the title' do
     subject.attributes = { title: ['An image work'] }
@@ -55,7 +55,7 @@ describe ImageWork do
     it 'can perform extraction for ISO 19139' do
       doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml'))
       externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
+      expect(externalMetadataFile.geo_file_format.downcase).to eq('iso19139')
       allow(externalMetadataFile).to receive(:metadata_xml) { doc }
       subject.extract_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])

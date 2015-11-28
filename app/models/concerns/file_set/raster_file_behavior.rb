@@ -1,43 +1,6 @@
 # Attributes and methods for raster files
 module RasterFileBehavior
   extend ActiveSupport::Concern
-
-  included do
-    type [Hydra::PCDM::Vocab::PCDMTerms.Object,
-          Hydra::Works::Vocab::WorksTerms.GenericFile,
-          ::Vocab::GeoTerms.RasterFile]
-  end
-
-  # Defines type by what it is and isn't
-  # @return [Boolean]
-  def image_work?
-    false
-  end
-
-  def image_file?
-    false
-  end
-
-  def raster_work?
-    false
-  end
-
-  def raster_file?
-    true
-  end
-
-  def vector_work?
-    false
-  end
-
-  def vector_file?
-    false
-  end
-
-  def external_metadata_file?
-    false
-  end
-
   # Retrieve the JPEG preview for the raster data set
   # @return [Hydra::PCDM::File]
   # @see Hydra::Works::GenericFile#thumbnail

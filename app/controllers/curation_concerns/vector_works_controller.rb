@@ -4,4 +4,8 @@
 class CurationConcerns::VectorWorksController < ApplicationController
   include CurationConcerns::CurationConcernController
   set_curation_concern_type VectorWork
+
+  def show_presenter
+    ::VectorWorkShowPresenter
+  end
 end
