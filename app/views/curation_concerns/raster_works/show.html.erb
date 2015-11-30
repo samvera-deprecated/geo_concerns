@@ -1,0 +1,15 @@
+<% provide :page_title, @presenter.page_title %>
+<% provide :page_header do %>
+  <h1><%= @presenter %> <span class="human_readable_type">(<%= @presenter.human_readable_type %>)</span></h1>
+<% end %>
+
+<% collector = can?(:collect, @presenter.id) %>
+<% editor    = can?(:edit,    @presenter.id) %>
+
+<%= render 'representative_media', work: @presenter %>
+<%= render 'attributes', curation_concern: @presenter %>
+
+<%= render 'related_raster_files', presenter: @presenter %>
+<%= render 'related_external_metadata_files', presenter: @presenter %>
+
+<%= render "show_actions", collector: collector, editor: editor%>

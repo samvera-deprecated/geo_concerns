@@ -4,4 +4,8 @@
 class CurationConcerns::RasterWorksController < ApplicationController
   include CurationConcerns::CurationConcernController
   set_curation_concern_type RasterWork
+
+  def show_presenter
+    ::RasterWorkShowPresenter
+  end
 end

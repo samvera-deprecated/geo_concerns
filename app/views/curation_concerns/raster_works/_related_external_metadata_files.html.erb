@@ -1,7 +1,7 @@
-<% if presenter.vector_file_presenters.present? %>
+<% if presenter.external_metadata_file_formats_presenters.present? %>
 <div class="panel panel-default related_files">
   <div class="panel-heading">
-    <h2>Vector File</h2>
+    <h2>Metadata Files</h2>
   </div>
   <table class="table table-striped">
     <thead>
@@ -14,11 +14,11 @@
       </tr>
     </thead>
     <tbody>
-      <%= render presenter.vector_file_presenters %>
+      <%= render presenter.external_metadata_file_formats_presenters %>
     </tbody>
   </table>
 </div>
 <% elsif can? :edit, presenter.id %>
-  <h2>Vector Files</h2>
-  <p class="center"><em>This <%= presenter.human_readable_type %> doesn't have a raster file associated with it. You can add one using the "Attach a File" button below.</em></p>
+  <h2>Metadata Files</h2>
+  <p class="center"><em>This <%= presenter.human_readable_type %> has no metadata files associated with it. You can add one using the "Attach a File" button below.</em></p>
 <% end %>

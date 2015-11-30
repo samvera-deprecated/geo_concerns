@@ -1,12 +1,12 @@
-class VectorWorkShowPresenter < CurationConcerns::WorkShowPresenter
-  def vector_file_presenters
+class RasterWorkShowPresenter < CurationConcerns::WorkShowPresenter
+  def raster_file_presenters
 
     # get all file presenters
     file_presenters
 
-    # filter for external vector files
+    # filter for raster files
     @file_sets.select do |file_set|
-      FileSet.vector_file_formats.include? file_set
+      FileSet.raster_file_formats.include? file_set
         .solr_document[:geo_file_format_tesim].first
     end
   end
