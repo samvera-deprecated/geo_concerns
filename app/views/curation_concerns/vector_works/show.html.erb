@@ -8,12 +8,8 @@
 
 <%= render 'representative_media', work: @presenter %>
 <%= render 'attributes', curation_concern: @presenter %>
-<%= render 'related_files', presenter: @presenter %>
+
 <%= render 'related_vector_files', presenter: @presenter %>
 <%= render 'related_external_metadata_files', presenter: @presenter %>
-
-<% if editor %>
-    <%= render partial: 'curation_concerns/file_sets/multiple_upload', presenter: @presenter %>
-<% end %>
 
 <%= render "show_actions", collector: collector, editor: editor%>
