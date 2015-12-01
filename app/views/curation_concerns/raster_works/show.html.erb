@@ -12,4 +12,6 @@
 <%= render 'related_raster_files', presenter: @presenter %>
 <%= render 'related_external_metadata_files', presenter: @presenter %>
 
+<%= render 'members', curation_concern: @presenter %>
+
 <%= render "show_actions", collector: collector, editor: editor%>

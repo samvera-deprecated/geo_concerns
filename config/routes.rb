@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   curation_concerns_embargo_management
   blacklight_for :catalog
 
+  namespace :curation_concerns, path: :concern do
+    resources :raster_works, only: [:new, :create], path: 'container/:parent_id/raster_works', as: 'member_raster_work'
+    resources :vector_works, only: [:new, :create], path: 'container/:parent_id/vector_works', as: 'member_vector_work'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
