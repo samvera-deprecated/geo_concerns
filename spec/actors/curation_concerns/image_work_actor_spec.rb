@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe CurationConcerns::ImageWorkActor do
-  it "has tests" do
-    skip "Add your tests here"
+  it 'behaves like a GenericWorkActor' do
+    expect(described_class.included_modules).to include(::CurationConcerns::WorkActorBehavior)
   end
 end

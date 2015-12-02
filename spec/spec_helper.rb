@@ -12,17 +12,17 @@ Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = ENV['TRAVIS'] ? 30 : 15
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'simplecov'
 
 $in_travis = !ENV['TRAVIS'].nil? && ENV['TRAVIS'] == 'true'
 
 if ENV['COVERAGE'] || ENV['CI']
-  require 'simplecov'
   require 'coveralls'
-
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter if ENV["CI"]
-  SimpleCov.start do
-    add_filter '/spec/'
-  end
+end
+
+SimpleCov.start('rails') do
+  add_filter '/spec'
 end
 
 require 'curation_concerns'

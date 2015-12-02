@@ -62,4 +62,11 @@ module RasterWorkBehavior
   def image_work
     image_works.first
   end
+
+  def to_solr(solr_doc = {})
+    super.tap do |doc|
+      doc[ActiveFedora::SolrQueryBuilder.solr_name("ordered_by", :symbol)] ||= []
+      doc[ActiveFedora::SolrQueryBuilder.solr_name("ordered_by", :symbol)] += send(:ordered_by_ids)
+    end
+  end
 end

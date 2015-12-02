@@ -11,6 +11,6 @@ module ImageFileBehavior
   # Retrieve the Image Work of which this Object is a member
   # @return [GeoConcerns::ImageWork]
   def image_work
-    generic_works.find { |parent| parent.class.included_modules.include?(::ImageWorkBehavior) }
+    generic_works.select { |parent| parent.class.included_modules.include?(::ImageWorkBehavior) }.to_a
   end
 end

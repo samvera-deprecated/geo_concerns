@@ -2,9 +2,4 @@
 class FileSet < ActiveFedora::Base
   include ::CurationConcerns::FileSetBehavior
   include ::GeoFileSetBehavior
-  include ::GeoFileFormatBehavior
-  include ::ImageFileBehavior
-  include ::RasterFileBehavior
-  include ::VectorFileBehavior
-  include ::ExternalMetadataFileBehavior
 end

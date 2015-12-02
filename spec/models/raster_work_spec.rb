@@ -78,6 +78,9 @@ describe RasterWork do
     it "indexes bbox field" do
       expect(subject.keys).to include 'bounding_box_tesim'
     end
+    it "indexes ordered_by_ssim field" do
+      expect(subject.keys).to include 'ordered_by_ssim'
+    end
   end
 
   describe 'extract_metadata' do

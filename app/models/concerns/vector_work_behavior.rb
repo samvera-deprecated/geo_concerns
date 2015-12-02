@@ -52,4 +52,11 @@ module VectorWorkBehavior
   def raster_works
     aggregated_by.select { |parent| parent.class.included_modules.include?(::RasterWorkBehavior) }
   end
+
+  def to_solr(solr_doc = {})
+    super.tap do |doc|
+      doc[ActiveFedora::SolrQueryBuilder.solr_name("ordered_by", :symbol)] ||= []
+      doc[ActiveFedora::SolrQueryBuilder.solr_name("ordered_by", :symbol)] += send(:ordered_by_ids)
+    end
+  end
 end

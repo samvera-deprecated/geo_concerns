@@ -4,6 +4,15 @@ module ExternalMetadataFileBehavior
   include ::Iso19139Helper
   include ::FgdcHelper
   include ::ModsHelper
+
+  included do
+    # Specifies the metadata standard to which the metadata file conforms
+    # @see http://dublincore.org/documents/dcmi-terms/#terms-conformsTo
+    property :conforms_to, predicate: ::RDF::Vocab::DC.conformsTo, multiple: false do |index|
+      index.as :stored_searchable, :facetable
+    end
+  end
+
   # Extracts properties from the constitutent external metadata file
   # @return [Hash]
   def extract_metadata

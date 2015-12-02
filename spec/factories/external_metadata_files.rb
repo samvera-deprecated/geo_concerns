@@ -7,6 +7,7 @@ FactoryGirl.define do
     end
 
     after(:build) do |file, evaluator|
+      file.title = ['A metadata file']
       file.apply_depositor_metadata(evaluator.user.user_key)
     end
 
