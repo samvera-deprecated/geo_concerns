@@ -4,7 +4,7 @@ module RasterFileBehavior
 
   included do
     type [Hydra::PCDM::Vocab::PCDMTerms.Object,
-          Hydra::Works::Vocab::WorksTerms.GenericFile,
+          Hydra::Works::Vocab::WorksTerms.FileSet,
           ::Vocab::GeoTerms.RasterFile]
   end
 
