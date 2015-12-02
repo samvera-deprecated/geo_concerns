@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :vector_file, class: FileSet do
-    initialize_with { new({geo_file_format: 'SHAPEFILE'}) }
+    initialize_with { new({ geo_file_format: 'SHAPEFILE' }) }
     transient do
       user { FactoryGirl.create(:user) }
       content nil
