@@ -30,5 +30,8 @@ module GeoConcerns
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths << "#{Rails.root}/lib"
+
+    # Load file_set concerns
+    config.autoload_paths << "#{Rails.root}/app/models/concerns/file_set"
   end
 end

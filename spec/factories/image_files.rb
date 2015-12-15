@@ -1,5 +1,6 @@
 FactoryGirl.define do
-  factory :image_file, class: ImageFile do
+  factory :image_file, class: FileSet do
+    initialize_with { new({geo_file_format: 'TIFF'}) }
     transient do
       user { FactoryGirl.create(:user) }
       content nil

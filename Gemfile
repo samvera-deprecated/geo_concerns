@@ -82,6 +82,7 @@ gem 'resque'
 
 group :development do
   gem 'yard'
+  gem 'xray-rails'
 end
 
 group :development, :test do

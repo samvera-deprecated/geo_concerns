@@ -1,12 +1,12 @@
 FactoryGirl.define do
-  factory :vector_file, class: VectorFile do
+  factory :vector_file, class: FileSet do
+    initialize_with { new({ geo_file_format: 'SHAPEFILE' }) }
     transient do
       user { FactoryGirl.create(:user) }
       content nil
     end
 
     after(:build) do |file, evaluator|
-      file.cartographic_projection = 'urn:ogc:def:crs:EPSG::6326'
       file.apply_depositor_metadata(evaluator.user.user_key)
     end
 

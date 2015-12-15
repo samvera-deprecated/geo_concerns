@@ -49,6 +49,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :vector_work_with_vector_and_metadata_files do
+      before(:create) do |vector_work, evaluator|
+        2.times { vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user) }
+        2.times { vector_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+      end
+    end
+
     factory :vector_work_with_embargo_date do
       transient do
         embargo_date { Date.tomorrow.to_s }

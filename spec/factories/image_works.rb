@@ -35,6 +35,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :image_work_with_files_and_metadata_files do
+      after(:create) do |image_work, evaluator|
+        2.times { image_work.ordered_members << FactoryGirl.create(:image_file, user: evaluator.user) }
+        2.times { image_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+      end
+    end
+
     factory :image_work_with_embargo_date do
       transient do
         embargo_date { Date.tomorrow.to_s }
