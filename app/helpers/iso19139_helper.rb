@@ -2,7 +2,7 @@ module Iso19139Helper
   NS = {
     'xmlns:gmd' => 'http://www.isotc211.org/2005/gmd',
     'xmlns:gco' => 'http://www.isotc211.org/2005/gco'
-  }
+  }.freeze
 
   # TODO: Migrate this code into an XSLT?
   # TODO: Need to support multivalued fields

@@ -13,22 +13,33 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 Execute:
 
 ```
-    $ bundle
+    $ bundle install
 ```
 
 Then:
 
 ```
     $ rake db:migrate
-    $ rake db:test:prepare
-    $ rake jetty:clean
-    $ rake curation_concerns:jetty:config
-    $ rake jetty:start
-    $ rails server
+    $ rake server:development
 ```
 
 ## Testing
 
 ```
-    $ rake spec
+    $ rake ci
 ```
+
+To run tests separately:
+
+```sh
+$ rake server:test
+``` 
+
+Then in another terminal window:
+
+
+```sh
+$ rake spec
+```
+
+ 
