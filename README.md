@@ -13,33 +13,31 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 Execute:
 
 ```
-    $ bundle install
+$ bundle install
 ```
 
 Then:
 
 ```
-    $ rake db:migrate
-    $ rake server:development
+$ rake db:migrate
+$ rake server:development
 ```
 
 ## Testing
 
 ```
-    $ rake ci
+$ rake ci
 ```
 
 To run tests separately:
 
-```sh
+```
 $ rake server:test
 ``` 
 
-Then in another terminal window:
+Then, in another terminal window:
 
 
-```sh
+```
 $ rake spec
 ```
-
- 

@@ -33,22 +33,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'rsolr', '~> 1.0.6'
-gem 'globalid'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
 
 gem 'curation_concerns', '0.10.0'
-
-## CurationConcerns dependencies that were previously explicitly included.
-# gem 'curation_concerns-models', '~> 0.3'
-# gem 'hydra-pcdm', github: 'projecthydra-labs/hydra-pcdm', branch: 'master'
-# gem 'hydra-works', :git => 'https://github.com/projecthydra-labs/hydra-works.git'
-# gem 'hydra-collections' # allow curation_concerns-models to specify the version
-# gem 'hydra-derivatives' # allow hydra-works to specify the version
-# gem 'hydra-editor'
-# gem 'blacklight_advanced_search'
-# gem 'hydra-head', '~> 9.0'
-# gem "breadcrumbs_on_rails", "~> 2.3.0"
 
 gem "jquery-ui-rails"
 gem "simple_form", '~> 3.1.0'
@@ -59,7 +47,9 @@ gem 'fcrepo_wrapper', '~> 0.2'
 gem 'coveralls', require: false
 
 group :development do
-  # gem 'yard' # yard is not compatible with most recent rake release
+  # Yard is not compatible with most recent rake release.
+  # https://github.com/lsegal/yard/pull/946
+  # gem 'yard'
   gem 'xray-rails'
   gem 'web-console', '~> 2.0'
   gem 'spring'
