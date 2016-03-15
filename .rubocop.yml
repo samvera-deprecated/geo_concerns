@@ -1,8 +1,8 @@
-require: rubocop-rspec
-
+Rails:
+  Enabled: true
+  
 AllCops:
   UseCache: false
-  RunRailsCops: true
   DisplayCopNames: true
   Include:
     - '**/Rakefile'

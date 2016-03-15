@@ -1,24 +1,19 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+require 'bundler/setup'
+require 'rubocop/rake_task'
+require 'solr_wrapper'
+require 'fcrepo_wrapper'
+require 'coveralls/rake/task'
+
+Coveralls::RakeTask.new
 
 require File.expand_path('../config/application', __FILE__)
-Rails.application.load_tasks
-
-require 'bundler/gem_tasks'
-require 'bundler/setup'
-require 'rspec/core/rake_task'
-require 'jettywrapper'
-require 'rubocop/rake_task'
-
 Dir.glob('tasks/*.rake').each { |r| import r }
 
-# This makes it possible to run curation_concerns:jetty:config from here.
-import 'lib/tasks/geo_concerns_tasks.rake'
-
-Jettywrapper.hydra_jetty_version = 'v8.3.1'
-
-desc 'Generate the YARD documentation'
-YARD::Rake::YardocTask.new
+# yard is not compatible with most recent rake release
+# desc 'Generate the YARD documentation'
+# YARD::Rake::YardocTask.new
 
 desc 'Run style checker'
 RuboCop::RakeTask.new(:rubocop) do |task|
@@ -29,16 +24,46 @@ end
 desc 'Run test suite with style checker'
 task spec: :rubocop
 
-# Could not find jetty:config within release 2.0.3
-task ci: ['jetty:clean', 'jetty:config', 'db:test:prepare'] do
-  puts 'running continuous integration'
-  jetty_params = Jettywrapper.load_config
-  jetty_params[:startup_wait] = 90
-
-  error = Jettywrapper.wrap(jetty_params) do
+task :ci do
+  run_server 'test', solr_port: 8985, fcrepo_port: 8986 do
     Rake::Task['spec'].invoke
   end
-  fail "test failures: #{error}" if error
+end
+
+namespace :server do
+  desc 'Run Fedora and Solr for development environment'
+  task :development do
+    run_server 'development', solr_port: 8983, fcrepo_port: 8984 do
+      IO.popen('rails server') do |io|
+        io.each do |line|
+          puts line
+        end
+      end
+    end
+  end
+
+  desc 'Run Fedora and Solr for test environment'
+  task :test do
+    run_server 'test', solr_port: 8985, fcrepo_port: 8986 do
+      sleep
+    end
+  end
+end
+
+def run_server(environment, solr_port: nil, fcrepo_port: nil)
+  with_server(environment, solr_port: solr_port.to_s, fcrepo_port: fcrepo_port.to_s) do
+    puts "\n#{environment.titlecase} servers running:\n"
+    puts "    Fedora..: http://127.0.0.1:#{fcrepo_port}/rest/"
+    puts "    Solr....: http://127.0.0.1:#{solr_port}/solr/hydra-#{environment}/"
+    puts "\n^C to stop"
+    begin
+      yield
+    rescue Interrupt
+      puts "Shutting down..."
+    end
+  end
 end
 
 task default: :ci
+
+Rails.application.load_tasks
