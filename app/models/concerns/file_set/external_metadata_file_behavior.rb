@@ -14,13 +14,17 @@ module ExternalMetadataFileBehavior
   end
 
   # Extracts properties from the constitutent external metadata file
+  # @example
+  #   extract_iso19139_metadata
+  #   extract_fgdc_metadata
+  #   extract_mods_metadata
   # @return [Hash]
   def extract_metadata
     fn = "extract_#{geo_file_format.downcase}_metadata"
     if respond_to?(fn.to_sym)
       send(fn, metadata_xml)
     else
-      fail "Unsupported metadata standard: #{geo_file_format}"
+      fail ArgumentError, "Unsupported metadata standard: #{geo_file_format}"
     end
   end
 

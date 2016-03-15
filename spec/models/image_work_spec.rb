@@ -23,7 +23,7 @@ describe ImageWork do
   end
 
   describe 'with acceptable inputs' do
-    subject { described_class.new } 
+    subject { described_class.new }
     it 'add image,metadata,raster to file' do
       subject.members << image_file1
       subject.members << ext_metadata_file1
@@ -37,7 +37,7 @@ describe ImageWork do
   end
 
   context 'georeferenced to a raster' do
-    subject { FactoryGirl.create(:image_work_with_raster_works, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:image_work_with_raster_works, title: ['Test title 4'], coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
 
     it 'aggregates by raster resources' do
       expect(subject.raster_works.size).to eq 2
@@ -45,19 +45,19 @@ describe ImageWork do
     end
   end
 
-  describe 'extract_metadata' do
+  describe 'populate_metadata' do
     subject { FactoryGirl.create(:image_work_with_one_metadata_file) }
+    let(:doc) { Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml')) }
 
     it 'has an extraction method' do
       expect(subject).to respond_to(:extract_metadata)
     end
 
-    it 'can perform extraction for ISO 19139' do
-      doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml'))
+    it 'can perform extraction and set properties for ISO 19139' do
       externalMetadataFile = subject.metadata_files.first
       expect(externalMetadataFile.geo_file_format.downcase).to eq('iso19139')
       allow(externalMetadataFile).to receive(:metadata_xml) { doc }
-      subject.extract_metadata
+      subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
   end

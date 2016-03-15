@@ -3,7 +3,7 @@ module CurationConcerns
     extend ActiveSupport::Concern
 
     included do
-      self.terms += [:bounding_box]
+      self.terms += [:coverage]
     end
   end
 end
