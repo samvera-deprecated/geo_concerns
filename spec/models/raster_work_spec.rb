@@ -10,6 +10,7 @@ describe RasterWork do
   let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
   let(:vector1 ) { VectorWork.new }
   let(:vector2 ) { VectorWork.new }
+  let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   it 'updates the title' do
     subject.attributes = { title: ['A raster work'] }
@@ -17,8 +18,8 @@ describe RasterWork do
   end
 
   it 'updates the bounding box' do
-    subject.attributes = { coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326' }
-    expect(subject.coverage).to eq('northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326')
+    subject.attributes = { coverage: coverage.to_s }
+    expect(subject.coverage).to eq(coverage.to_s)
   end
 
   describe 'metadata' do
@@ -47,7 +48,7 @@ describe RasterWork do
   end
 
   context 'with raster files' do
-    subject { FactoryGirl.create(:raster_work_with_files, title: ['Test title 4'], coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
+    subject { FactoryGirl.create(:raster_work_with_files, title: ['Test title 4'], coverage: coverage.to_s) }
 
     it 'has two files' do
       expect(subject.raster_files.size).to eq 2
@@ -74,7 +75,7 @@ describe RasterWork do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:raster_work, date_uploaded: Date.today, coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326').to_solr }
+    subject { FactoryGirl.build(:raster_work, date_uploaded: Date.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do
       expect(subject.keys).to include 'ordered_by_ssim'
     end
@@ -91,7 +92,7 @@ describe RasterWork do
     it 'can perform extraction and set properties for ISO 19139' do
       externalMetadataFile = subject.metadata_files.first
       expect(externalMetadataFile.geo_file_format.downcase).to eq('iso19139')
-      allow(externalMetadataFile).to receive(:metadata_xml) { doc }
+      allow(externalMetadataFile).to receive(:metadata_xml).and_return(doc)
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

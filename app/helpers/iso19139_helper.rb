@@ -17,7 +17,7 @@ module Iso19139Helper
       e = node.at_xpath('gmd:eastBoundLongitude/gco:Decimal', NS).text.to_f
       n = node.at_xpath('gmd:northBoundLatitude/gco:Decimal', NS).text.to_f
       s = node.at_xpath('gmd:southBoundLatitude/gco:Decimal', NS).text.to_f
-      h[:coverage] = "northlimit=#{n}; eastlimit=#{e}; southlimit=#{s}; westlimit=#{w}; units=degrees; projection=EPSG:4326"
+      h[:coverage] = GeoConcerns::Coverage.new(n, e, s, w).to_s
     end
 
     doc.at_xpath('//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString', NS).tap do |node|

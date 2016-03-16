@@ -1,0 +1,2 @@
+module GeoConcerns
+end

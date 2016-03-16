@@ -65,7 +65,7 @@ describe FileSet do
     doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml'))
     expect(subject.extract_iso19139_metadata(doc)).to include({
       title: ['S_566_1914_clip.tif'],
-      coverage: 'northlimit=57.595712; eastlimit=-109.860605; southlimit=56.407644; westlimit=-112.469675; units=degrees; projection=EPSG:4326',
+      coverage: GeoConcerns::Coverage.new(57.595712, -109.860605, 56.407644, -112.469675).to_s,
       description: ['This raster file is the result of georeferencing using esri\'s ArcScan of Sheet 566: McKay, Alberta, 1st ed. 1st of July, 1914. This sheet is part of the 3-mile to 1-inch sectional maps of Western Canada. vectorization was undertaken to extract a measure of line work density in order to measure Cartographic Intactness. The map series is described in Dubreuil, Lorraine. 1989. Sectional maps of western Canada, 1871-1955: An early Canadian topographic map series. Occasional paper no. 2, Association of Canadian Map Libraries and Archives.'],
       source: ['Larry Laliberte']
     })
@@ -75,7 +75,7 @@ describe FileSet do
     doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_lines_iso.xml'))
     expect(subject.extract_iso19139_metadata(doc)).to include({
       title: ['S_566_1914_lines'],
-      coverage: 'northlimit=57.450728; eastlimit=-109.898613; southlimit=56.600872; westlimit=-112.1975; units=degrees; projection=EPSG:4326',
+      coverage: GeoConcerns::Coverage.new(57.450728, -109.898613, 56.600872, -112.1975).to_s,
       description: ['This .shp file (lines) is the result of georeferencing and performing a raster to vector conversion using esri\'s ArcScan of Sheet 566: McKay, Alberta, 1st ed. 1st of July, 1914. This sheet is part of the 3-mile to 1-inch sectional maps of Western Canada. vectorization was undertaken to extract a measure of line work density in order to measure Cartographic Intactness. The map series is described in Dubreuil, Lorraine. 1989. Sectional maps of western Canada, 1871-1955: An early Canadian topographic map series. Occasional paper no. 2, Association of Canadian Map Libraries and Archives.'],
       source: ['Larry Laliberte']
     })
@@ -85,7 +85,7 @@ describe FileSet do
     doc = Nokogiri::XML(read_test_data_fixture('zipcodes_fgdc.xml'))
     expect(subject.extract_fgdc_metadata(doc)).to include({
       title: ['Louisiana ZIP Code Areas 2002'],
-      coverage: 'northlimit=33.019481; eastlimit=-88.817478; southlimit=28.926478; westlimit=-94.043286; units=degrees; projection=EPSG:4326',
+      coverage: GeoConcerns::Coverage.new(33.019481, -88.817478, 28.926478, -94.043286).to_s,
       creator: ['Geographic Data Technology, Inc. (GDT)'],
       description: ['Louisiana ZIP Code Areas represents five-digit ZIP Code areas used by the U.S. Postal Service to deliver mail more effectively.  The first digit of a five-digit ZIP Code divides the country into 10 large groups of states numbered from 0 in the Northeast to 9 in the far West.  Within these areas, each state is divided into an average of 10 smaller geographical areas, identified by the 2nd and 3rd digits.  These digits, in conjunction with the first digit, represent a sectional center facility or a mail processing facility area.  The 4th and 5th digits identify a post office, station, branch or local delivery area.']
     })
@@ -95,7 +95,7 @@ describe FileSet do
     doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_fgdc.xml'))
     expect(subject.extract_fgdc_metadata(doc)).to include({
       title: ['S_566_1914_clip.tif'],
-      coverage: 'northlimit=57.465375; eastlimit=-109.622454; southlimit=56.580532; westlimit=-112.47033; units=degrees; projection=EPSG:4326',
+      coverage: GeoConcerns::Coverage.new(57.465375, -109.622454, 56.580532, -112.47033).to_s,
       description: ['This raster file is the result of georeferencing using esri\'s ArcScan of Sheet 566: McKay, Alberta, 1st ed. 1st of July, 1914. This sheet is part of the 3-mile to 1-inch sectional maps of Western Canada. vectorization was undertaken to extract a measure of line work density in order to measure Cartographic Intactness. The map series is described in Dubreuil, Lorraine. 1989. Sectional maps of western Canada, 1871-1955: An early Canadian topographic map series. Occasional paper no. 2, Association of Canadian Map Libraries and Archives.']
     })
   end
