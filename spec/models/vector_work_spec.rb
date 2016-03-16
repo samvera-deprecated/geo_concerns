@@ -8,6 +8,7 @@ describe VectorWork do
   let(:vector_file2) { FileSet.new(geo_file_format: 'SHAPEFILE') }
   let(:ext_metadata_file1 ) { FileSet.new(geo_file_format: 'ISO19139') }
   let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
+  let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   describe 'with acceptable inputs' do
     subject { described_class.new }
@@ -27,8 +28,8 @@ describe VectorWork do
   end
 
   it 'updates the coverage' do
-    subject.attributes = { coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326' }
-    expect(subject.coverage).to eq('northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326')
+    subject.attributes = { coverage: coverage.to_s }
+    expect(subject.coverage).to eq(coverage.to_s)
   end
 
   describe 'metadata' do
@@ -42,7 +43,7 @@ describe VectorWork do
   end
 
   context 'with files' do
-    subject { FactoryGirl.create(:vector_work_with_files, title: ['Test title 4'], coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
+    subject { FactoryGirl.create(:vector_work_with_files, title: ['Test title 4'], coverage: coverage.to_s) }
 
     it 'has two files' do
       expect(subject.vector_files.size).to eq 2
@@ -60,7 +61,7 @@ describe VectorWork do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:vector_work, date_uploaded: Date.today, coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326').to_solr }
+    subject { FactoryGirl.build(:vector_work, date_uploaded: Date.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do
       expect(subject.keys).to include 'ordered_by_ssim'
     end

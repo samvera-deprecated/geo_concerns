@@ -14,7 +14,7 @@ module FgdcHelper
       e = node.at_xpath('eastbc').text.to_f
       n = node.at_xpath('northbc').text.to_f
       s = node.at_xpath('southbc').text.to_f
-      h[:coverage] = "northlimit=#{n}; eastlimit=#{e}; southlimit=#{s}; westlimit=#{w}; units=degrees; projection=EPSG:4326"
+      h[:coverage] = GeoConcerns::Coverage.new(n, e, s, w).to_s
     end
 
     h

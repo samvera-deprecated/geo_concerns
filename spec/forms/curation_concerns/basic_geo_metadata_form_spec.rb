@@ -17,7 +17,7 @@ describe CurationConcerns::BasicGeoMetadataForm do
     Object.send(:remove_const, :TestModel)
   end
 
-  let(:object) { TestModel.new(coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
+  let(:object) { TestModel.new(coverage: GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032).to_s) }
   let(:form) { TestForm.new(object, nil) }
 
   describe '.terms' do

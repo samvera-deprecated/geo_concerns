@@ -10,6 +10,7 @@ describe ImageWork do
   let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
   let(:raster1 ) { RasterWork.new }
   let(:raster2 ) { RasterWork.new }
+  let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   it 'updates the title' do
     subject.attributes = { title: ['An image work'] }
@@ -37,7 +38,7 @@ describe ImageWork do
   end
 
   context 'georeferenced to a raster' do
-    subject { FactoryGirl.create(:image_work_with_raster_works, title: ['Test title 4'], coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
+    subject { FactoryGirl.create(:image_work_with_raster_works, title: ['Test title 4'], coverage: coverage.to_s) }
 
     it 'aggregates by raster resources' do
       expect(subject.raster_works.size).to eq 2
