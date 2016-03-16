@@ -10,7 +10,7 @@ describe VectorWork do
   let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
 
   describe 'with acceptable inputs' do
-    subject { described_class.new } 
+    subject { described_class.new }
     it 'add vectorfile,metadatato file' do
       subject.members << vector_file1
       subject.members << vector_file2
@@ -26,9 +26,9 @@ describe VectorWork do
     expect(subject.title).to eq(['A vector work'])
   end
 
-  it 'updates the bounding box' do
-    subject.attributes = { bounding_box: '17.881242 -179.14734 71.390482 179.778465' }
-    expect(subject.bounding_box).to eq('17.881242 -179.14734 71.390482 179.778465')
+  it 'updates the coverage' do
+    subject.attributes = { coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326' }
+    expect(subject.coverage).to eq('northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326')
   end
 
   describe 'metadata' do
@@ -37,12 +37,12 @@ describe VectorWork do
     end
 
     it 'has geospatial metadata' do
-      expect(subject).to respond_to(:bounding_box)
+      expect(subject).to respond_to(:coverage)
     end
   end
 
   context 'with files' do
-    subject { FactoryGirl.create(:vector_work_with_files, title: ['Test title 4'], bounding_box: '17.881242 -179.14734 71.390482 179.778465') }
+    subject { FactoryGirl.create(:vector_work_with_files, title: ['Test title 4'], coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
 
     it 'has two files' do
       expect(subject.vector_files.size).to eq 2
@@ -60,28 +60,25 @@ describe VectorWork do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:vector_work, date_uploaded: Date.today, bounding_box: '17.881242 -179.14734 71.390482 179.778465').to_solr }
-    it "indexes bbox field" do
-      expect(subject.keys).to include 'bounding_box_tesim'
-    end
+    subject { FactoryGirl.build(:vector_work, date_uploaded: Date.today, coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326').to_solr }
     it "indexes ordered_by_ssim field" do
       expect(subject.keys).to include 'ordered_by_ssim'
     end
   end
 
-  describe 'extract_metadata' do
+  describe 'populate_metadata' do
     subject { FactoryGirl.create(:vector_work_with_one_metadata_file) }
+    let(:doc) { Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml')) }
 
     it 'has an extraction method' do
       expect(subject).to respond_to(:extract_metadata)
     end
 
-    it 'can perform extraction for ISO 19139' do
-      doc = Nokogiri::XML(read_test_data_fixture('McKay/S_566_1914_clip_iso.xml'))
+    it 'can perform extraction and set for ISO 19139' do
       externalMetadataFile = subject.metadata_files.first
       expect(externalMetadataFile.geo_file_format.downcase).to eq('iso19139')
       allow(externalMetadataFile).to receive(:metadata_xml) { doc }
-      subject.extract_metadata
+      subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
 

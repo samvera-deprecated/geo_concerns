@@ -3,9 +3,7 @@ require 'rails_helper'
 describe CurationConcerns::BasicGeoMetadataForm do
   before do
     class TestModel < ActiveFedora::Base
-      property :bounding_box,
-               predicate: ::RDF::URI.new('http://www.georss.org/georss/box'),
-               multiple: false
+      property :coverage, predicate: ::RDF::Vocab::DC11.coverage, multiple: false
     end
 
     class TestForm < CurationConcerns::Forms::WorkForm
@@ -19,11 +17,11 @@ describe CurationConcerns::BasicGeoMetadataForm do
     Object.send(:remove_const, :TestModel)
   end
 
-  let(:object) { TestModel.new(bounding_box: '42.943 -71.032 43.039 -69.856') }
+  let(:object) { TestModel.new(coverage: 'northlimit=43.039; eastlimit=-69.856; southlimit=42.943; westlimit=-71.032; units=degrees; projection=EPSG:4326') }
   let(:form) { TestForm.new(object, nil) }
 
   describe '.terms' do
     subject { form.terms }
-    it { is_expected.to include(:bounding_box) }
+    it { is_expected.to include(:coverage) }
   end
 end

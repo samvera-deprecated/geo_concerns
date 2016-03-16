@@ -17,7 +17,7 @@ module Iso19139Helper
       e = node.at_xpath('gmd:eastBoundLongitude/gco:Decimal', NS).text.to_f
       n = node.at_xpath('gmd:northBoundLatitude/gco:Decimal', NS).text.to_f
       s = node.at_xpath('gmd:southBoundLatitude/gco:Decimal', NS).text.to_f
-      h[:bounding_box] = "#{s} #{w} #{n} #{e}"
+      h[:coverage] = "northlimit=#{n}; eastlimit=#{e}; southlimit=#{s}; westlimit=#{w}; units=degrees; projection=EPSG:4326"
     end
 
     doc.at_xpath('//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString', NS).tap do |node|
@@ -25,19 +25,19 @@ module Iso19139Helper
     end
 
     doc.xpath('//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:citedResponsibleParty/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_RoleCode[@codeListValue=\'originator\']', NS).each do |node|
-      begin
-        h[:creator] = [node.at_xpath('ancestor-or-self::*/gmd:individualName', NS).text.strip]
+      h[:creator] = begin
+        [node.at_xpath('ancestor-or-self::*/gmd:individualName', NS).text.strip]
       rescue
-        h[:creator] = [node.at_xpath('ancestor-or-self::*/gmd:organisationName', NS).text.strip]
+        [node.at_xpath('ancestor-or-self::*/gmd:organisationName', NS).text.strip]
       end
     end
 
     # TODO: Not sure if custodian is the same as source
     doc.xpath('//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:citedResponsibleParty/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_RoleCode[@codeListValue=\'custodian\']', NS).each do |node|
-      begin
-        h[:source] = [node.at_xpath('ancestor-or-self::*/gmd:individualName', NS).text.strip]
+      h[:source] = begin
+        [node.at_xpath('ancestor-or-self::*/gmd:individualName', NS).text.strip]
       rescue
-        h[:source] = [node.at_xpath('ancestor-or-self::*/gmd:organisationName', NS).text.strip]
+        [node.at_xpath('ancestor-or-self::*/gmd:organisationName', NS).text.strip]
       end
     end
 
