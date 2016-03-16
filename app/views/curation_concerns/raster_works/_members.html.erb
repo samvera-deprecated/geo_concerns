@@ -1,4 +1,4 @@
-<% if @presenter.vector_work_presenters.present? %>
+<% if presenter.vector_work_presenters.present? %>
   <div class="panel panel-default raster_works">
     <div class="panel-heading">
       <h2>Vector Works</h2>
@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @presenter.vector_work_presenters.each do |res| %>
+        <% presenter.vector_work_presenters.each do |res| %>
           <tr class="file_set attributes">
             <td class="thumbnail" style="margin-bottom: 0px">
               <%= render_thumbnail_tag res %>
@@ -24,7 +24,7 @@
       </tbody>
     </table>
   </div>
-<% elsif can? :edit, @presenter.id %>
+<% elsif can? :edit, presenter.id %>
   <h2>Vector Works</h2>
   <p class="center"><em>This <%= @presenter.human_readable_type %> has no vector works associated with it. You can add one using the "Attach a Vector Work" button below.</em></p>
 <% end %>
