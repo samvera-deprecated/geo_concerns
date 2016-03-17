@@ -86,10 +86,11 @@ describe FileSet do
     expect(subject.extract_fgdc_metadata(doc)).to include({
       title: ['Louisiana ZIP Code Areas 2002'],
       coverage: GeoConcerns::Coverage.new(33.019481, -88.817478, 28.926478, -94.043286).to_s,
-      creator: ['Geographic Data Technology, Inc. (GDT)'],
+      creator: ['Geographic Data Technology, Inc. (GDT)', 'Environmental Systems Research Institute, Inc. (ESRI)'],
       description: ['Louisiana ZIP Code Areas represents five-digit ZIP Code areas used by the U.S. Postal Service to deliver mail more effectively.  The first digit of a five-digit ZIP Code divides the country into 10 large groups of states numbered from 0 in the Northeast to 9 in the far West.  Within these areas, each state is divided into an average of 10 smaller geographical areas, identified by the 2nd and 3rd digits.  These digits, in conjunction with the first digit, represent a sectional center facility or a mail processing facility area.  The 4th and 5th digits identify a post office, station, branch or local delivery area.'],
       issued: 2002,
-      subject: ["polygon", "zip codes", "areas", "five-digit zip codes", "post offices", "population", "Location", "Society"]
+      subject: ["polygon", "zip codes", "areas", "five-digit zip codes", "post offices", "population", "Location", "Society"],
+      publisher: 'Environmental Systems Research Institute, Inc. (ESRI)'
     })
   end
 

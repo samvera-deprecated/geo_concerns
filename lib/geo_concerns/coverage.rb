@@ -11,7 +11,7 @@ module GeoConcerns
       e = $1.to_f if str =~ /eastlimit=([\.\d\-]+);/
       s = $1.to_f if str =~ /southlimit=([\.\d\-]+);/
       w = $1.to_f if str =~ /westlimit=([\.\d\-]+);/
-      fail ParseError if n.nil? || e.nil? || s.nil? || w.nil?
+      fail ParseError, str if n.nil? || e.nil? || s.nil? || w.nil?
       new(n, e, s, w)
     rescue
       fail ParseError, str
