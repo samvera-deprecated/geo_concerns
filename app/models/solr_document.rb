@@ -3,9 +3,10 @@ class SolrDocument
   include Blacklight::Solr::Document
   # Adds CurationConcerns behaviors to the SolrDocument.
   include CurationConcerns::SolrDocumentBehavior
+  include GeoConcerns::SolrDocumentBehavior
 
   # self.unique_key = 'id'
-  
+
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)
 
@@ -17,7 +18,7 @@ class SolrDocument
   # single valued. See Blacklight::Document::SemanticFields#field_semantics
   # and Blacklight::Document::SemanticFields#to_semantic_values
   # Recommendation: Use field names from Dublin Core
-  use_extension( Blacklight::Document::DublinCore)    
+  use_extension( Blacklight::Document::DublinCore)
 
   # Do content negotiation for AF models.
 

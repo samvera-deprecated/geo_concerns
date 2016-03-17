@@ -3,6 +3,7 @@
 module CurationConcerns
   class ImageWorkForm < CurationConcerns::Forms::WorkForm
     include BasicGeoMetadataForm
+    include ExternalMetadataFileForm
     self.model_class = ::ImageWork
   end
 end

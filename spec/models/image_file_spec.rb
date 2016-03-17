@@ -11,6 +11,10 @@ describe FileSet do
     it "doesn't respond as a vector file" do
       expect(subject.vector_file?).to be_falsey
     end
+    it 'does not have an authoritative cartographic projection' do
+      # expect(subject).not_to respond_to(:cartographic_projection)
+      skip 'Our models for FileSet always include cartographic_projection'
+    end
   end
 
   describe 'image work association' do
@@ -37,8 +41,8 @@ describe FileSet do
       expect(subject).to respond_to(:title)
     end
 
-    it 'has an authoritative cartographic projection' do
-      expect(subject).to respond_to(:cartographic_projection)
+    it 'has standard' do
+      expect(subject).to respond_to(:conforms_to)
     end
   end
 end

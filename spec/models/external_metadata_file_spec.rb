@@ -19,13 +19,13 @@ describe FileSet do
                                  conforms_to: 'ISO19139').to_solr
     }
 
-    it "indexes bbox field" do
-      expect(solr_doc.keys).to include 'conforms_to_tesim'
+    it "does not index bbox field" do
+      expect(solr_doc.keys).not_to include 'coverage_tesim'
     end
   end
 
   describe 'metadata' do
-    it 'has a metadata schema' do
+    it 'has standard' do
       expect(subject).to respond_to(:conforms_to)
     end
   end
@@ -90,7 +90,9 @@ describe FileSet do
       description: ['Louisiana ZIP Code Areas represents five-digit ZIP Code areas used by the U.S. Postal Service to deliver mail more effectively.  The first digit of a five-digit ZIP Code divides the country into 10 large groups of states numbered from 0 in the Northeast to 9 in the far West.  Within these areas, each state is divided into an average of 10 smaller geographical areas, identified by the 2nd and 3rd digits.  These digits, in conjunction with the first digit, represent a sectional center facility or a mail processing facility area.  The 4th and 5th digits identify a post office, station, branch or local delivery area.'],
       issued: 2002,
       subject: ["polygon", "zip codes", "areas", "five-digit zip codes", "post offices", "population", "Location", "Society"],
-      publisher: 'Environmental Systems Research Institute, Inc. (ESRI)'
+      publisher: ['Environmental Systems Research Institute, Inc. (ESRI)'],
+      spatial: ["United States", "Louisiana"],
+      temporal: ["2001", "2000"]
     })
   end
 

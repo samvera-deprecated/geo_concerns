@@ -9,3 +9,7 @@
 </div>
 
 <%= render "form_rights", f: f %>
+
+<% unless curation_concern.new_record? %>
+  <%= render "form_populate_metadata", f: f %>
+<% end %>
