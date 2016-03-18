@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(geo_file_format: 'ISO19139') }
+  subject { FileSet.new(conforms_to: 'ISO19139') }
 
-  context "when geo_file_format is a metadata format" do
+  context "when conforms_to is a metadata format" do
     it "responds as a metadata file" do
       expect(subject.external_metadata_file?).to be_truthy
     end
@@ -38,26 +38,26 @@ describe FileSet do
   it 'will route the extraction request for ISO' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_iso19139_metadata)
-    subject.geo_file_format = 'ISO19139'
+    subject.conforms_to = 'ISO19139'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will route the extraction request for FGDC' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_fgdc_metadata)
-    subject.geo_file_format = 'Fgdc'
+    subject.conforms_to = 'Fgdc'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will route the extraction request for MODS' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_mods_metadata)
-    subject.geo_file_format = 'mods'
+    subject.conforms_to = 'mods'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will not route the extraction request for bogus standard' do
-    subject.geo_file_format = 'bogus'
+    subject.conforms_to = 'bogus'
     expect { subject.extract_metadata }.to raise_error(ArgumentError)
   end
 

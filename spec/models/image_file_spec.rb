@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(geo_file_format: 'TIFF') }
+  subject { FileSet.new(conforms_to: 'TIFF') }
 
-  context "when geo_file_format is an image format" do
+  context "when conforms_to is an image format" do
     it "responds as an image file" do
       expect(subject.image_file?).to be_truthy
     end
