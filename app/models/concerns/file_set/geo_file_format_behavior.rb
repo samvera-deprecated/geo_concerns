@@ -2,25 +2,27 @@ module GeoFileFormatBehavior
   extend ActiveSupport::Concern
 
   included do
-    property :geo_file_format, predicate: ::RDF::Vocab::PREMIS.FormatDesignation, multiple: false do |index|
+    # Specifies the format standard to which the file conforms
+    # @see http://dublincore.org/documents/dcmi-terms/#terms-conformsTo
+    property :conforms_to, predicate: ::RDF::Vocab::DC.conformsTo, multiple: false do |index|
       index.as :stored_searchable, :facetable
     end
   end
 
   def image_file?
-    self.class.image_file_formats.include? geo_file_format
+    self.class.image_file_formats.include? conforms_to
   end
 
   def raster_file?
-    self.class.raster_file_formats.include? geo_file_format
+    self.class.raster_file_formats.include? conforms_to
   end
 
   def vector_file?
-    self.class.vector_file_formats.include? geo_file_format
+    self.class.vector_file_formats.include? conforms_to
   end
 
   def external_metadata_file?
-    self.class.external_metadata_file_formats.include? geo_file_format
+    self.class.external_metadata_file_formats.include? conforms_to
   end
 
   def image_work?

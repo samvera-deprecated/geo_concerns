@@ -5,7 +5,7 @@ describe GeoFileFormatBehavior do
 
   describe '#image_file?' do
     before do
-      allow(subject).to receive(:geo_file_format).and_return('TIFF')
+      allow(subject).to receive(:conforms_to).and_return('TIFF')
     end
     it 'is true' do
       expect(subject.image_file?).to be true
@@ -14,7 +14,7 @@ describe GeoFileFormatBehavior do
 
   describe '#raster_file?' do
     before do
-      allow(subject).to receive(:geo_file_format).and_return('TIFF_GeoTIFF')
+      allow(subject).to receive(:conforms_to).and_return('TIFF_GeoTIFF')
     end
     it 'is true' do
       expect(subject.raster_file?).to be true
@@ -23,7 +23,7 @@ describe GeoFileFormatBehavior do
 
   describe '#vector_file?' do
     before do
-      allow(subject).to receive(:geo_file_format).and_return('SHAPEFILE')
+      allow(subject).to receive(:conforms_to).and_return('SHAPEFILE')
     end
     it 'is true' do
       expect(subject.vector_file?).to be true
@@ -32,7 +32,7 @@ describe GeoFileFormatBehavior do
 
   describe '#external_metadata_file?' do
     before do
-      allow(subject).to receive(:geo_file_format).and_return('ISO19139')
+      allow(subject).to receive(:conforms_to).and_return('ISO19139')
     end
     it 'is true' do
       expect(subject.external_metadata_file?).to be true

@@ -10,7 +10,7 @@ class RasterWorkShowPresenter < GeoConcernsShowPresenter
   def raster_file_presenters
     # filter for raster files
     members(::FileSetPresenter).select do |member|
-      format = member.solr_document[:geo_file_format_tesim]
+      format = member.solr_document[:conforms_to_tesim]
       format ? FileSet.raster_file_formats.include?(format.first) : false
     end
   end

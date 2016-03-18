@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(geo_file_format: 'SHAPEFILE') }
+  subject { FileSet.new(conforms_to: 'SHAPEFILE') }
 
-  context "when geo_file_format is a vector format" do
+  context "when conforms_to is a vector format" do
     it "responds as a vector file" do
       expect(subject.vector_file?).to be_truthy
     end

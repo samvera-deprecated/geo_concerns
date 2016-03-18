@@ -4,10 +4,10 @@ require 'rails_helper'
 
 describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:raster_file1) { FileSet.new(geo_file_format: 'TIFF_GeoTIFF') }
-  let(:raster_file2) { FileSet.new(geo_file_format: 'TIFF_GeoTIFF') }
-  let(:ext_metadata_file1 ) { FileSet.new(geo_file_format: 'ISO19139') }
-  let(:ext_metadata_file2 ) { FileSet.new(geo_file_format: 'ISO19139') }
+  let(:raster_file1) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
+  let(:raster_file2) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
+  let(:ext_metadata_file1 ) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file2 ) { FileSet.new(conforms_to: 'ISO19139') }
   let(:vector1 ) { VectorWork.new }
   let(:vector2 ) { VectorWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
@@ -52,7 +52,7 @@ describe RasterWork do
 
     it 'has two files' do
       expect(subject.raster_files.size).to eq 2
-      expect(subject.raster_files.first.geo_file_format).to eq 'TIFF_GeoTIFF'
+      expect(subject.raster_files.first.conforms_to).to eq 'TIFF_GeoTIFF'
     end
   end
 
@@ -70,7 +70,7 @@ describe RasterWork do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first.geo_file_format).to eq 'ISO19139'
+      expect(subject.metadata_files.first.conforms_to).to eq 'ISO19139'
     end
   end
 
@@ -91,7 +91,7 @@ describe RasterWork do
 
     it 'can perform extraction and set properties for ISO 19139' do
       externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.geo_file_format.downcase).to eq('iso19139')
+      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
       allow(externalMetadataFile).to receive(:metadata_xml).and_return(doc)
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])

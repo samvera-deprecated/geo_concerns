@@ -19,11 +19,11 @@ module CurationConcerns
       CurationConcerns::FileSetEditForm
     end
 
-    # inject geo_file_format into permitted params
+    # inject conforms_to into permitted params
     def file_set_params
       super.tap do |permitted_params|
-        format_value = params[:file_set][:geo_file_format]
-        permitted_params[:geo_file_format] = format_value unless format_value.nil?
+        format_value = params[:file_set][:conforms_to]
+        permitted_params[:conforms_to] = format_value unless format_value.nil?
       end
     end
   end
