@@ -46,6 +46,8 @@ gem 'solr_wrapper', '~> 0.5.1'
 gem 'fcrepo_wrapper', '~> 0.2'
 gem 'coveralls', require: false
 
+gem 'leaflet-rails'
+
 group :development do
   # Yard is not compatible with most recent rake release.
   # https://github.com/lsegal/yard/pull/946
@@ -70,5 +72,5 @@ group :development, :test do
   gem 'rubocop-rspec', '>=1.4.0', require: false
   gem 'simplecov', '~> 0.9', require: false
   gem 'pry' unless ENV['CI']
-  gem 'pry-byebug' unless ENV['CI']
+  gem 'byebug' unless ENV['CI']
 end
