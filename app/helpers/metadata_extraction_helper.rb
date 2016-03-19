@@ -13,4 +13,13 @@ module MetadataExtractionHelper
       send("#{k}=".to_sym, v) # set each property
     end
   end
+
+  attr_reader :should_populate_metadata
+
+  def should_populate_metadata=(args)
+    @should_populate_metadata = args.present?
+    return unless should_populate_metadata
+    populate_metadata
+    save
+  end
 end

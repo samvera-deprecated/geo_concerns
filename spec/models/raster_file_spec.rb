@@ -40,5 +40,9 @@ describe FileSet do
     it 'has an authoritative cartographic projection' do
       expect(subject).to respond_to(:cartographic_projection)
     end
+
+    it 'has standard' do
+      expect(subject).to respond_to(:conforms_to)
+    end
   end
 end

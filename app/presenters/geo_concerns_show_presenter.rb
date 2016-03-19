@@ -1,5 +1,6 @@
 class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
   delegate :has?, :first, to: :solr_document
+  delegate :spatial, :temporal, :issued, :coverage, :provenance, to: :solr_document
 
   def members(presenter)
     # TODO: member ids appear twice in member_ids_ssim.
