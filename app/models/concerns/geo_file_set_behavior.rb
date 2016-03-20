@@ -11,4 +11,10 @@ module GeoFileSetBehavior
       ActiveFedora::Indexers::GlobalIndexer.new([:stored_searchable, :facetable, :symbol])
     )
   end
+
+  def to_solr
+    solr_doc = super
+    solr_doc[:uuid] = id
+    solr_doc
+  end
 end

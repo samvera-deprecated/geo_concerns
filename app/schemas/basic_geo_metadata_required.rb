@@ -22,4 +22,19 @@ class BasicGeoMetadataRequired < ActiveTriples::Schema
   property :provenance, predicate: ::RDF::Vocab::DC.provenance, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
+
+  # Defines the file format of the layer
+  # @example
+  #   image.format = 'TIFF'
+  #   vector.format = 'Shapefile'
+  #   raster.format = 'GeoTIFF'
+  property :format, predicate: ::RDF::Vocab::DC11.format, multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  # jrgriffiniii
+  #  property :title, predicate: ::RDF::Vocab::DC.title, multiple: false do |index|
+  #    index.as :stored_searchable, :facetable
+  #  end
+  # property :uuid, predicate: ::RDF::Vocab::DC11.coverage, multiple: false
 end

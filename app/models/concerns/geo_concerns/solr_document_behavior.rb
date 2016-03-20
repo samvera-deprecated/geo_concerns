@@ -21,5 +21,9 @@ module GeoConcerns
     def provenance
       fetch(Solrizer.solr_name('provenance'), nil)
     end
+
+    def uuid
+      fetch(Solrizer.solr_name('uuid'), id)
+    end
   end
 end

@@ -29,10 +29,10 @@ describe FileSet do
     let(:solr_doc) { FactoryGirl.build(:image_file,
                                        date_uploaded: Date.today,
                                        cartographic_projection: 'urn:ogc:def:crs:EPSG::6326',
-                                       title: 'an image file',
-                                       identifier: 'urn:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-                                       description: 'lorem ipsum',
-                                       rights: 'Public',
+                                       title: ['an image file'], # @todo This must be restructured as a scalar value
+                                       identifier: ['urn:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'], # @todo This too must be restructured as a scalar value
+                                       description: ['lorem ipsum'], # @todo Scalar
+                                       rights: ['Public'], # @todo Scalar
                                        provenance: 'Test Institution',
                                        references: {
                                          "http://schema.org/url":"http://purl.stanford.edu/bb509gh7292",
@@ -63,8 +63,10 @@ describe FileSet do
 
     it "indexes the coordinate reference system" do
       expect(solr_doc.keys).to include 'cartographic_projection_tesim'
+      expect(solr_doc['cartographic_projection_tesim']).to eq 'urn:ogc:def:crs:EPSG::6326'
     end
 
+=begin
     context "as required by the GeoBlacklight Schema" do
       it "indexes the UUID" do
         expect(solr_doc.keys).to include 'uuid'
@@ -153,10 +155,10 @@ describe FileSet do
       it 'derives solr_year_i from dct_temporal' do
         expect(solr_doc[:solr_year_i]).to eq solr_doc[:dct_temporal]
       end
-
-      
     end
+=end
 
+=begin
     context "optional for the GeoBlacklight Schema" do
 
       context "for all elements within the Dublin Core namespace" do
@@ -190,8 +192,8 @@ describe FileSet do
           end
         end
       end
-
     end
+=end
   end
 
   describe 'metadata' do
