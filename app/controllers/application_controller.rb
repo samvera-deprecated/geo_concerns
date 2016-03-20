@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include CurationConcerns::ThemedLayoutController
   with_themed_layout '1_column'
 
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

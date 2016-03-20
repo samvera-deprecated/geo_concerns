@@ -5,18 +5,18 @@ RSpec.describe VectorWorkShowPresenter do
   let(:ability) { nil }
 
   describe "delegated methods" do
-    let(:attributes)  { { "geo_file_format_tesim" => ["TIFF_GeoTIFF"] } }
+    let(:attributes)  { { "conforms_to_tesim" => ["TIFF_GeoTIFF"] } }
     subject { described_class.new(solr_document, ability) }
 
     describe "#first" do
       it "delegates to solr document" do
-        expect(subject.first('geo_file_format_tesim')).to eq('TIFF_GeoTIFF')
+        expect(subject.first('conforms_to_tesim')).to eq('TIFF_GeoTIFF')
       end
     end
     
     describe "#has?" do
       it "delegates to solr document" do
-        expect(subject.has?('geo_file_format_tesim')).to be_truthy
+        expect(subject.has?('conforms_to_tesim')).to be_truthy
       end
     end
   end

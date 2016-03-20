@@ -1,5 +1,6 @@
 class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
   delegate :has?, :first, to: :solr_document
+  delegate :spatial, :temporal, :issued, :coverage, :provenance, to: :solr_document
 
   def members(presenter)
     # TODO: member ids appear twice in member_ids_ssim.
@@ -13,7 +14,7 @@ class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
   def external_metadata_file_formats_presenters
     # filter for external metadata files
     members(::FileSetPresenter).select do |member|
-      format = member.solr_document[:geo_file_format_tesim]
+      format = member.solr_document[:conforms_to_tesim]
       format ? FileSet.external_metadata_file_formats.include?(format.first) : false
     end
   end

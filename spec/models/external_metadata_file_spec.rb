@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(geo_file_format: 'ISO19139') }
+  subject { FileSet.new(conforms_to: 'ISO19139') }
 
-  context "when geo_file_format is a metadata format" do
+  context "when conforms_to is a metadata format" do
     it "responds as a metadata file" do
       expect(subject.external_metadata_file?).to be_truthy
     end
@@ -19,13 +19,13 @@ describe FileSet do
                                  conforms_to: 'ISO19139').to_solr
     }
 
-    it "indexes bbox field" do
-      expect(solr_doc.keys).to include 'conforms_to_tesim'
+    it "does not index bbox field" do
+      expect(solr_doc.keys).not_to include 'coverage_tesim'
     end
   end
 
   describe 'metadata' do
-    it 'has a metadata schema' do
+    it 'has standard' do
       expect(subject).to respond_to(:conforms_to)
     end
   end
@@ -38,26 +38,26 @@ describe FileSet do
   it 'will route the extraction request for ISO' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_iso19139_metadata)
-    subject.geo_file_format = 'ISO19139'
+    subject.conforms_to = 'ISO19139'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will route the extraction request for FGDC' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_fgdc_metadata)
-    subject.geo_file_format = 'Fgdc'
+    subject.conforms_to = 'Fgdc'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will route the extraction request for MODS' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_mods_metadata)
-    subject.geo_file_format = 'mods'
+    subject.conforms_to = 'mods'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will not route the extraction request for bogus standard' do
-    subject.geo_file_format = 'bogus'
+    subject.conforms_to = 'bogus'
     expect { subject.extract_metadata }.to raise_error(ArgumentError)
   end
 
@@ -90,7 +90,9 @@ describe FileSet do
       description: ['Louisiana ZIP Code Areas represents five-digit ZIP Code areas used by the U.S. Postal Service to deliver mail more effectively.  The first digit of a five-digit ZIP Code divides the country into 10 large groups of states numbered from 0 in the Northeast to 9 in the far West.  Within these areas, each state is divided into an average of 10 smaller geographical areas, identified by the 2nd and 3rd digits.  These digits, in conjunction with the first digit, represent a sectional center facility or a mail processing facility area.  The 4th and 5th digits identify a post office, station, branch or local delivery area.'],
       issued: 2002,
       subject: ["polygon", "zip codes", "areas", "five-digit zip codes", "post offices", "population", "Location", "Society"],
-      publisher: 'Environmental Systems Research Institute, Inc. (ESRI)'
+      publisher: ['Environmental Systems Research Institute, Inc. (ESRI)'],
+      spatial: ["United States", "Louisiana"],
+      temporal: ["2001", "2000"]
     })
   end
 

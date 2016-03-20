@@ -1,5 +1,5 @@
 module CurationConcerns
   class FileSetEditForm < CurationConcerns::Forms::FileSetEditForm
-    self.terms += [:geo_file_format]
+    self.terms += [:conforms_to]
   end
 end

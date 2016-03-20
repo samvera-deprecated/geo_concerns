@@ -21,7 +21,7 @@ module GeoConcerns
     def metadata_optional
       {
         issued: issued,
-        publisher: publisher,
+        publisher: publishers,
         spatial: placenames,
         subject: keywords,
         temporal: timeperiods
@@ -46,13 +46,6 @@ module GeoConcerns
       nil
     end
 
-    def publisher
-      doc.at_xpath('//idinfo/citation/citeinfo/pubinfo/publish').tap do |node|
-        return node.text.strip unless node.nil?
-      end
-      nil
-    end
-
     def timeperiods
       timeperiods = extract_multivalued('//idinfo/keywords/temporal/tempkey')
       doc.at_xpath('//idinfo/timeperd/timeinfo/mdattim/sngdate/caldate | //idinfo/timeperd/timeinfo/sngdate/caldate').tap do |node|
@@ -63,6 +56,10 @@ module GeoConcerns
       end
       timeperiods.uniq!
       timeperiods.present? ? timeperiods : nil
+    end
+
+    def publishers
+      extract_multivalued('//idinfo/citation/citeinfo/pubinfo/publish')
     end
 
     def creators

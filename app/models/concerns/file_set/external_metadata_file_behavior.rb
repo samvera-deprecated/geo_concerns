@@ -5,14 +5,6 @@ module ExternalMetadataFileBehavior
   include ::FgdcHelper
   include ::ModsHelper
 
-  included do
-    # Specifies the metadata standard to which the metadata file conforms
-    # @see http://dublincore.org/documents/dcmi-terms/#terms-conformsTo
-    property :conforms_to, predicate: ::RDF::Vocab::DC.conformsTo, multiple: false do |index|
-      index.as :stored_searchable, :facetable
-    end
-  end
-
   # Extracts properties from the constitutent external metadata file
   # @example
   #   extract_iso19139_metadata
@@ -20,11 +12,11 @@ module ExternalMetadataFileBehavior
   #   extract_mods_metadata
   # @return [Hash]
   def extract_metadata
-    fn = "extract_#{geo_file_format.downcase}_metadata"
+    fn = "extract_#{conforms_to.downcase}_metadata"
     if respond_to?(fn.to_sym)
       send(fn, metadata_xml)
     else
-      fail ArgumentError, "Unsupported metadata standard: #{geo_file_format}"
+      fail ArgumentError, "Unsupported metadata standard: #{conforms_to}"
     end
   end
 
