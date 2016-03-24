@@ -48,6 +48,8 @@ gem 'coveralls', require: false
 
 gem 'leaflet-rails'
 
+gem 'active-fedora', '~> 9.9.1'
+
 group :development do
   # Yard is not compatible with most recent rake release.
   # https://github.com/lsegal/yard/pull/946
