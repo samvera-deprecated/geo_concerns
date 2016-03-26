@@ -42,13 +42,13 @@ gem "jquery-ui-rails"
 gem "simple_form", '~> 3.1.0'
 gem 'nokogiri'
 gem 'equivalent-xml'
-gem 'solr_wrapper', '~> 0.5.1'
-gem 'fcrepo_wrapper', '~> 0.2'
+gem 'solr_wrapper'
+gem 'fcrepo_wrapper'
 gem 'coveralls', require: false
 
 gem 'leaflet-rails'
 
-gem 'active-fedora', '~> 9.9.1'
+gem 'active-fedora', '~> 9.9.1' # 9.10 doesn't work
 
 group :development do
   # Yard is not compatible with most recent rake release.
