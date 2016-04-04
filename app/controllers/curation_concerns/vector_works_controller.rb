@@ -1,7 +1,7 @@
 class CurationConcerns::VectorWorksController < ApplicationController
   include CurationConcerns::CurationConcernController
   include CurationConcerns::ParentContainer
-  set_curation_concern_type VectorWork
+  self.curation_concern_type = VectorWork
 
   def create
     super
@@ -15,5 +15,9 @@ class CurationConcerns::VectorWorksController < ApplicationController
 
   def show_presenter
     ::VectorWorkShowPresenter
+  end
+
+  def search_builder_class
+    CurationConcerns::GeoSearchBuilder
   end
 end
