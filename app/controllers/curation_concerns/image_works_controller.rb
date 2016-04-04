@@ -1,8 +1,12 @@
 class CurationConcerns::ImageWorksController < ApplicationController
   include CurationConcerns::CurationConcernController
-  set_curation_concern_type ImageWork
+  self.curation_concern_type = ImageWork
 
   def show_presenter
     ::ImageWorkShowPresenter
+  end
+
+  def search_builder_class
+    CurationConcerns::GeoSearchBuilder
   end
 end
