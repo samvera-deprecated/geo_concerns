@@ -11,14 +11,14 @@ FactoryGirl.define do
     end
 
     factory :public_raster_work do
-      before(:create) do |raster_work, evaluator|
+      before(:create) do |raster_work, _evaluator|
         raster_work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       end
     end
 
     factory :raster_work_with_one_file do
       before(:create) do |raster_work, evaluator|
-        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title:['A GeoTIFF file'], filename:'filename.tif')
+        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title: ['A GeoTIFF file'], filename: 'filename.tif')
       end
     end
 
@@ -43,7 +43,6 @@ FactoryGirl.define do
 
     factory :raster_work_with_one_metadata_file do
       after(:create) do |raster_work, evaluator|
-
         1.times { raster_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
       end
     end

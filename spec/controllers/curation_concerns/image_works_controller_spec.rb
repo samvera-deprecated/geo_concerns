@@ -22,5 +22,4 @@ describe CurationConcerns::ImageWorksController do
       end
     end
   end
-
 end

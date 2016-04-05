@@ -6,10 +6,10 @@ require 'spec_helper'
 describe ImageWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:image_file1) { FileSet.new(conforms_to: 'TIFF') }
-  let(:ext_metadata_file1 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:raster1 ) { RasterWork.new }
-  let(:raster2 ) { RasterWork.new }
+  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:raster1) { RasterWork.new }
+  let(:raster2) { RasterWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   it 'updates the title' do
@@ -32,8 +32,8 @@ describe ImageWork do
       subject.members << raster1
       subject.members << raster2
       expect(subject.image_file).to eq image_file1
-      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
-      expect(subject.raster_works).to eq [raster1,raster2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
+      expect(subject.raster_works).to eq [raster1, raster2]
     end
   end
 

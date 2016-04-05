@@ -6,8 +6,8 @@ describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:vector_file1) { FileSet.new(conforms_to: 'SHAPEFILE') }
   let(:vector_file2) { FileSet.new(conforms_to: 'SHAPEFILE') }
-  let(:ext_metadata_file1 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2 ) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   describe 'with acceptable inputs' do
@@ -17,8 +17,8 @@ describe VectorWork do
       subject.members << vector_file2
       subject.members << ext_metadata_file1
       subject.members << ext_metadata_file2
-      expect(subject.vector_files).to eq [vector_file1,vector_file2]
-      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
+      expect(subject.vector_files).to eq [vector_file1, vector_file2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
     end
   end
 

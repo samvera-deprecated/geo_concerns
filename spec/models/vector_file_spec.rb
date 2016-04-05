@@ -23,8 +23,8 @@ describe FileSet do
 
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:vector_file,
-                                 date_uploaded: Date.today,
-                                 cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
+                                       date_uploaded: Date.today,
+                                       cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 
     it "indexes the coordinate reference system" do

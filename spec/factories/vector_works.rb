@@ -11,14 +11,14 @@ FactoryGirl.define do
     end
 
     factory :public_vector_work do
-      before(:create) do |vector_work, evaluator|
+      before(:create) do |vector_work, _evaluator|
         vector_work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       end
     end
 
     factory :vector_work_with_one_file do
       before(:create) do |vector_work, evaluator|
-        vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user, title:['A shapefile'], filename:'filename.zip')
+        vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user, title: ['A shapefile'], filename: 'filename.zip')
       end
     end
 

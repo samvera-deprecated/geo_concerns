@@ -14,13 +14,6 @@ AllCops:
     - 'spec/internal/**/*'
     - 'misc/**/*'
 
-    - 'spec/**/*' # Remove
-    - 'config/**/*' # Remove
-    - 'app/models/user.rb' # Remove
-    - 'app/models/solr_document.rb' # Remove
-    - 'app/controllers/application_controller.rb' # Remove
-    - 'bin/**' # Remove
-
 Lint/UnderscorePrefixedVariableName:
   Exclude:
     - 'app/models/concerns/image_behavior.rb'

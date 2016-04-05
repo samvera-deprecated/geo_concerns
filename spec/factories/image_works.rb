@@ -11,7 +11,7 @@ FactoryGirl.define do
     end
 
     factory :public_image_work do
-      before(:create) do |image_work, evaluator|
+      before(:create) do |image_work, _evaluator|
         image_work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       end
     end
@@ -24,7 +24,6 @@ FactoryGirl.define do
 
     factory :image_work_with_one_metadata_file do
       after(:create) do |image_work, evaluator|
-
         1.times { image_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
       end
     end

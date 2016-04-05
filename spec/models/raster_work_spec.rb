@@ -6,10 +6,10 @@ describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:raster_file1) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
   let(:raster_file2) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
-  let(:ext_metadata_file1 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:vector1 ) { VectorWork.new }
-  let(:vector2 ) { VectorWork.new }
+  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:vector1) { VectorWork.new }
+  let(:vector2) { VectorWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   it 'updates the title' do
@@ -41,9 +41,9 @@ describe RasterWork do
       subject.members << ext_metadata_file2
       subject.members << vector1
       subject.members << vector2
-      expect(subject.raster_files).to eq [raster_file1,raster_file2]
-      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
-      expect(subject.vector_works).to eq [vector1,vector2]
+      expect(subject.raster_files).to eq [raster_file1, raster_file2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
+      expect(subject.vector_works).to eq [vector1, vector2]
     end
   end
 

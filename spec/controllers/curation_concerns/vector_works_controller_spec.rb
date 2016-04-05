@@ -31,7 +31,7 @@ describe CurationConcerns::VectorWorksController do
     context "when there's a parent raster work" do
       it "is a success" do
         vector = FactoryGirl.create(:vector_work, user: user)
-        raster = FactoryGirl.create(:raster_work, user: user) 
+        raster = FactoryGirl.create(:raster_work, user: user)
         raster.ordered_members << vector
         raster.save
         vector.update_index

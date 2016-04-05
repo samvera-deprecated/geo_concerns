@@ -13,7 +13,7 @@ RSpec.describe ImageWorkShowPresenter do
         expect(subject.first('conforms_to_tesim')).to eq('TIFF')
       end
     end
-    
+
     describe "#has?" do
       it "delegates to solr document" do
         expect(subject.has?('conforms_to_tesim')).to be_truthy
@@ -31,7 +31,7 @@ RSpec.describe ImageWorkShowPresenter do
       expect(subject.raster_work_presenters.first.first('has_model_ssim')).to eq "RasterWork"
     end
   end
-  
+
   describe "file presenters" do
     let(:obj) { create(:image_work_with_files_and_metadata_files) }
     let(:attributes) { obj.to_solr }
