@@ -11,6 +11,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
 
     scenario "creating a raster work and attaching a vector work" do
       visit new_curation_concerns_raster_work_path
+      expect(page).not_to have_text 'Add Your Content'
       fill_in 'raster_work_title', with: 'Raster Title'
       fill_in 'raster_work_temporal', with: '1989'
       choose 'visibility_open'
@@ -23,6 +24,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
       expect(page).to have_link 'Attribution 3.0 United States', href: 'http://creativecommons.org/licenses/by/3.0/us/'
 
       click_link 'Attach a Vector Work'
+      expect(page).not_to have_text 'Add Your Content'
       fill_in 'vector_work_title', with: 'Vector Title'
       fill_in 'vector_work_temporal', with: '1990'
       choose 'visibility_registered'
