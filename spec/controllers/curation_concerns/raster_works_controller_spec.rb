@@ -31,7 +31,7 @@ describe CurationConcerns::RasterWorksController do
     context "when there's a parent image work" do
       it "is a success" do
         raster = FactoryGirl.create(:raster_work, user: user)
-        image = FactoryGirl.create(:image_work, user: user) 
+        image = FactoryGirl.create(:image_work, user: user)
         image.ordered_members << raster
         image.save
         raster.update_index
@@ -44,7 +44,7 @@ describe CurationConcerns::RasterWorksController do
 
   describe "#show_presenter" do
     it "is a raster work show presenter" do
-      expect(CurationConcerns::RasterWorksController.new.show_presenter).to eq(RasterWorkShowPresenter)
+      expect(described_class.new.show_presenter).to eq(RasterWorkShowPresenter)
     end
   end
 end

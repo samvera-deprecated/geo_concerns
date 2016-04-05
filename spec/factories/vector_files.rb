@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :vector_file, class: FileSet do
-    initialize_with { new({ conforms_to: 'SHAPEFILE' }) }
+    initialize_with { new(conforms_to: 'SHAPEFILE') }
     transient do
       user { FactoryGirl.create(:user) }
       content nil
@@ -17,7 +17,7 @@ FactoryGirl.define do
     end
 
     factory :vector_file_with_vector do
-      after(:build) do |file, evaluator|
+      after(:build) do |file, _evaluator|
         file.title = ['testfile']
       end
       after(:create) do |file, evaluator|

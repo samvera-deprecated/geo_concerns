@@ -34,7 +34,7 @@ module Features
       fill_in 'Email', with: user.email
       fill_in 'Password', with: user.password
       click_button 'Log in'
-      expect(page).to_not have_text 'Invalid email or password.'
+      expect(page).not_to have_text 'Invalid email or password.'
     end
   end
 end

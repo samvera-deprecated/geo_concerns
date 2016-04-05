@@ -3,7 +3,8 @@ module MetadataExtractionHelper
   # @return [Hash]
   def extract_metadata
     return {} if metadata_files.blank?
-    fail NotImplementedError if metadata_files.length > 1 # TODO: Does not support multiple external metadata files
+    # TODO: Does not support multiple external metadata files
+    raise NotImplementedError if metadata_files.length > 1
     metadata_files.first.extract_metadata
   end
 

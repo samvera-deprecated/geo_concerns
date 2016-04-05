@@ -6,8 +6,8 @@ describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:vector_file1) { FileSet.new(conforms_to: 'SHAPEFILE') }
   let(:vector_file2) { FileSet.new(conforms_to: 'SHAPEFILE') }
-  let(:ext_metadata_file1 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2 ) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   describe 'with acceptable inputs' do
@@ -17,8 +17,8 @@ describe VectorWork do
       subject.members << vector_file2
       subject.members << ext_metadata_file1
       subject.members << ext_metadata_file2
-      expect(subject.vector_files).to eq [vector_file1,vector_file2]
-      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
+      expect(subject.vector_files).to eq [vector_file1, vector_file2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
     end
   end
 
@@ -61,7 +61,7 @@ describe VectorWork do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:vector_work, date_uploaded: Date.today, coverage: coverage.to_s).to_solr }
+    subject { FactoryGirl.build(:vector_work, date_uploaded: Time.zone.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do
       expect(subject.keys).to include 'ordered_by_ssim'
     end
@@ -76,9 +76,9 @@ describe VectorWork do
     end
 
     it 'can perform extraction and set for ISO 19139' do
-      externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
-      allow(externalMetadataFile).to receive(:metadata_xml) { doc }
+      external_metadata_file = subject.metadata_files.first
+      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
+      allow(external_metadata_file).to receive(:metadata_xml) { doc }
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

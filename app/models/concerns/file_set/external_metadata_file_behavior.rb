@@ -16,7 +16,7 @@ module ExternalMetadataFileBehavior
     if respond_to?(fn.to_sym)
       send(fn, metadata_xml)
     else
-      fail ArgumentError, "Unsupported metadata standard: #{conforms_to}"
+      raise ArgumentError, "Unsupported metadata standard: #{conforms_to}"
     end
   end
 

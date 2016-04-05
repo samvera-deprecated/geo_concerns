@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(conforms_to: 'TIFF') }
+  subject { described_class.new(conforms_to: 'TIFF') }
 
   context "when conforms_to is an image format" do
     it "responds as an image file" do
@@ -27,8 +27,8 @@ describe FileSet do
 
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:vector_file,
-                                 date_uploaded: Date.today,
-                                 cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
+                                       date_uploaded: Time.zone.today,
+                                       cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 
     it "indexes the coordinate reference system" do

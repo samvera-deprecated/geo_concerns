@@ -6,10 +6,10 @@ describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:raster_file1) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
   let(:raster_file2) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
-  let(:ext_metadata_file1 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2 ) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:vector1 ) { VectorWork.new }
-  let(:vector2 ) { VectorWork.new }
+  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:vector1) { VectorWork.new }
+  let(:vector2) { VectorWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   it 'updates the title' do
@@ -41,9 +41,9 @@ describe RasterWork do
       subject.members << ext_metadata_file2
       subject.members << vector1
       subject.members << vector2
-      expect(subject.raster_files).to eq [raster_file1,raster_file2]
-      expect(subject.metadata_files).to eq [ext_metadata_file1,ext_metadata_file2]
-      expect(subject.vector_works).to eq [vector1,vector2]
+      expect(subject.raster_files).to eq [raster_file1, raster_file2]
+      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
+      expect(subject.vector_works).to eq [vector1, vector2]
     end
   end
 
@@ -75,7 +75,7 @@ describe RasterWork do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:raster_work, date_uploaded: Date.today, coverage: coverage.to_s).to_solr }
+    subject { FactoryGirl.build(:raster_work, date_uploaded: Time.zone.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do
       expect(subject.keys).to include 'ordered_by_ssim'
     end
@@ -90,9 +90,9 @@ describe RasterWork do
     end
 
     it 'can perform extraction and set properties for ISO 19139' do
-      externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
-      allow(externalMetadataFile).to receive(:metadata_xml).and_return(doc)
+      external_metadata_file = subject.metadata_files.first
+      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
+      allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

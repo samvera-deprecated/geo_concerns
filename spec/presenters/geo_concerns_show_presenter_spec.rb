@@ -13,7 +13,7 @@ RSpec.describe GeoConcernsShowPresenter do
         expect(subject.first('conforms_to_tesim')).to eq('TIFF_GeoTIFF')
       end
     end
-    
+
     describe "#has?" do
       it "delegates to solr document" do
         expect(subject.has?('conforms_to_tesim')).to be_truthy
