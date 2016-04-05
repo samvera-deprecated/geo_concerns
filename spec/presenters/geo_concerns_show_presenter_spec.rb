@@ -5,12 +5,12 @@ RSpec.describe GeoConcernsShowPresenter do
   let(:ability) { nil }
 
   describe "delegated methods" do
-    let(:attributes)  { { "conforms_to_tesim" => ["TIFF_GeoTIFF"] } }
+    let(:attributes)  { { "conforms_to_tesim" => ['image/tiff; gdal-format=GTiff'] } }
     subject { described_class.new(solr_document, ability) }
 
     describe "#first" do
       it "delegates to solr document" do
-        expect(subject.first('conforms_to_tesim')).to eq('TIFF_GeoTIFF')
+        expect(subject.first('conforms_to_tesim')).to eq('image/tiff; gdal-format=GTiff')
       end
     end
 

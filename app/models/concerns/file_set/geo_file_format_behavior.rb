@@ -1,28 +1,20 @@
 module GeoFileFormatBehavior
   extend ActiveSupport::Concern
 
-  included do
-    # Specifies the format standard to which the file conforms
-    # @see http://dublincore.org/documents/dcmi-terms/#terms-conformsTo
-    property :conforms_to, predicate: ::RDF::Vocab::DC.conformsTo, multiple: false do |index|
-      index.as :stored_searchable, :facetable
-    end
-  end
-
   def image_file?
-    self.class.image_file_formats.include? conforms_to
+    FileSet.image_mime_types.include?(mime_type)
   end
 
   def raster_file?
-    self.class.raster_file_formats.include? conforms_to
+    self.class.gdal_formats.include?(mime_type)
   end
 
   def vector_file?
-    self.class.vector_file_formats.include? conforms_to
+    self.class.ogr_formats.include?(mime_type)
   end
 
   def external_metadata_file?
-    self.class.external_metadata_file_formats.include? conforms_to
+    self.class.metadata_standards.include?(conforms_to)
   end
 
   def image_work?
@@ -38,20 +30,23 @@ module GeoFileFormatBehavior
   end
 
   module ClassMethods
-    def image_file_formats
-      ['TIFF', 'IMAGE_FILE']
+    def gdal_formats
+      [
+        'image/tiff; gdal-format=GTiff',
+        'text/plain; gdal-format=AIGrid'
+      ].freeze
     end
 
-    def raster_file_formats
-      ['TIFF_GeoTIFF', 'RASTER_FILE']
+    def ogr_formats
+      [
+        'application/zip; ogr-format="ESRI Shapefile"',
+        'application/zip; ogr-format=OpenFileGDB',
+        'application/octet-stream; ogr-format=MDB'
+      ].freeze
     end
 
-    def vector_file_formats
-      ['SHAPEFILE', 'SHAPEFILE_ZIP', 'VECTOR_FILE']
-    end
-
-    def external_metadata_file_formats
-      ['FGDC', 'ISO19139', 'MODS', 'EXTERNAL_METADATA_FILE']
+    def metadata_standards
+      %w(FGDC ISO19139 MODS).freeze
     end
   end
 end

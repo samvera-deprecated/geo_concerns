@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { described_class.new(conforms_to: 'TIFF') }
+  subject { described_class.new(mime_type: 'image/jpeg') }
 
   context "when conforms_to is an image format" do
     it "responds as an image file" do

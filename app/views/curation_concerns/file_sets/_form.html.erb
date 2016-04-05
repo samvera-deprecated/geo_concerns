@@ -14,8 +14,12 @@
         <legend>
           Attach Your File
         </legend>
-        <%= f.input :conforms_to %>
-        <%= f.input :files, as: :multifile %>
+        <% if params['type'] == 'metadata' %>
+          <%= f.input :conforms_to %>
+        <% else %>
+          <%= f.input :mime_type %>
+        <% end %>
+          <%= f.input :files, as: :multifile %>
       </fieldset>
     </div>
 

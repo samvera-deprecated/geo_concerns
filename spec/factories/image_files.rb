@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :image_file, class: FileSet do
-    initialize_with { new(conforms_to: 'TIFF') }
+    initialize_with { new(mime_type: 'image/tiff') }
     transient do
       user { FactoryGirl.create(:user) }
       content nil

@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:raster_file1) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
-  let(:raster_file2) { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
+  let(:raster_file1) { FileSet.new(mime_type: 'image/tiff; gdal-format=GTiff') }
+  let(:raster_file2) { FileSet.new(mime_type: 'image/tiff; gdal-format=GTiff') }
   let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
   let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
   let(:vector1) { VectorWork.new }
@@ -52,7 +52,7 @@ describe RasterWork do
 
     it 'has two files' do
       expect(subject.raster_files.size).to eq 2
-      expect(subject.raster_files.first.conforms_to).to eq 'TIFF_GeoTIFF'
+      expect(subject.raster_files.first.mime_type).to eq 'image/tiff; gdal-format=GTiff'
     end
   end
 

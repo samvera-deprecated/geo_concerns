@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe ImageWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:image_file1) { FileSet.new(conforms_to: 'TIFF') }
+  let(:image_file1) { FileSet.new(mime_type: 'image/jpeg') }
   let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
   let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
   let(:raster1) { RasterWork.new }

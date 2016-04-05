@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :raster_file, class: FileSet do
-    initialize_with { new(conforms_to: 'TIFF_GeoTIFF') }
+    initialize_with { new(mime_type: 'image/tiff; gdal-format=GTiff') }
     transient do
       user { FactoryGirl.create(:user) }
       content nil
