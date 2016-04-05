@@ -55,9 +55,9 @@ describe ImageWork do
     end
 
     it 'can perform extraction and set properties for ISO 19139' do
-      externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
-      allow(externalMetadataFile).to receive(:metadata_xml) { doc }
+      external_metadata_file = subject.metadata_files.first
+      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
+      allow(external_metadata_file).to receive(:metadata_xml) { doc }
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

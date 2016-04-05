@@ -11,79 +11,50 @@ AllCops:
     - 'db/**/*'
     - 'script/**/*'
     - 'vendor/**/*'
+    - 'bin/**/*'
     - 'spec/internal/**/*'
     - 'misc/**/*'
 
-Lint/UnderscorePrefixedVariableName:
-  Exclude:
-    - 'app/models/concerns/image_behavior.rb'
-
 Lint/UselessAssignment:
   Exclude:
-    - 'app/models/concerns/image_behavior.rb'
+    - 'spec/factories/*.rb'
 
 Metrics/LineLength:
-  Enabled: false
+  Max: 100
+  Exclude:
+    - 'app/controllers/catalog_controller.rb'
+    - 'app/helpers/iso19139_helper.rb'
+    - 'app/helpers/metadata_extraction_helper.rb'
+    - 'app/models/concerns/file_set/image_file_behavior.rb'
+    - 'app/models/concerns/file_set/raster_file_behavior.rb'
+    - 'app/models/concerns/file_set/vector_file_behavior.rb'
+    - 'app/models/concerns/georeferenced_behavior.rb'
+    - 'app/models/solr_document.rb'
+    - 'app/schemas/basic_geo_metadata_required.rb'
+    - 'config/**/*.rb'
+    - 'lib/geo_concerns/coverage.rb'
+    - 'lib/geo_concerns/fgdc_metadata_extractor.rb'
+    - 'spec/**/*.rb'
 
 Metrics/AbcSize:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
   Exclude:
-    - 'curation_concerns-models/app/services/curation_concerns/generic_file_audit_service.rb'
-    - 'app/controllers/concerns/curation_concerns/generic_files_controller_behavior.rb'
-    - 'app/helpers/curation_concerns/curation_concerns_helper_behavior.rb'
-    - 'app/helpers/curation_concerns/attribute_helper.rb'
-    - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
-    - 'curation_concerns-models/app/actors/curation_concerns/work_actor_behavior.rb'
-
-Metrics/PerceivedComplexity:
-  Exclude:
-    - 'curation_concerns-models/app/services/curation_concerns/generic_file_audit_service.rb'
-    - 'app/controllers/concerns/curation_concerns/generic_files_controller_behavior.rb'
-    - 'app/helpers/curation_concerns/curation_concerns_helper_behavior.rb'
-    - 'app/helpers/curation_concerns/attribute_helper.rb'
-    - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
+    - 'app/helpers/iso19139_helper.rb'
+    - 'lib/geo_concerns/fgdc_metadata_extractor.rb'
 
 Metrics/MethodLength:
-  Enabled: false
+  Exclude:
+    - 'Rakefile'
+    - 'app/helpers/iso19139_helper.rb'
 
 Metrics/ClassLength:
   Exclude:
-    - 'lib/generators/curation_concerns/templates/catalog_controller.rb'
-    - 'curation_concerns-models/app/models/datastreams/fits_datastream.rb'
-    - 'curation_concerns-models/app/actors/curation_concerns/generic_file_actor.rb'
     - 'app/controllers/catalog_controller.rb'
-
-Metrics/ModuleLength:
-  Exclude:
-    - 'app/controllers/concerns/curation_concerns/users_controller_behavior.rb'
-    - 'app/controllers/concerns/curation_concerns/catalog_controller.rb'
-    - 'app/controllers/concerns/curation_concerns/generic_files_controller_behavior.rb'
-    - 'app/helpers/curation_concerns/curation_concerns_helper_behavior.rb'
-    - 'curation_concerns-models/app/models/concerns/curation_concerns/solr_document_behavior.rb'
 
 Style/BlockDelimiters:
   Exclude:
     - 'spec/**/*'
 
-Style/AccessorMethodName:
-  Exclude:
-    - 'app/controllers/concerns/curation_concerns/*_controller.rb'
-
-Style/BlockEndNewline:
-  Exclude:
-    - 'spec/**/*'
-
 Style/MultilineBlockLayout:
-  Exclude:
-    - 'spec/**/*'
-
-Style/Semicolon:
-  Exclude:
-    - 'spec/**/*'
-
-Style/Lambda:
   Exclude:
     - 'spec/**/*'
 
@@ -101,45 +72,15 @@ Style/CollectionMethods:
 Style/WordArray:
   Enabled: false
 
-Style/RegexpLiteral:
-  Enabled: false
-
 Style/StringLiterals:
-  Enabled: false
-
-Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Style/PredicateName:
-  Exclude:
-    - 'app/helpers/curation_concerns/*_helper_.rb'
-    - 'app/controllers/concerns/curation_concerns/controller.rb'
-
 Style/GlobalVars:
   Exclude:
-    - 'spec/**/*'
-
-Style/SingleLineBlockParams:
-  Enabled: false
-
-Style/SignalException:
-  Enabled: false
-
-Style/AsciiComments:
-  Enabled: false
-
-Style/SpaceAroundOperators:
-  Exclude:
-    - 'app/models/concerns/image_behavior.rb'
-
-Rails/Date:
-  Enabled: false
-
-Rails/TimeZone:
-  Enabled: false
+    - 'spec/spec_helper.rb'
 
 RSpec/ExampleWording:
   CustomTransform:
@@ -153,16 +94,6 @@ RSpec/ExampleWording:
 RSpec/FilePath:
   Enabled: false
 
-RSpec/InstanceVariable:
-  Enabled: false
-
 RSpec/DescribeClass:
   Exclude:
-    - 'spec/javascripts/jasmine_spec.rb'
-    - 'spec/tasks/rake_spec.rb'
-    - 'spec/jobs/event_jobs_spec.rb'
-    - 'spec/abilities/**/*'
     - 'spec/features/**/*'
-    - 'spec/views/**/*'
-    - 'spec/routing/**/*'
-    - 'spec/inputs/**/*'

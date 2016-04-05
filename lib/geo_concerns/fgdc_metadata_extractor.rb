@@ -30,13 +30,18 @@ module GeoConcerns
 
     def coverage
       doc.at_xpath('//idinfo/spdom/bounding').tap do |node|
-        w = node.at_xpath('westbc').text.to_f
-        e = node.at_xpath('eastbc').text.to_f
-        n = node.at_xpath('northbc').text.to_f
-        s = node.at_xpath('southbc').text.to_f
-        return GeoConcerns::Coverage.new(n, e, s, w).to_s
+        return GeoConcerns::Coverage.new(
+          coverage_coordinate(node, 'north'),
+          coverage_coordinate(node, 'east'),
+          coverage_coordinate(node, 'south'),
+          coverage_coordinate(node, 'west')
+        ).to_s
       end
       nil
+    end
+
+    def coverage_coordinate(node, direction)
+      node.at_xpath("#{direction}bc").text.to_f
     end
 
     def issued

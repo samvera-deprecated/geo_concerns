@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(conforms_to: 'SHAPEFILE') }
+  subject { described_class.new(conforms_to: 'SHAPEFILE') }
 
   context "when conforms_to is a vector format" do
     it "responds as a vector file" do
@@ -23,7 +23,7 @@ describe FileSet do
 
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:vector_file,
-                                       date_uploaded: Date.today,
+                                       date_uploaded: Time.zone.today,
                                        cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 

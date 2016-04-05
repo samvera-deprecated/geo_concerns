@@ -20,7 +20,7 @@ describe CurationConcerns::ExternalMetadataFileForm do
   let(:form) { TestForm.new(object, nil) }
 
   describe '.triggers' do
-    it 'should have should_populate_metadata trigger attribute' do
+    it 'has a should_populate_metadata trigger attribute' do
       expect(form.respond_to?(:should_populate_metadata)).to be_truthy
     end
   end

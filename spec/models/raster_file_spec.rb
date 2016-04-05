@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
+  subject { described_class.new(conforms_to: 'TIFF_GeoTIFF') }
 
   context "when conforms_to is a raster format" do
     it "responds as a raster file" do
@@ -23,7 +23,7 @@ describe FileSet do
 
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:vector_file,
-                                       date_uploaded: Date.today,
+                                       date_uploaded: Time.zone.today,
                                        cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 

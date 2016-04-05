@@ -5,22 +5,24 @@ module GeoConcerns
 
     attr_reader :n, :e, :s, :w
 
-    # rubocop:disable Style/PerlBackrefs, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def self.parse(str)
-      n = $1.to_f if str =~ /northlimit=([\.\d\-]+);/
-      e = $1.to_f if str =~ /eastlimit=([\.\d\-]+);/
-      s = $1.to_f if str =~ /southlimit=([\.\d\-]+);/
-      w = $1.to_f if str =~ /westlimit=([\.\d\-]+);/
-      fail ParseError, str if n.nil? || e.nil? || s.nil? || w.nil?
+      n = parse_coordinate(str, /northlimit=([\.\d\-]+);/)
+      e = parse_coordinate(str, /eastlimit=([\.\d\-]+);/)
+      s = parse_coordinate(str, /southlimit=([\.\d\-]+);/)
+      w = parse_coordinate(str, /westlimit=([\.\d\-]+);/)
+      raise ParseError, str if n.nil? || e.nil? || s.nil? || w.nil?
       new(n, e, s, w)
     rescue
-      fail ParseError, str
+      raise ParseError, str
     end
-    # rubocop:enable Style/PerlBackrefs, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+    def self.parse_coordinate(str, regex)
+      Regexp.last_match(1).to_f if str =~ regex
+    end
 
     def initialize(n, e, s, w)
-      fail InvalidGeometryError, "n=#{n} < s=#{s}" if n.to_f < s.to_f
-      fail InvalidGeometryError, "e=#{e} < w=#{w}" if e.to_f < w.to_f
+      raise InvalidGeometryError, "n=#{n} < s=#{s}" if n.to_f < s.to_f
+      raise InvalidGeometryError, "e=#{e} < w=#{w}" if e.to_f < w.to_f
       @n = n
       @e = e
       @s = s

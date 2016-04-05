@@ -44,7 +44,7 @@ describe CurationConcerns::VectorWorksController do
 
   describe "#show_presenter" do
     it "is a vector work show presenter" do
-      expect(CurationConcerns::VectorWorksController.new.show_presenter.name).to eq("VectorWorkShowPresenter")
+      expect(described_class.new.show_presenter.name).to eq("VectorWorkShowPresenter")
     end
   end
 end

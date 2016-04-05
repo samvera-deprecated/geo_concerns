@@ -75,7 +75,7 @@ describe RasterWork do
   end
 
   describe "to_solr" do
-    subject { FactoryGirl.build(:raster_work, date_uploaded: Date.today, coverage: coverage.to_s).to_solr }
+    subject { FactoryGirl.build(:raster_work, date_uploaded: Time.zone.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do
       expect(subject.keys).to include 'ordered_by_ssim'
     end
@@ -90,9 +90,9 @@ describe RasterWork do
     end
 
     it 'can perform extraction and set properties for ISO 19139' do
-      externalMetadataFile = subject.metadata_files.first
-      expect(externalMetadataFile.conforms_to.downcase).to eq('iso19139')
-      allow(externalMetadataFile).to receive(:metadata_xml).and_return(doc)
+      external_metadata_file = subject.metadata_files.first
+      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
+      allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

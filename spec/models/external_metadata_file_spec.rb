@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(conforms_to: 'ISO19139') }
+  subject { described_class.new(conforms_to: 'ISO19139') }
 
   context "when conforms_to is a metadata format" do
     it "responds as a metadata file" do
@@ -15,7 +15,7 @@ describe FileSet do
 
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:external_metadata_file,
-                                       date_uploaded: Date.today,
+                                       date_uploaded: Time.zone.today,
                                        conforms_to: 'ISO19139').to_solr
     }
 

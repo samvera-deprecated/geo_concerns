@@ -44,7 +44,7 @@ describe CurationConcerns::RasterWorksController do
 
   describe "#show_presenter" do
     it "is a raster work show presenter" do
-      expect(CurationConcerns::RasterWorksController.new.show_presenter).to eq(RasterWorkShowPresenter)
+      expect(described_class.new.show_presenter).to eq(RasterWorkShowPresenter)
     end
   end
 end
