@@ -32,28 +32,10 @@ describe GeoFileFormatBehavior do
 
   describe '#external_metadata_file?' do
     before do
-      allow(subject).to receive(:conforms_to).and_return('ISO19139')
+      allow(subject).to receive(:mime_type).and_return('application/xml; schema=iso19139')
     end
     it 'is true' do
       expect(subject.external_metadata_file?).to be true
-    end
-  end
-
-  describe '#gdal_formats' do
-    it 'returns array of raster formats' do
-      expect(subject.class.gdal_formats).to include('image/tiff; gdal-format=GTiff')
-    end
-  end
-
-  describe '#ogr_formats' do
-    it 'returns array of vector formats' do
-      expect(subject.class.ogr_formats).to include('application/zip; ogr-format="ESRI Shapefile"')
-    end
-  end
-
-  describe '#metadata_standards' do
-    it 'returns array of external metadata file formats' do
-      expect(subject.class.metadata_standards).to eq(['FGDC', 'ISO19139', 'MODS'])
     end
   end
 end

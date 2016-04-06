@@ -14,8 +14,7 @@ class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
   def external_metadata_file_formats_presenters
     # filter for external metadata files
     members(::FileSetPresenter).select do |member|
-      format = member.solr_document[:conforms_to_tesim]
-      format ? FileSet.metadata_standards.include?(format.first) : false
+      MetadataFormatService.include? member.solr_document[:mime_type_ssi]
     end
   end
 end

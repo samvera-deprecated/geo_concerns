@@ -10,8 +10,7 @@ class ImageWorkShowPresenter < GeoConcernsShowPresenter
   def image_file_presenters
     # filter for image files
     members(::FileSetPresenter).select do |member|
-      format = member.solr_document[:mime_type_ssi]
-      format ? FileSet.image_mime_types.include?(format) : false
+      ImageFormatService.include? member.solr_document[:mime_type_ssi]
     end
   end
 end

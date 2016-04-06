@@ -6,8 +6,8 @@ describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:vector_file1) { FileSet.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
   let(:vector_file2) { FileSet.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
-  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file1) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
+  let(:ext_metadata_file2) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   describe 'with acceptable inputs' do
@@ -56,7 +56,7 @@ describe VectorWork do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first.conforms_to).to eq 'ISO19139'
+      expect(subject.metadata_files.first.mime_type).to eq 'application/xml; schema=iso19139'
     end
   end
 
@@ -77,8 +77,8 @@ describe VectorWork do
 
     it 'can perform extraction and set for ISO 19139' do
       external_metadata_file = subject.metadata_files.first
-      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
       allow(external_metadata_file).to receive(:metadata_xml) { doc }
+      allow(external_metadata_file).to receive(:mime_type) { 'application/xml; schema=iso19139' }
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
