@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:vector_file1) { FileSet.new(conforms_to: 'SHAPEFILE') }
-  let(:vector_file2) { FileSet.new(conforms_to: 'SHAPEFILE') }
+  let(:vector_file1) { FileSet.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
+  let(:vector_file2) { FileSet.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
   let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
   let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
@@ -47,7 +47,7 @@ describe VectorWork do
 
     it 'has two files' do
       expect(subject.vector_files.size).to eq 2
-      expect(subject.vector_files.first.conforms_to).to eq 'SHAPEFILE'
+      expect(subject.vector_files.first.mime_type).to eq 'application/zip; ogr-format="ESRI Shapefile"'
     end
   end
 

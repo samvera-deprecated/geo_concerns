@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { described_class.new(conforms_to: 'SHAPEFILE') }
+  subject { described_class.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
 
-  context "when conforms_to is a vector format" do
+  context "when mime_type is a vector format" do
     it "responds as a vector file" do
       expect(subject.vector_file?).to be_truthy
     end

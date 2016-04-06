@@ -35,7 +35,9 @@ gem 'rsolr', '~> 1.0.6'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
 
-gem 'curation_concerns', '~> 0.12.0.pre1'
+gem 'curation_concerns',
+  :git => 'git://github.com/projecthydra-labs/curation_concerns.git',
+  :ref => 'a9f1f'
 
 gem "jquery-ui-rails"
 gem "simple_form", '~> 3.1.0'

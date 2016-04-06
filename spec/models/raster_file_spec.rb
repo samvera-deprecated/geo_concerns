@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { described_class.new(conforms_to: 'TIFF_GeoTIFF') }
+  subject { described_class.new(mime_type: 'image/tiff; gdal-format=GTiff') }
 
-  context "when conforms_to is a raster format" do
+  context "when mime_type is a raster format" do
     it "responds as a raster file" do
       expect(subject.raster_file?).to be_truthy
     end
