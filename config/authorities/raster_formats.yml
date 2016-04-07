@@ -1,0 +1,9 @@
+terms:
+  - id: image/tiff; gdal-format=GTiff
+    term: GeoTIFF
+  - id: text/plain; gdal-format=AAIGrid
+    term: Arc/Info ASCII Grid
+  - id: application/octet-stream; gdal-format=AIG
+    term: Arc/Info Binary Grid
+  - id: text/plain; gdal-format=USGSDEM
+    term: USGS ASCII DEM

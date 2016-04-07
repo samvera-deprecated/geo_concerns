@@ -38,7 +38,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
 
       click_link 'Attach a File'
       fill_in 'file_set[title][]', with: 'File Title'
-      fill_in 'file_set_conforms_to', with: 'FGDC'
+      select 'FGDC', from: 'file_set_mime_type'
       attach_file 'file_set[files][]', fgdc_file
       click_button 'Attach to Vector Work'
 

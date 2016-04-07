@@ -42,7 +42,7 @@ describe FileSet do
     end
 
     it 'has standard' do
-      expect(subject).to respond_to(:conforms_to)
+      expect(subject).to respond_to(:mime_type)
     end
   end
 end

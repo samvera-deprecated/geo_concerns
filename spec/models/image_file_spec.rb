@@ -4,7 +4,7 @@ describe FileSet do
   let(:user) { create(:user) }
   subject { described_class.new(mime_type: 'image/jpeg') }
 
-  context "when conforms_to is an image format" do
+  context "when mime_type is an image format" do
     it "responds as an image file" do
       expect(subject.image_file?).to be_truthy
     end
@@ -42,7 +42,7 @@ describe FileSet do
     end
 
     it 'has standard' do
-      expect(subject).to respond_to(:conforms_to)
+      expect(subject).to respond_to(:mime_type)
     end
   end
 end

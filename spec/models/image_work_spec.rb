@@ -6,8 +6,8 @@ require 'spec_helper'
 describe ImageWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:image_file1) { FileSet.new(mime_type: 'image/jpeg') }
-  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file1) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
+  let(:ext_metadata_file2) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
   let(:raster1) { RasterWork.new }
   let(:raster2) { RasterWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
@@ -56,8 +56,8 @@ describe ImageWork do
 
     it 'can perform extraction and set properties for ISO 19139' do
       external_metadata_file = subject.metadata_files.first
-      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
       allow(external_metadata_file).to receive(:metadata_xml) { doc }
+      allow(external_metadata_file).to receive(:mime_type) { 'application/xml; schema=iso19139' }
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

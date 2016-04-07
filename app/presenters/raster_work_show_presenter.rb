@@ -10,8 +10,7 @@ class RasterWorkShowPresenter < GeoConcernsShowPresenter
   def raster_file_presenters
     # filter for raster files
     members(::FileSetPresenter).select do |member|
-      format = member.solr_document[:mime_type_ssi]
-      format ? FileSet.gdal_formats.include?(format) : false
+      RasterFormatService.include? member.solr_document[:mime_type_ssi]
     end
   end
 end

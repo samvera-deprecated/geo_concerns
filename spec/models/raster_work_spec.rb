@@ -6,8 +6,8 @@ describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let(:raster_file1) { FileSet.new(mime_type: 'image/tiff; gdal-format=GTiff') }
   let(:raster_file2) { FileSet.new(mime_type: 'image/tiff; gdal-format=GTiff') }
-  let(:ext_metadata_file1) { FileSet.new(conforms_to: 'ISO19139') }
-  let(:ext_metadata_file2) { FileSet.new(conforms_to: 'ISO19139') }
+  let(:ext_metadata_file1) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
+  let(:ext_metadata_file2) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
   let(:vector1) { VectorWork.new }
   let(:vector2) { VectorWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
@@ -70,7 +70,7 @@ describe RasterWork do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first.conforms_to).to eq 'ISO19139'
+      expect(subject.metadata_files.first.mime_type).to eq 'application/xml; schema=iso19139'
     end
   end
 
@@ -91,8 +91,8 @@ describe RasterWork do
 
     it 'can perform extraction and set properties for ISO 19139' do
       external_metadata_file = subject.metadata_files.first
-      expect(external_metadata_file.conforms_to.downcase).to eq('iso19139')
       allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
+      allow(external_metadata_file).to receive(:mime_type).and_return('application/xml; schema=iso19139')
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
