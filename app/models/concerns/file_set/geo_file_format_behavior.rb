@@ -28,25 +28,4 @@ module GeoFileFormatBehavior
   def vector_work?
     false
   end
-
-  module ClassMethods
-    def gdal_formats
-      [
-        'image/tiff; gdal-format=GTiff',
-        'text/plain; gdal-format=AIGrid'
-      ].freeze
-    end
-
-    def ogr_formats
-      [
-        'application/zip; ogr-format="ESRI Shapefile"',
-        'application/zip; ogr-format=OpenFileGDB',
-        'application/octet-stream; ogr-format=MDB'
-      ].freeze
-    end
-
-    def metadata_standards
-      %w(FGDC ISO19139 MODS).freeze
-    end
-  end
 end
