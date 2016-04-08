@@ -30,4 +30,27 @@ RSpec.describe GeoConcernsShowPresenter do
       expect(subject.external_metadata_file_formats_presenters.count).to eq 2
     end
   end
+
+  describe "#attribute_to_html" do
+    let(:attributes) { create(:raster_work).to_solr }
+    let(:attribute_renderer) { double('attribute_renderer') }
+    let(:coverage_renderer) { double('coverage_renderer') }
+
+    subject { described_class.new(solr_document, ability) }
+
+    before do
+      allow(CurationConcerns::AttributeRenderer).to receive(:new).and_return(attribute_renderer)
+      allow(CoverageRenderer).to receive(:new).and_return(coverage_renderer)
+    end
+
+    it "uses a CoverageRenderer when the field is coverage" do
+      expect(coverage_renderer).to receive(:render)
+      subject.attribute_to_html(:coverage)
+    end
+
+    it "uses an AttributeRenderer when the field is not coverage" do
+      expect(attribute_renderer).to receive(:render)
+      subject.attribute_to_html(:language)
+    end
+  end
 end

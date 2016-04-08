@@ -17,4 +17,12 @@ class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
       MetadataFormatService.include? member.solr_document[:mime_type_ssi]
     end
   end
+
+  def attribute_to_html(field, options = {})
+    if field == :coverage
+      ::CoverageRenderer.new(field, send(field), options).render
+    else
+      super field, options
+    end
+  end
 end
