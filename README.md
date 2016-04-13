@@ -8,6 +8,13 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 * [Poster from Hydra Connect 2015](https://drive.google.com/file/d/0B5fLh2mc4FCbOUpWaTFOVmI4Nkk/view?pli=1)
 * [Current GeoConcerns diagram](https://github.com/projecthydra-labs/geo_concerns/raw/master/docs/pcdm-geo-model.pdf)
 
+
+## Dependencies
+
+* [GDAL](http://www.gdal.org/)
+    * You can install it on Mac OSX with `brew install gdal`.
+    * On Ubuntu, use `sudo apt-get install gdal-bin`.
+    
 ## Installation
 
 Execute:
