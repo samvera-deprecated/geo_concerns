@@ -17,6 +17,10 @@ module GeoFileFormatBehavior
     MetadataFormatService.include?(mime_type)
   end
 
+  def geo_file_format?
+    image_file? || raster_file? || vector_file? || external_metadata_file?
+  end
+
   def image_work?
     false
   end

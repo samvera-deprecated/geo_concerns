@@ -1,6 +1,6 @@
 class CoverageRenderer < CurationConcerns::AttributeRenderer
   def render
-    coverage = values.first
+    coverage = values.first if values
     return '' unless coverage
     markup(coverage).html_safe
   end

@@ -5,4 +5,5 @@ module GeoFileSetBehavior
   include ::RasterFileBehavior
   include ::VectorFileBehavior
   include ::ExternalMetadataFileBehavior
+  include GeoConcerns::FileSet::Derivatives
 end
