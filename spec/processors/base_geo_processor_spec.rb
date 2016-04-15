@@ -7,6 +7,7 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
     end
 
     allow(subject).to receive(:directives).and_return(directives)
+    allow(subject).to receive(:source_path).and_return(file_name)
   end
 
   after { Object.send(:remove_const, :TestProcessor) }
@@ -25,10 +26,25 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
     end
   end
 
-  describe '#rasterize' do
-    it 'returns a gdal_rasterize command' do
-      expect(subject.class.rasterize(file_name, options, output_file))
-        .to include('gdal_rasterize')
+  describe '#intermediate_file_path' do
+    it 'returns a path to a temporary file based on the input file' do
+      expect(subject.class.intermediate_file_path(output_file))
+        .to include('geo_temp.png')
+    end
+  end
+
+  describe '#label' do
+    context 'when directives hash has a label value' do
+      let(:directives) { { label: :thumbnail } }
+      it 'returns the label' do
+        expect(subject.label).to eq(:thumbnail)
+      end
+    end
+
+    context 'when directives hash does not have label value' do
+      it 'returns an empty string' do
+        expect(subject.label).to eq('')
+      end
     end
   end
 
@@ -55,9 +71,34 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
     end
   end
 
+  describe '#output_srid' do
+    context 'when directives hash has an srid value' do
+      let(:directives) { { srid: 'EPSG:26918' } }
+      it 'returns that value' do
+        expect(subject.output_srid).to eq('EPSG:26918')
+      end
+    end
+
+    context 'when directives hash does not have an srid value' do
+      it 'returns that the default srid' do
+        expect(subject.output_srid).to eq('EPSG:4326')
+      end
+    end
+  end
+
+  describe '#basename' do
+    it 'returns the base file name of the source file' do
+      expect(subject.basename).to eq('geo')
+    end
+  end
+
   describe '#options_for' do
     it 'returns a hash that includes output size and format' do
-      expect(subject.options_for("a")).to include(:output_format, :output_size)
+      expect(subject.options_for("a")).to include(:output_format,
+                                                  :output_size,
+                                                  :label,
+                                                  :output_srid,
+                                                  :basename)
     end
   end
 end
