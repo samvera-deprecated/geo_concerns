@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe VectorWorkShowPresenter do
+RSpec.describe ::GeoConcerns::VectorWorkShowPresenter do
   let(:solr_document) { SolrDocument.new(attributes) }
   let(:ability) { nil }
 
@@ -22,7 +22,7 @@ RSpec.describe VectorWorkShowPresenter do
   end
 
   describe "file presenters" do
-    let(:obj) { create(:vector_work_with_vector_and_metadata_files) }
+    let(:obj) { FactoryGirl.create(:vector_work_with_vector_and_metadata_files) }
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 

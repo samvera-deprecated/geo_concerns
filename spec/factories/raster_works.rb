@@ -3,7 +3,7 @@ FactoryGirl.define do
     transient do
       user { FactoryGirl.create(:user) }
 
-      visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
     end
 
     after(:build) do |raster_work, evaluator|

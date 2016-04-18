@@ -1,9 +1,7 @@
-# Generated via
-#  `rails generate curation_concerns:work RasterWork`
 class RasterWork < ActiveFedora::Base
   include ::CurationConcerns::WorkBehavior
-  include ::RasterWorkBehavior
+  include ::GeoConcerns::RasterWorkBehavior
   include ::CurationConcerns::BasicMetadata
-  include ::BasicGeoMetadata
-  include ::GeoreferencedBehavior
+  include ::GeoConcerns::BasicGeoMetadata
+  include ::GeoConcerns::GeoreferencedBehavior
 end

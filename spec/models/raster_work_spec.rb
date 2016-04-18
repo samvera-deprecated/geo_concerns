@@ -1,6 +1,4 @@
-# Generated via
-#  `rails generate curation_concerns:work Raster`
-require 'rails_helper'
+require 'spec_helper'
 
 describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }

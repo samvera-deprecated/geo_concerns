@@ -5,7 +5,7 @@ FactoryGirl.define do
       user { FactoryGirl.create(:user) }
       content nil
 
-      cartographic_projection = 'urn:ogc:def:crs:EPSG::6326'
+      cartographic_projection 'urn:ogc:def:crs:EPSG::6326'
     end
 
     after(:build) do |file, evaluator|

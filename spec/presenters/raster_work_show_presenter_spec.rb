@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe RasterWorkShowPresenter do
+RSpec.describe GeoConcerns::RasterWorkShowPresenter do
   let(:solr_document) { SolrDocument.new(attributes) }
   let(:ability) { nil }
 
@@ -22,7 +22,7 @@ RSpec.describe RasterWorkShowPresenter do
   end
 
   describe "#vector_work_presenters" do
-    let(:obj) { create(:raster_work_with_vector_works) }
+    let(:obj) { FactoryGirl.create(:raster_work_with_vector_works) }
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 
@@ -33,7 +33,7 @@ RSpec.describe RasterWorkShowPresenter do
   end
 
   describe "file presenters" do
-    let(:obj) { create(:raster_work_with_files_and_metadata_files) }
+    let(:obj) { FactoryGirl.create(:raster_work_with_files_and_metadata_files) }
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 

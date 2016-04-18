@@ -28,6 +28,9 @@ function boundingBoxSelector(options) {
   } else {
     boundingBox = new L.BoundingBox({ bounds: initialBounds,
                                    buttonPosition: 'topright', }).addTo(map);
+  boundingBox.on('change', function() {
+    $(inputId).val(boundsToCoverage(this.getBounds()));
+  });
 
     boundingBox.on('change', function() {
       $(inputId).val(boundsToCoverage(this.getBounds()));
