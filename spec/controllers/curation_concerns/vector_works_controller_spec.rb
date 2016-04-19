@@ -31,7 +31,7 @@ describe CurationConcerns::VectorWorksController do
     context "when there's a parent raster work" do
       it "is a success" do
         vector = FactoryGirl.create(:vector_work, user: user)
-        raster = FactoryGirl.create(:raster_work, user: user) 
+        raster = FactoryGirl.create(:raster_work, user: user)
         raster.ordered_members << vector
         raster.save
         vector.update_index
@@ -44,7 +44,7 @@ describe CurationConcerns::VectorWorksController do
 
   describe "#show_presenter" do
     it "is a vector work show presenter" do
-      expect(CurationConcerns::VectorWorksController.new.show_presenter.name).to eq("VectorWorkShowPresenter")
+      expect(described_class.new.show_presenter.name).to eq("VectorWorkShowPresenter")
     end
   end
 end

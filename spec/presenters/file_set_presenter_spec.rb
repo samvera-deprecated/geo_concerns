@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe FileSetPresenter do
   let(:ability) { nil }
-  let(:solr_document) { SolrDocument.new() }
+  let(:solr_document) { SolrDocument.new }
   subject { described_class.new(solr_document, ability) }
 
   describe "#label" do

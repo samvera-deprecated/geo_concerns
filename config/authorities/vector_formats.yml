@@ -1,0 +1,7 @@
+terms:
+  - id: application/zip; ogr-format="ESRI Shapefile"
+    term: ESRI Shapefile
+  - id: application/zip; ogr-format=OpenFileGDB
+    term: OpenFileGDB
+  - id: application/vnd.geo+json
+    term: GeoJSON

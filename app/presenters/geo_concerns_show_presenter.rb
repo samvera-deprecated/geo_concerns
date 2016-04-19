@@ -14,8 +14,15 @@ class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
   def external_metadata_file_formats_presenters
     # filter for external metadata files
     members(::FileSetPresenter).select do |member|
-      format = member.solr_document[:conforms_to_tesim]
-      format ? FileSet.external_metadata_file_formats.include?(format.first) : false
+      MetadataFormatService.include? member.solr_document[:mime_type_ssi]
+    end
+  end
+
+  def attribute_to_html(field, options = {})
+    if field == :coverage
+      ::CoverageRenderer.new(field, send(field), options).render
+    else
+      super field, options
     end
   end
 end

@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { FileSet.new(conforms_to: 'TIFF_GeoTIFF') }
+  subject { described_class.new(mime_type: 'image/tiff; gdal-format=GTiff') }
 
-  context "when conforms_to is a raster format" do
+  context "when mime_type is a raster format" do
     it "responds as a raster file" do
       expect(subject.raster_file?).to be_truthy
     end
@@ -23,18 +23,13 @@ describe FileSet do
 
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:raster_file,
-                                 date_uploaded: Date.today,
-                                 cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
+                                       date_uploaded: Time.zone.today,
+                                       cartographic_projection: 'urn:ogc:def:crs:EPSG::6326'
+                                       ).to_solr
     }
 
     it "indexes the coordinate reference system" do
       expect(solr_doc.keys).to include 'cartographic_projection_tesim'
-    end
-
-    context "as required by the GeoBlacklight Schema" do
-      it "indexes the UUID" do
-        expect(solr_doc.keys).to include 'uuid'
-      end
     end
   end
 
@@ -48,7 +43,7 @@ describe FileSet do
     end
 
     it 'has standard' do
-      expect(subject).to respond_to(:conforms_to)
+      expect(subject).to respond_to(:mime_type)
     end
   end
 end

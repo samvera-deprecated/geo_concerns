@@ -14,7 +14,21 @@
         <legend>
           Attach Your File
         </legend>
-        <%= f.input :conforms_to %>
+        <% select_options = if params['type'] == 'metadata'
+             MetadataFormatService.select_options
+           elsif params['type'] == 'image-data'
+             ImageFormatService.select_options
+           elsif params['type'] == 'raster-data'
+             RasterFormatService.select_options
+           elsif params['type'] == 'vector-data'
+             VectorFormatService.select_options
+           end %>
+        <% if select_options %>
+          <%= f.input(:mime_type, as: :select, collection: select_options,
+               input_html: { class: 'form-control' }, label: 'Type') %>
+        <% else %>
+          <%= f.input :mime_type, label: 'MIME Type' %>
+        <% end %>
         <%= f.input :files, as: :multifile %>
       </fieldset>
     </div>

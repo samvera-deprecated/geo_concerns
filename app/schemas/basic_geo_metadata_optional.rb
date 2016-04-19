@@ -37,6 +37,16 @@ class BasicGeoMetadataOptional < ActiveTriples::Schema
   # @example
   #   vector.issued = '2001-01-01T00:00:00Z'
   property :issued, predicate: ::RDF::Vocab::DC.issued, multiple: false do |index|
+    index.type :date
     index.as :stored_searchable
+  end
+
+  # Defines the format of the resource
+  # @example
+  #   image.format = 'GeoTIFF'
+  #   raster.format = 'ArcGRID'
+  #   vector.format = 'Shapefile'
+  property :format, predicate: ::RDF::Vocab::DC11.format, multiple: false do |index|
+    index.as :stored_searchable, :facetable
   end
 end

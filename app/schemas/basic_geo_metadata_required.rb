@@ -32,9 +32,11 @@ class BasicGeoMetadataRequired < ActiveTriples::Schema
     index.as :stored_searchable, :facetable
   end
 
-  # jrgriffiniii
-  #  property :title, predicate: ::RDF::Vocab::DC.title, multiple: false do |index|
-  #    index.as :stored_searchable, :facetable
-  #  end
-  # property :uuid, predicate: ::RDF::Vocab::DC11.coverage, multiple: false
+  # Defines URL's to related services for the layer.
+  # @example
+  #   raster.references = { "http://www.opengis.net/def/serviceType/ogc/wms" => "https://geowebservices-restricted.stanford.edu/geoserver/wms" }
+  #   vector.references = { "http://www.opengis.net/def/serviceType/ogc/wfs" => "https://geowebservices-restricted.stanford.edu/geoserver/wfs" }
+  property :references, predicate: ::RDF::Vocab::DC.references, multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
 end

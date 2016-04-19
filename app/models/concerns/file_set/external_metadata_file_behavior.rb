@@ -12,16 +12,18 @@ module ExternalMetadataFileBehavior
   #   extract_mods_metadata
   # @return [Hash]
   def extract_metadata
-    fn = "extract_#{conforms_to.downcase}_metadata"
-    if respond_to?(fn.to_sym)
-      send(fn, metadata_xml)
-    else
-      fail ArgumentError, "Unsupported metadata standard: #{conforms_to}"
-    end
+    raise ArgumentError, "MIME type unspecified or not configured" if schema.blank?
+    fn = "extract_#{schema.downcase}_metadata"
+    raise ArgumentError, "Unsupported metadata standard: #{schema}" unless respond_to?(fn.to_sym)
+    send(fn, metadata_xml)
   end
 
   # Retrives data from PCDM::File
   def metadata_xml
     Nokogiri::XML(original_file.content)
+  end
+
+  def schema
+    (MetadataFormatService.label(mime_type) || '').parameterize('_')
   end
 end

@@ -1,6 +1,6 @@
 # Geo Concerns
 [![Build Status](https://travis-ci.org/projecthydra-labs/geo_concerns.svg)](https://travis-ci.org/projecthydra-labs/geo_concerns)
-[![Coverage Status](https://coveralls.io/repos/projecthydra-labs/geo_concerns/badge.svg?branch=master&service=github)](https://coveralls.io/github/projecthydra-labs/geo_concerns?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/projecthydra-labs/geo_concerns/badge.svg?branch=master)](https://coveralls.io/github/projecthydra-labs/geo_concerns?branch=master)
 [![API Docs](http://img.shields.io/badge/API-docs-blue.svg)](http://www.rubydoc.info/github/projecthydra-labs/geo_concerns)
 
 Rails application for developing Hydra Geo models. Built around Curation Concerns engine.
@@ -33,7 +33,7 @@ To run tests separately:
 
 ```
 $ rake server:test
-``` 
+```
 
 Then, in another terminal window:
 

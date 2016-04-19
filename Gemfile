@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.2.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
@@ -36,17 +35,21 @@ gem 'rsolr', '~> 1.0.6'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
 
-gem 'curation_concerns', '0.10.0'
+gem 'curation_concerns',
+  :git => 'https://github.com/projecthydra-labs/curation_concerns.git',
+  :ref => 'a9f1f'
 
 gem "jquery-ui-rails"
 gem "simple_form", '~> 3.1.0'
 gem 'nokogiri'
 gem 'equivalent-xml'
-gem 'solr_wrapper', '~> 0.5.1'
-gem 'fcrepo_wrapper', '~> 0.2'
+gem 'solr_wrapper'
+gem 'fcrepo_wrapper'
 gem 'coveralls', require: false
 
 gem 'leaflet-rails'
+
+gem 'active-fedora', '~> 9.10.0'
 
 group :development do
   # Yard is not compatible with most recent rake release.

@@ -1,7 +1,7 @@
 class CurationConcerns::RasterWorksController < ApplicationController
   include CurationConcerns::CurationConcernController
   include CurationConcerns::ParentContainer
-  set_curation_concern_type RasterWork
+  self.curation_concern_type = RasterWork
 
   def create
     super
@@ -15,5 +15,9 @@ class CurationConcerns::RasterWorksController < ApplicationController
 
   def show_presenter
     ::RasterWorkShowPresenter
+  end
+
+  def search_builder_class
+    CurationConcerns::GeoSearchBuilder
   end
 end

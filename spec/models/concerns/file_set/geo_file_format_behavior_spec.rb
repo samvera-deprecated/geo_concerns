@@ -5,7 +5,7 @@ describe GeoFileFormatBehavior do
 
   describe '#image_file?' do
     before do
-      allow(subject).to receive(:conforms_to).and_return('TIFF')
+      allow(subject).to receive(:mime_type).and_return('image/tiff')
     end
     it 'is true' do
       expect(subject.image_file?).to be true
@@ -14,7 +14,7 @@ describe GeoFileFormatBehavior do
 
   describe '#raster_file?' do
     before do
-      allow(subject).to receive(:conforms_to).and_return('TIFF_GeoTIFF')
+      allow(subject).to receive(:mime_type).and_return('image/tiff; gdal-format=GTiff')
     end
     it 'is true' do
       expect(subject.raster_file?).to be true
@@ -23,7 +23,7 @@ describe GeoFileFormatBehavior do
 
   describe '#vector_file?' do
     before do
-      allow(subject).to receive(:conforms_to).and_return('SHAPEFILE')
+      allow(subject).to receive(:mime_type).and_return('application/zip; ogr-format="ESRI Shapefile"')
     end
     it 'is true' do
       expect(subject.vector_file?).to be true
@@ -32,34 +32,10 @@ describe GeoFileFormatBehavior do
 
   describe '#external_metadata_file?' do
     before do
-      allow(subject).to receive(:conforms_to).and_return('ISO19139')
+      allow(subject).to receive(:mime_type).and_return('application/xml; schema=iso19139')
     end
     it 'is true' do
       expect(subject.external_metadata_file?).to be true
-    end
-  end
-
-  describe '#image_file_formats' do
-    it 'returns array of image formats' do
-      expect(subject.class.image_file_formats).to eq(['TIFF', 'IMAGE_FILE'])
-    end
-  end
-
-  describe '#raster_file_formats' do
-    it 'returns array of raster formats' do
-      expect(subject.class.raster_file_formats).to eq(['TIFF_GeoTIFF', 'RASTER_FILE'])
-    end
-  end
-
-  describe '#vector_file_formats' do
-    it 'returns array of vector formats' do
-      expect(subject.class.vector_file_formats).to eq(['SHAPEFILE', 'SHAPEFILE_ZIP', 'VECTOR_FILE'])
-    end
-  end
-
-  describe '#external_metadata_file_formats' do
-    it 'returns array of external metadata file formats formats' do
-      expect(subject.class.external_metadata_file_formats).to eq(['FGDC', 'ISO19139', 'MODS', 'EXTERNAL_METADATA_FILE'])
     end
   end
 end

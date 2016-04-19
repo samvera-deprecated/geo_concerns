@@ -1,7 +1,10 @@
 function boundingBoxSelector(options) {
   var inputId = options.inputId;
   var initialBounds;
-  var coverage = $(inputId).val();
+  var coverage = options.coverage;
+  if (!coverage && inputId ) {
+    var coverage = $(inputId).val();
+  }
 
   if (coverage) {
     initialBounds = coverageToBounds(coverage);
@@ -19,13 +22,19 @@ function boundingBoxSelector(options) {
     maxZoom: 18
   }).addTo(map);
   L.Control.geocoder({ position: 'topleft' }).addTo(map);
-  boundingBox = new L.BoundingBox({ bounds: initialBounds,
-                                   buttonPosition: 'topright', }).addTo(map);
-  boundingBox.on('change', function() {
-    $(inputId).val(boundsToCoverage(this.getBounds()));
-  });
 
-  boundingBox.enable();
+  if (options.readonly) {
+    new L.Rectangle(initialBounds, { color: 'white', weight: 2, opacity: 0.9 }).addTo(map);
+  } else {
+    boundingBox = new L.BoundingBox({ bounds: initialBounds,
+                                   buttonPosition: 'topright', }).addTo(map);
+
+    boundingBox.on('change', function() {
+      $(inputId).val(boundsToCoverage(this.getBounds()));
+    });
+
+    boundingBox.enable();
+  }
 };
 
 function clampBounds(bounds) {
