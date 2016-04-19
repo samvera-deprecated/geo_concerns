@@ -5,6 +5,7 @@ module GeoFileSetBehavior
   include ::RasterFileBehavior
   include ::VectorFileBehavior
   include ::ExternalMetadataFileBehavior
+  include GeoConcerns::FileSet::Derivatives
 
   def to_solr
     solr_doc = super

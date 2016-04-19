@@ -62,7 +62,7 @@ end
 
 group :development, :test do
   gem 'bundler', '~> 1.6'
-  gem 'rake'
+  gem 'rake', '~> 11.1.0'
   gem 'rspec-its'
   gem 'rspec-rails', '>=3.4.2'
   gem 'rspec-html-matchers'
@@ -75,5 +75,5 @@ group :development, :test do
   gem 'rubocop-rspec', '>=1.4.0', require: false
   gem 'simplecov', '~> 0.9', require: false
   gem 'pry' unless ENV['CI']
-  gem 'byebug' unless ENV['CI']
+  gem 'pry-byebug' unless ENV['CI']
 end
