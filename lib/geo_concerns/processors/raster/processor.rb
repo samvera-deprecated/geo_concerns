@@ -18,7 +18,7 @@ module GeoConcerns
           when 'application/octet-stream; gdal-format=AIG'
             GeoConcerns::Processors::Raster::Aig
           else
-            GeoConcerns::Processors::Raster::Simple
+            GeoConcerns::Processors::Raster::Base
           end
         end
       end

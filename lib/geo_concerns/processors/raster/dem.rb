@@ -1,13 +1,20 @@
 module GeoConcerns
   module Processors
     module Raster
-      class Dem < GeoConcerns::Processors::Raster::Simple
+      class Dem < GeoConcerns::Processors::Raster::Base
         def self.encode_raster(in_path, options, out_path)
-          resized_dem_path = resized_out_path(out_path)
-          execute translate(in_path, options, resized_dem_path)
-          execute hillshade(resized_dem_path, options, out_path)
-          FileUtils.rm_rf(resized_dem_path)
+          intermediate_file = intermediate_file_path(out_path)
+          execute translate(in_path, options, intermediate_file)
+          execute hillshade(intermediate_file, options, out_path)
+          FileUtils.rm_rf(intermediate_file)
           File.unlink("#{out_path}.aux.xml")
+        end
+
+        def self.reproject_raster(in_path, options, out_path)
+          intermediate_file = intermediate_file_path(out_path)
+          execute hillshade(in_path, options, intermediate_file)
+          execute warp(intermediate_file, options, out_path)
+          FileUtils.rm_rf(intermediate_file)
         end
 
         # Returns a formatted gdal_translate command to translate a vector
@@ -32,15 +39,6 @@ module GeoConcerns
         def self.hillshade(in_path, options, out_path)
           "gdaldem hillshade -q "\
             "-of #{options[:output_format]} \"#{in_path}\" #{out_path}"
-        end
-
-        # Returns a path to the resized intermediate file.
-        #
-        # @param path [String] resized raster intermediate file
-        # @return [String] command for generating a hillshade
-        def self.resized_out_path(path)
-          ext = File.extname(path)
-          "#{File.dirname(path)}/#{File.basename(path, ext)}_resize#{ext}"
         end
       end
     end

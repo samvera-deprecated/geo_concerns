@@ -30,8 +30,8 @@ describe GeoConcerns::Processors::Raster::Processor do
     let(:file_name) { 'files/geo.tif' }
     let(:directives) { { input_format: 'image/tiff; gdal-format=GTiff' } }
 
-    it 'calls the Simple raster processor' do
-      expect(GeoConcerns::Processors::Raster::Simple).to receive(:new).and_return(processor)
+    it 'calls the base raster processor' do
+      expect(GeoConcerns::Processors::Raster::Base).to receive(:new).and_return(processor)
       expect(processor).to receive(:process)
       subject.process
     end

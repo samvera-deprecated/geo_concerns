@@ -16,7 +16,7 @@ module GeoConcerns
           when 'application/zip; ogr-format="ESRI Shapefile"'
             GeoConcerns::Processors::Vector::Shapefile
           else
-            GeoConcerns::Processors::Vector::Simple
+            GeoConcerns::Processors::Vector::Base
           end
         end
       end

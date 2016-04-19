@@ -1,15 +1,28 @@
 module GeoConcerns
   module Processors
     module Raster
-      class Aig < GeoConcerns::Processors::Raster::Simple
-        include GeoConcerns::Processors::Unzip
+      class Aig < GeoConcerns::Processors::Raster::Base
+        include GeoConcerns::Processors::Zip
 
         def self.encode(path, options, output_file)
           unzip(path, output_file) do |zip_path|
             info = gdalinfo(zip_path)
             options[:min_max] = get_raster_min_max(info)
-            encode_raster(zip_path, options, output_file)
+            case options[:label]
+            when :thumbnail
+              encode_raster(zip_path, options, output_file)
+            when :display_raster
+              reproject_raster(zip_path, options, output_file)
+            end
           end
+        end
+
+        def self.reproject_raster(in_path, options, out_path)
+          options[:output_size] = '100% 100%'
+          intermediate_file = intermediate_file_path(out_path)
+          execute warp(in_path, options, intermediate_file)
+          execute translate(intermediate_file, options, out_path)
+          FileUtils.rm_rf(intermediate_file)
         end
 
         # Returns a formatted gdal_translate command to translate a raster
@@ -24,25 +37,6 @@ module GeoConcerns
         def self.translate(in_path, options, out_path)
           "gdal_translate -scale #{options[:min_max]} 255 0 -outsize #{options[:output_size]} "\
              "-q -ot Byte -of #{options[:output_format]} \"#{in_path}\" #{out_path}"
-        end
-
-        # Given an output string from the gdalinfo command, returns
-        # a formatted string for the computed min and max values.
-        #
-        # @param info_string [String] ouput from gdalinfo
-        # @return [String] computed min and max values
-        def self.get_raster_min_max(info_string)
-          match = %r{(?<=Computed Min/Max=).*?(?=\s)}.match(info_string)
-          match ? match[0].tr(',', ' ') : ''
-        end
-
-        # Runs the gdalinfo command and returns the result as a string.
-        #
-        # @param path [String] path to raster file
-        # @return [String] output of gdalinfo
-        def self.gdalinfo(path)
-          stdout, _stderr, _status = Open3.capture3("gdalinfo -mm #{path}")
-          stdout
         end
       end
     end
