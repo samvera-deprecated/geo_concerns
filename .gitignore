@@ -10,3 +10,4 @@ test/dummy/.sass-cache
 .internal_test_app
 fcrepo4-data
 Gemfile.lock
+coverage
