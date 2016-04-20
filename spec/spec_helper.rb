@@ -1,13 +1,17 @@
 require 'simplecov'
+
 if ENV['CI']
   require 'coveralls'
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 end
-SimpleCov.start('rails') do
-  add_filter '/spec'
-  add_filter '/.internal_test_app'
-  add_filter '/lib/generators'
-  add_filter '/lib/geo_concerns/version.rb'
+
+if ENV['COVERAGE'] || ENV['CI']
+  SimpleCov.start('rails') do
+    add_filter '/spec'
+    add_filter '/.internal_test_app'
+    add_filter '/lib/generators'
+    add_filter '/lib/geo_concerns/version.rb'
+  end
 end
 
 require 'engine_cart'
