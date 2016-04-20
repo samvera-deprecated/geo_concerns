@@ -1,6 +1,4 @@
-# Generated via
-#  `rails generate curation_concerns:work Vector`
-require 'rails_helper'
+require 'spec_helper'
 
 describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }

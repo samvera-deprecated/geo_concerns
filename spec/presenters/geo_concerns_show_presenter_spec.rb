@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe GeoConcernsShowPresenter do
+RSpec.describe ::GeoConcerns::GeoConcernsShowPresenter do
   let(:solr_document) { SolrDocument.new(attributes) }
   let(:ability) { nil }
 
@@ -22,7 +22,7 @@ RSpec.describe GeoConcernsShowPresenter do
   end
 
   describe "#external_metadata_file_formats_presenters" do
-    let(:obj) { create(:raster_work_with_metadata_files) }
+    let(:obj) { FactoryGirl.create(:raster_work_with_metadata_files) }
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 
@@ -32,7 +32,7 @@ RSpec.describe GeoConcernsShowPresenter do
   end
 
   describe "#attribute_to_html" do
-    let(:attributes) { create(:raster_work).to_solr }
+    let(:attributes) { FactoryGirl.create(:raster_work).to_solr }
     let(:attribute_renderer) { double('attribute_renderer') }
     let(:coverage_renderer) { double('coverage_renderer') }
 

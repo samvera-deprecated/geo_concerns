@@ -14,32 +14,28 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 * [GDAL](http://www.gdal.org/)
     * You can install it on Mac OSX with `brew install gdal`.
     * On Ubuntu, use `sudo apt-get install gdal-bin`.
-    
+
 ## Installation
 
-Execute:
+1. Add `gem 'geo_concerns'` to your Gemfile.
+2. `bundle install`
+3. `rails g geo_concerns:install`
 
-```
-$ bundle install
-```
+## Development
 
-Then:
-
-```
-$ rake db:migrate
-$ rake server:development
-```
+1. `bundle install`
+2. `rake engine_cart:generate`
+3. `rake geo_concerns:dev_servers`
+4. `cd .internal_test_app && rails s`
 
 ## Testing
 
-```
-$ rake ci
-```
+3. `rake ci`
 
 To run tests separately:
 
 ```
-$ rake server:test
+$ rake geo_concerns:test_servers
 ```
 
 Then, in another terminal window:

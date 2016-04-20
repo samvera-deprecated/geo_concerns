@@ -1,6 +1,3 @@
-# Generated via
-#  `rails generate curation_concerns:work ImageWork`
-require 'rails_helper'
 require 'spec_helper'
 
 describe ImageWork do

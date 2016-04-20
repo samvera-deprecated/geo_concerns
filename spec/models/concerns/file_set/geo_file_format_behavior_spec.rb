@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeoFileFormatBehavior do
+describe GeoConcerns::GeoFileFormatBehavior do
   subject { FileSet.new }
 
   describe '#image_file?' do
