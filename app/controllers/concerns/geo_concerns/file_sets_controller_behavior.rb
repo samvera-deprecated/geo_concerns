@@ -5,13 +5,6 @@ module GeoConcerns
       self.show_presenter = ::FileSetPresenter
     end
 
-    # this is provided so that implementing application can override this
-    # behavior and map params to different attributes
-    def update_metadata
-      file_attributes = form_class.model_attributes(attributes)
-      actor.update_metadata(file_attributes)
-    end
-
     # inject mime_type into permitted params
     def file_set_params
       super.tap do |permitted_params|
