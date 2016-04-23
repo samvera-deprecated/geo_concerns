@@ -7,17 +7,14 @@ module GeoConcerns
       true
     end
 
-    private
-
-      ##
-      # Determines the correct mime type for a file. If the mime type is stored on
-      # the file_set (set in the view), then use that value. If not, use the file
-      # content type, if it exists.
-      # @param [File, ActionDigest::HTTP::UploadedFile] file to get mime type from
-      # @return [String] Mime type for the file
-      def mime_type(file)
-        return file_set.mime_type if file_set.mime_type
-        file.respond_to?(:content_type) ? file.content_type : nil || file_set.mime_type
-      end
+    # Determines the correct mime type for a file. If the mime type is stored on
+    # the file_set (set in the view), then use that value. If not, use the file
+    # content type, if it exists.
+    # @param [File, ActionDigest::HTTP::UploadedFile] file to get mime type from
+    # @return [String] Mime type for the file
+    def mime_type(file)
+      return file_set.mime_type if file_set.mime_type
+      file.respond_to?(:content_type) ? file.content_type : nil || file_set.mime_type
+    end
   end
 end
