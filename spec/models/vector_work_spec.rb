@@ -58,6 +58,21 @@ describe VectorWork do
     end
   end
 
+  describe '#raster_work' do
+    let(:vector_work) { FactoryGirl.create(:vector_work, title: ['Vector'], coverage: coverage.to_s) }
+    let(:raster_work) { FactoryGirl.create(:raster_work, title: ['Raster'], coverage: coverage.to_s) }
+
+    before do
+      raster_work.ordered_members << vector_work
+      vector_work.save
+      raster_work.save
+    end
+
+    it 'has a parent image work' do
+      expect(vector_work.raster_work).to be_a RasterWork
+    end
+  end
+
   describe "to_solr" do
     subject { FactoryGirl.build(:vector_work, date_uploaded: Time.zone.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do

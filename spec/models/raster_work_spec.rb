@@ -72,6 +72,21 @@ describe RasterWork do
     end
   end
 
+  describe '#image_work' do
+    let(:raster_work) { FactoryGirl.create(:raster_work, title: ['Raster'], coverage: coverage.to_s) }
+    let(:image_work) { FactoryGirl.create(:image_work, title: ['Image'], coverage: coverage.to_s) }
+
+    before do
+      image_work.ordered_members << raster_work
+      raster_work.save
+      image_work.save
+    end
+
+    it 'has a parent image work' do
+      expect(raster_work.image_work).to be_a ImageWork
+    end
+  end
+
   describe "to_solr" do
     subject { FactoryGirl.build(:raster_work, date_uploaded: Time.zone.today, coverage: coverage.to_s).to_solr }
     it "indexes ordered_by_ssim field" do

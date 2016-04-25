@@ -55,7 +55,7 @@ module GeoConcerns
     # Retrieve all Image Works for which georeferencing generates this Raster Work
     # @return [Array]
     def image_works
-      aggregated_by.select do |parent|
+      ordered_by.select do |parent|
         parent.class.included_modules.include?(::GeoConcerns::ImageWorkBehavior)
       end
     end

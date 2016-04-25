@@ -30,7 +30,7 @@ FactoryGirl.define do
 
     factory :raster_work_with_image_works do
       before(:create) do |raster_work, evaluator|
-        image = FactoryGirl.create(:image, user: evaluator.user)
+        image = FactoryGirl.create(:image_work, user: evaluator.user)
         image.ordered_members << raster_work
       end
     end
