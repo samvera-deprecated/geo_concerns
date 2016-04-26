@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.2.6"
-  s.add_dependency "curation_concerns", '~> 0.12.0.pre1'
+  s.add_dependency "curation_concerns", '~> 0.14.0.pre1'
   s.add_dependency 'leaflet-rails'
 
   s.add_development_dependency "sqlite3"
