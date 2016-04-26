@@ -38,4 +38,19 @@ describe GeoConcerns::GeoFileFormatBehavior do
       expect(subject.external_metadata_file?).to be true
     end
   end
+
+  describe '#geo_file_format?' do
+    before do
+      allow(subject).to receive(:mime_type).and_return('image/tiff; gdal-format=GTiff')
+    end
+    it 'is true' do
+      expect(subject.geo_file_format?).to be true
+    end
+  end
+
+  describe '#image_work?' do
+    it 'is false' do
+      expect(subject.image_work?).to be false
+    end
+  end
 end

@@ -23,23 +23,17 @@ module GeoConcerns
     # Defines the placenames related to the layer
     # @example
     #   image.spatial = [ 'France', 'Spain' ]
-    property :spatial, predicate: ::RDF::Vocab::DC.spatial do |index|
-      index.as :stored_searchable, :facetable
-    end
+    property :spatial, predicate: ::RDF::Vocab::DC.spatial
 
     # Defines the temporal coverage of the layer
     # @example
     #   vector.temporal = [ '1998-2006', 'circa 2000' ]
-    property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|
-      index.as :stored_searchable, :facetable
-    end
+    property :temporal, predicate: ::RDF::Vocab::DC.temporal
 
     # Defines the issued date for the layer, using XML Schema dateTime format
     #   (YYYY-MM-DDThh:mm:ssZ).
     # @example
     #   vector.issued = '2001-01-01T00:00:00Z'
-    property :issued, predicate: ::RDF::Vocab::DC.issued, multiple: false do |index|
-      index.as :stored_searchable
-    end
+    property :issued, predicate: ::RDF::Vocab::DC.issued, multiple: false
   end
 end

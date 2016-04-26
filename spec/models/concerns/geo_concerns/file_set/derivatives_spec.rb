@@ -36,6 +36,16 @@ shared_examples 'a set of vector derivatives' do
   end
 end
 
+shared_examples 'a set of image derivatives' do
+  it 'makes a thumbnail' do
+    new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"
+    expect {
+      file_set.create_derivatives(file_name)
+    }.to change { Dir[new_thumb].empty? }
+      .from(true).to(false)
+  end
+end
+
 describe CurationConcerns::FileSet do
   let(:file_set) { FileSet.create { |gf| gf.apply_depositor_metadata('geonerd@example.com') } }
 
@@ -53,6 +63,14 @@ describe CurationConcerns::FileSet do
   end
 
   describe 'geo derivatives' do
+    describe 'image processing' do
+      context 'with a jpeg' do
+        let(:mime_type) { 'image/jpeg' }
+        let(:file_name) { File.join(fixture_path, 'files', 'americas.jpg') }
+        it_behaves_like 'a set of image derivatives'
+      end
+    end
+
     describe 'vector processing' do
       context 'with a shapefile' do
         let(:mime_type) { 'application/zip; ogr-format="ESRI Shapefile"' }

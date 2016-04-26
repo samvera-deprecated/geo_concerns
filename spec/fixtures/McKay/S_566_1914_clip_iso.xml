@@ -172,9 +172,19 @@
           </date>
           <citedResponsibleParty>
             <CI_ResponsibleParty>
-              <individualName>
-                <gco:CharacterString>Larry Laliberte</gco:CharacterString>
-              </individualName>
+              <organisationName>
+                <gco:CharacterString>University of Alberta</gco:CharacterString>
+              </organisationName>
+              <positionName>
+                <gco:CharacterString>GIS Librarian</gco:CharacterString>
+              </positionName>
+              <role>
+                <CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator" codeSpace="ISOTC211/19115">originator</CI_RoleCode>
+              </role>
+            </CI_ResponsibleParty>
+          </citedResponsibleParty>
+          <citedResponsibleParty>
+            <CI_ResponsibleParty>
               <organisationName>
                 <gco:CharacterString>University of Alberta</gco:CharacterString>
               </organisationName>

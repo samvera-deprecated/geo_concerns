@@ -32,7 +32,7 @@ describe RasterWork do
 
   describe 'with acceptable inputs' do
     subject { described_class.new }
-    it 'add rasterfile,metadata,vector to file' do
+    it 'adds raster file set, metadata file set, vector work to file' do
       subject.members << raster_file1
       subject.members << raster_file2
       subject.members << ext_metadata_file1
@@ -42,6 +42,15 @@ describe RasterWork do
       expect(subject.raster_files).to eq [raster_file1, raster_file2]
       expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
       expect(subject.vector_works).to eq [vector1, vector2]
+    end
+    it 'defines what type of object it is' do
+      expect(subject.raster_work?).to be_truthy
+      expect(subject.raster_file?).to be_falsey
+      expect(subject.image_work?).to be_falsey
+      expect(subject.image_file?).to be_falsey
+      expect(subject.vector_work?).to be_falsey
+      expect(subject.vector_file?).to be_falsey
+      expect(subject.external_metadata_file?).to be_falsey
     end
   end
 
@@ -91,7 +100,7 @@ describe RasterWork do
       external_metadata_file = subject.metadata_files.first
       allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
       allow(external_metadata_file).to receive(:mime_type).and_return('application/xml; schema=iso19139')
-      subject.populate_metadata
+      subject.should_populate_metadata = 'true'
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
   end

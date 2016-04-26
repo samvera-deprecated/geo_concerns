@@ -16,7 +16,7 @@ module GeoConcerns
       end
     end
 
-    attr_reader :should_populate_metadata
+    attr_accessor :should_populate_metadata
 
     def should_populate_metadata=(args)
       @should_populate_metadata = args.present?

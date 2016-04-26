@@ -13,7 +13,7 @@ module GeoConcerns
       raise ParseError, str if n.nil? || e.nil? || s.nil? || w.nil?
       new(n, e, s, w)
     rescue
-      raise ParseError, str
+      nil
     end
 
     def self.parse_coordinate(str, regex)

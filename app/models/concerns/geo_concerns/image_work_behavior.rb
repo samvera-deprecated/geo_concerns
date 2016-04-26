@@ -26,7 +26,7 @@ module GeoConcerns
 
     # This is an Image Resource
     # @return [Boolean]
-    def image?
+    def image_work?
       true
     end
 

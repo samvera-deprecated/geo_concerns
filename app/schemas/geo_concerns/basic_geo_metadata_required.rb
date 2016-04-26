@@ -20,8 +20,6 @@ module GeoConcerns
     # Defines the institution which holds the layer
     # @example
     #   raster.provenance = 'Stanford University'
-    property :provenance, predicate: ::RDF::Vocab::DC.provenance, multiple: false do |index|
-      index.as :stored_searchable, :facetable
-    end
+    property :provenance, predicate: ::RDF::Vocab::DC.provenance, multiple: false
   end
 end
