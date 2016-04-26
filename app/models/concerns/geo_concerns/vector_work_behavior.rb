@@ -51,9 +51,15 @@ module GeoConcerns
     # Retrieve all Raster Works for which this Vector Work can be extracted
     # @return [Array]
     def raster_works
-      aggregated_by.select do |parent|
+      ordered_by.select do |parent|
         parent.class.included_modules.include?(::GeoConcerns::RasterWorkBehavior)
       end
+    end
+
+    # Retrieve the only Raster Work for which feature extraction generates this Vector Work
+    # @return [GeoConcerns::RasterWork]
+    def raster_work
+      raster_works.first
     end
 
     def to_solr(solr_doc = {})
