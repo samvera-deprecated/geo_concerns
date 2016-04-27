@@ -50,6 +50,7 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Exclude:
     - 'app/controllers/catalog_controller.rb'
+    - 'lib/generators/geo_concerns/install_generator.rb'
 
 Style/BlockDelimiters:
   Exclude:
