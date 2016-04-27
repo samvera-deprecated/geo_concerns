@@ -1,5 +1,11 @@
 module GeoConcerns
-  module RasterWorkController
+  module RasterWorksControllerBehavior
+    extend ActiveSupport::Concern
+
+    included do
+      self.show_presenter = GeoConcerns::RasterWorkShowPresenter
+    end
+
     def create
       super
 
