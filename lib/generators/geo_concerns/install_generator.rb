@@ -20,11 +20,13 @@ module GeoConcerns
     end
 
     def install_raster_work
+      copy_file 'models/raster_work.rb', 'app/models/raster_work.rb'
       file_path = 'app/actors/curation_concerns/raster_work_actor.rb'
       copy_file 'actors/curation_concerns/raster_work_actor.rb', file_path
     end
 
     def install_vector_work
+      copy_file 'models/vector_work.rb', 'app/models/vector_work.rb'
       file_path = 'app/actors/curation_concerns/vector_work_actor.rb'
       copy_file 'actors/curation_concerns/vector_work_actor.rb', file_path
       file_path = 'app/controllers/curation_concerns/vector_works_controller.rb'
@@ -32,6 +34,7 @@ module GeoConcerns
     end
 
     def install_image_work
+      copy_file 'models/image_work.rb', 'app/models/image_work.rb'
       file_path = 'app/actors/curation_concerns/image_work_actor.rb'
       copy_file 'actors/curation_concerns/image_work_actor.rb', file_path
     end
