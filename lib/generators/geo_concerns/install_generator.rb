@@ -63,7 +63,7 @@ module GeoConcerns
             "  include ::GeoConcerns::GeoFileSetBehavior\n"
         end
       else
-        copy_file 'file_set.rb', file_path
+        copy_file 'models/file_set.rb', file_path
       end
     end
 
@@ -75,7 +75,7 @@ module GeoConcerns
             "  include ::GeoConcerns::FileSetPresenterBehavior\n"
         end
       else
-        copy_file 'file_set_presenter.rb', file_path
+        copy_file 'presenters/file_set_presenter.rb', file_path
       end
     end
 
