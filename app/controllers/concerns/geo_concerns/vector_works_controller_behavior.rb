@@ -1,5 +1,11 @@
 module GeoConcerns
-  module VectorWorksController
+  module VectorWorksControllerBehavior
+    extend ActiveSupport::Concern
+
+    included do
+      self.show_presenter = GeoConcerns::VectorWorkShowPresenter
+    end
+
     def create
       super
 
@@ -11,7 +17,7 @@ module GeoConcerns
     end
 
     def form_class
-      ::GeoConcerns::VectorWorkForm
+      GeoConcerns::VectorWorkForm
     end
   end
 end

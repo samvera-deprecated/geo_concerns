@@ -3,6 +3,7 @@ require 'rails/generators'
 module GeoConcerns
   class Install < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
+    attr_accessor :class_name
 
     def install_routes
       inject_into_file 'config/routes.rb', after: /curation_concerns_embargo_management\s*\n/ do
@@ -12,7 +13,7 @@ module GeoConcerns
 
     def register_work
       inject_into_file 'config/initializers/curation_concerns.rb', after: "CurationConcerns.configure do |config|\n" do
-        "  # Injected via `rails g book_concerns:install`\n" \
+        "  # Injected via `rails g geo_concerns:install`\n" \
           "  config.register_curation_concern :vector_work\n" \
           "  config.register_curation_concern :raster_work\n" \
           "  config.register_curation_concern :image_work\n"
@@ -20,20 +21,21 @@ module GeoConcerns
     end
 
     def install_raster_work
-      file_path = 'app/actors/curation_concerns/raster_work_actor.rb'
-      copy_file 'actors/curation_concerns/raster_work_actor.rb', file_path
+      @class_name = 'RasterWork'
+      install_work
+      install_specs
     end
 
     def install_vector_work
-      file_path = 'app/actors/curation_concerns/vector_work_actor.rb'
-      copy_file 'actors/curation_concerns/vector_work_actor.rb', file_path
-      file_path = 'app/controllers/curation_concerns/vector_works_controller.rb'
-      copy_file 'controllers/curation_concerns/vector_works_controller.rb', file_path
+      @class_name = 'VectorWork'
+      install_work
+      install_specs
     end
 
     def install_image_work
-      file_path = 'app/actors/curation_concerns/image_work_actor.rb'
-      copy_file 'actors/curation_concerns/image_work_actor.rb', file_path
+      @class_name = 'ImageWork'
+      install_work
+      install_specs
     end
 
     def install_file_sets_controller
@@ -61,7 +63,7 @@ module GeoConcerns
             "  include ::GeoConcerns::GeoFileSetBehavior\n"
         end
       else
-        copy_file 'file_set.rb', file_path
+        copy_file 'models/file_set.rb', file_path
       end
     end
 
@@ -73,18 +75,8 @@ module GeoConcerns
             "  include ::GeoConcerns::FileSetPresenterBehavior\n"
         end
       else
-        copy_file 'file_set_presenter.rb', file_path
+        copy_file 'presenters/file_set_presenter.rb', file_path
       end
-    end
-
-    def image_works_controller
-      file_path = 'app/controllers/curation_concerns/image_works_controller.rb'
-      copy_file 'controllers/curation_concerns/image_works_controller.rb', file_path
-    end
-
-    def raster_works_controller
-      file_path = 'app/controllers/curation_concerns/raster_works_controller.rb'
-      copy_file 'controllers/curation_concerns/raster_works_controller.rb', file_path
     end
 
     # Add behaviors to the SolrDocument model
@@ -104,5 +96,24 @@ module GeoConcerns
       copy_file 'geo_concerns.js', 'app/assets/javascripts/geo_concerns.js'
       copy_file 'geo_concerns.scss', 'app/assets/stylesheets/geo_concerns.scss'
     end
+
+    private
+
+      def install_work
+        name = @class_name.underscore
+        model_path = "app/models/#{name}.rb"
+        actor_path = "app/actors/curation_concerns/#{name}_actor.rb"
+        controller_path = "app/controllers/curation_concerns/#{name.pluralize}_controller.rb"
+        copy_file "models/#{name}.rb", model_path
+        copy_file "actors/curation_concerns/#{name}_actor.rb", actor_path
+        copy_file "controllers/curation_concerns/#{name.pluralize}_controller.rb", controller_path
+      end
+
+      def install_specs
+        name = @class_name.underscore
+        template 'spec/model_spec.rb.erb', "spec/models/#{name}_spec.rb"
+        template 'spec/actor_spec.rb.erb', "spec/actors/#{name}_actor_spec.rb"
+        template 'spec/controller_spec.rb.erb', "spec/controllers/#{name.pluralize}_controller_spec_spec.rb"
+      end
   end
 end
