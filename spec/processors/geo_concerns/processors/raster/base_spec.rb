@@ -55,32 +55,4 @@ describe GeoConcerns::Processors::Raster::Base do
         .to include('gdal_translate', 'COMPRESS=LZW')
     end
   end
-
-  describe '#get_raster_min_max' do
-    let(:min_max) { subject.class.get_raster_min_max(info_string) }
-
-    context 'when a string has computed min and max' do
-      let(:info_string) { 'Band 1 Block=256x16 Type=Float32 Computed Min/Max=2.054,11.717 ' }
-
-      it 'returns with formatted text' do
-        expect(min_max).to eq('2.054 11.717')
-      end
-    end
-
-    context 'when a string does not have a computed min and max' do
-      let(:info_string) { 'Band 1 Block=256x16 Type=Float32' }
-
-      it 'returns with formatted text' do
-        expect(min_max).to eq('')
-      end
-    end
-  end
-
-  describe '#gdalinfo' do
-    it 'shells out to gdalinfo and returns the output as a string' do
-      expect(Open3).to receive(:capture3).with("gdalinfo -mm #{file_name}")
-        .and_return(['info', '', ''])
-      expect(subject.class.gdalinfo(file_name)).to eq('info')
-    end
-  end
 end

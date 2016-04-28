@@ -6,8 +6,8 @@ module GeoConcerns
 
         def self.encode(path, options, output_file)
           unzip(path, output_file) do |zip_path|
-            info = gdalinfo(zip_path)
-            options[:min_max] = get_raster_min_max(info)
+            info = Info.new(zip_path)
+            options[:min_max] = info.min_max
             case options[:label]
             when :thumbnail
               encode_raster(zip_path, options, output_file)

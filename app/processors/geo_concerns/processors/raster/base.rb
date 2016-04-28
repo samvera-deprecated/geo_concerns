@@ -49,25 +49,6 @@ module GeoConcerns
           "gdal_translate -q -ot Byte -a_srs #{options[:output_srid]} "\
             "\"#{in_path}\" #{out_path} -co 'COMPRESS=LZW'"
         end
-
-        # Given an output string from the gdalinfo command, returns
-        # a formatted string for the computed min and max values.
-        #
-        # @param info_string [String] ouput from gdalinfo
-        # @return [String] computed min and max values
-        def self.get_raster_min_max(info_string)
-          match = %r{(?<=Computed Min/Max=).*?(?=\s)}.match(info_string)
-          match ? match[0].tr(',', ' ') : ''
-        end
-
-        # Runs the gdalinfo command and returns the result as a string.
-        #
-        # @param path [String] path to raster file
-        # @return [String] output of gdalinfo
-        def self.gdalinfo(path)
-          stdout, _stderr, _status = Open3.capture3("gdalinfo -mm #{path}")
-          stdout
-        end
       end
     end
   end
