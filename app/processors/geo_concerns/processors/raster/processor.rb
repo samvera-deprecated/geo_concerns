@@ -9,7 +9,6 @@ module GeoConcerns
         end
 
         # Returns a raster processor class based on mime type passed in the directives object.
-        #
         # @return raster processing class
         def raster_processor_class
           case directives.fetch(:input_format)

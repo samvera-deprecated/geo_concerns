@@ -3,7 +3,7 @@ module GeoConcerns
     module Raster
       class Info
         attr_accessor :doc
-        attr_writer :min_max, :size, :x, :y
+        attr_writer :min_max, :size
 
         def initialize(path)
           @doc = gdalinfo(path)
@@ -21,22 +21,9 @@ module GeoConcerns
           @size ||= raster_size
         end
 
-        # Returns the raster width.
-        # @return [Integer] raster width
-        def width
-          @x ||= size[0].to_i
-        end
-
-        # Returns the raster height.
-        # @return [Integer] raster height
-        def height
-          @y ||= size[1].to_i
-        end
-
         private
 
           # Runs the gdalinfo command and returns the result as a string.
-          #
           # @param path [String] path to raster file
           # @return [String] output of gdalinfo
           def gdalinfo(path)
@@ -46,7 +33,6 @@ module GeoConcerns
 
           # Given an output string from the gdalinfo command, returns
           # a formatted string for the computed min and max values.
-          #
           # @return [String] computed min and max values
           def raster_min_max
             match = %r{(?<=Computed Min/Max=).*?(?=\s)}.match(doc)
@@ -55,11 +41,10 @@ module GeoConcerns
 
           # Given an output string from the gdalinfo command, returns
           # an array containing the raster width and height as strings.
-          #
-          # @return [Array] raster szie array
+          # @return [String] raster size
           def raster_size
             match = /(?<=Size is ).*/.match(doc)
-            match ? match[0].tr(' ', '').split(',') : ['0', '0']
+            match ? match[0].tr(',', '') : ''
           end
       end
     end

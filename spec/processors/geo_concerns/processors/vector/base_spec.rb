@@ -4,7 +4,7 @@ describe GeoConcerns::Processors::Vector::Base do
   let(:output_file) { 'output/geo.png' }
   let(:file_name) { 'files/geo.zip' }
   let(:label) {}
-  let(:options) { { output_format: 'PNG', output_size: '150 150', label: label } }
+  let(:options) { { output_size: '150 150', label: label } }
 
   subject { described_class.new(file_name, {}) }
 
@@ -26,42 +26,29 @@ describe GeoConcerns::Processors::Vector::Base do
     end
   end
 
+  describe '#encode_queue' do
+    it 'returns an array of command name symbols' do
+      expect(subject.class.encode_queue).to include :rasterize
+    end
+  end
+
+  describe '#reproject_queue' do
+    it 'returns an array of command name symbols' do
+      expect(subject.class.reproject_queue).to include :zip
+    end
+  end
+
   describe '#encode_vector' do
-    it 'executes rasterize and translate commands, and cleans up files' do
-      expect(subject.class).to receive(:execute).twice
-      expect(File).to receive(:unlink)
-      expect(File).to receive(:unlink).with("#{output_file}.aux.xml")
+    it 'runs commands to encode the raster thumbnail' do
+      expect(subject.class).to receive(:run_commands)
       subject.class.encode_vector(file_name, options, output_file)
     end
   end
 
   describe '#reproject_vector' do
-    it 'executes the reproject command, zips the output, then cleans up' do
-      expect(subject.class).to receive(:execute)
-      expect(subject.class).to receive(:zip)
-      expect(FileUtils).to receive(:rm_rf)
+    it 'runs commands to reproject the raster' do
+      expect(subject.class).to receive(:run_commands)
       subject.class.reproject_vector(file_name, options, output_file)
-    end
-  end
-
-  describe '#rasterize' do
-    it 'returns a gdal_rasterize command ' do
-      expect(subject.class.rasterize(file_name, options, output_file))
-        .to include('gdal_rasterize')
-    end
-  end
-
-  describe '#reproject' do
-    it 'returns a ogr2ogr command' do
-      expect(subject.class.reproject(file_name, options, output_file))
-        .to include('ogr2ogr', 'ESRI Shapefile')
-    end
-  end
-
-  describe '#intermediate_shapefile_path' do
-    it 'returns a path to a shapefile' do
-      expect(subject.class.intermediate_shapefile_path('/test/path/file.zip'))
-        .to eq('/test/path/file/')
     end
   end
 end

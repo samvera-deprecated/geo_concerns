@@ -8,9 +8,9 @@ module GeoConcerns
           unzip(path, output_file) do |zip_path|
             case options[:label]
             when :thumbnail
-              encode_vector(zip_path, options, output_file)
+              encode_vector(zip_path, output_file, options)
             when :display_vector
-              reproject_vector(zip_path, options, output_file)
+              reproject_vector(zip_path, output_file, options)
             end
           end
         end

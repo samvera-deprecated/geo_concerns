@@ -26,15 +26,9 @@ describe GeoConcerns::Processors::Raster::Info do
       end
     end
 
-    describe '#width' do
-      it 'returns raster width' do
-        expect(subject.width).to eq(310)
-      end
-    end
-
-    describe '#height' do
-      it 'returns raster height' do
-        expect(subject.height).to eq(266)
+    describe '#size' do
+      it 'returns raster size' do
+        expect(subject.size).to eq('310 266')
       end
     end
   end
