@@ -1,6 +1,4 @@
-# Generated via
-#  `rails generate curation_concerns:work Raster`
-require 'rails_helper'
+require 'spec_helper'
 
 describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
@@ -34,7 +32,7 @@ describe RasterWork do
 
   describe 'with acceptable inputs' do
     subject { described_class.new }
-    it 'add rasterfile,metadata,vector to file' do
+    it 'adds raster file set, metadata file set, vector work to file' do
       subject.members << raster_file1
       subject.members << raster_file2
       subject.members << ext_metadata_file1
@@ -44,6 +42,15 @@ describe RasterWork do
       expect(subject.raster_files).to eq [raster_file1, raster_file2]
       expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
       expect(subject.vector_works).to eq [vector1, vector2]
+    end
+    it 'defines what type of object it is' do
+      expect(subject.raster_work?).to be_truthy
+      expect(subject.raster_file?).to be_falsey
+      expect(subject.image_work?).to be_falsey
+      expect(subject.image_file?).to be_falsey
+      expect(subject.vector_work?).to be_falsey
+      expect(subject.vector_file?).to be_falsey
+      expect(subject.external_metadata_file?).to be_falsey
     end
   end
 
@@ -71,6 +78,21 @@ describe RasterWork do
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
       expect(subject.metadata_files.first.mime_type).to eq 'application/xml; schema=iso19139'
+    end
+  end
+
+  describe '#image_work' do
+    let(:raster_work) { FactoryGirl.create(:raster_work, title: ['Raster'], coverage: coverage.to_s) }
+    let(:image_work) { FactoryGirl.create(:image_work, title: ['Image'], coverage: coverage.to_s) }
+
+    before do
+      image_work.ordered_members << raster_work
+      raster_work.save
+      image_work.save
+    end
+
+    it 'has a parent image work' do
+      expect(raster_work.image_work).to be_a ImageWork
     end
   end
 
@@ -105,10 +127,6 @@ describe RasterWork do
                                        ).to_solr
     }
 
-    it "indexes ordered_by_ssim field" do
-      expect(solr_doc.keys).to include 'ordered_by_ssim'
-    end
-
     context "as required by the GeoBlacklight Schema" do
       # There is likely some Redundancy with CurationConcerns metadata
       # https://github.com/projecthydra-labs/curation_concerns/blob/master/app/models/concerns/curation_concerns/basic_metadata.rb
@@ -133,7 +151,7 @@ describe RasterWork do
       external_metadata_file = subject.metadata_files.first
       allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
       allow(external_metadata_file).to receive(:mime_type).and_return('application/xml; schema=iso19139')
-      subject.populate_metadata
+      subject.should_populate_metadata = 'true'
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
   end

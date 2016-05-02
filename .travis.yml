@@ -1,15 +1,16 @@
 language: ruby
-cache: bundler
+# cache: bundler
 sudo: false
 rvm:
-  - 2.2.1
-script: bundle exec rake ci
+  - 2.3.0
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 before_script:
   - jdk_switcher use oraclejdk8
   - gdalinfo --version
+services:
+  - redis-server
 addons:
   apt:
     packages:

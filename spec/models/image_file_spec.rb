@@ -35,7 +35,7 @@ describe FileSet do
 
     it "indexes the coordinate reference system" do
       expect(solr_doc.keys).to include 'cartographic_projection_tesim'
-      expect(solr_doc['cartographic_projection_tesim']).to eq 'urn:ogc:def:crs:EPSG::6326'
+      expect(solr_doc['cartographic_projection_tesim']).to eq ['urn:ogc:def:crs:EPSG::6326']
     end
   end
 

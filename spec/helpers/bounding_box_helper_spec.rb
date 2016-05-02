@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe BoundingBoxHelper do
   let(:property) { :coverage }
+  let(:helper) { TestingHelper.new }
+  before do
+    class TestingHelper
+      include BoundingBoxHelper
+
+      def curation_concern
+      end
+    end
+  end
+  after do
+    Object.send(:remove_const, :TestingHelper)
+  end
 
   before do
     vector_work = instance_double('vector_work', class: VectorWork)

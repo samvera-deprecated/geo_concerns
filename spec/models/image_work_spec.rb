@@ -1,6 +1,3 @@
-# Generated via
-#  `rails generate curation_concerns:work ImageWork`
-require 'rails_helper'
 require 'spec_helper'
 
 describe ImageWork do
@@ -25,7 +22,7 @@ describe ImageWork do
 
   describe 'with acceptable inputs' do
     subject { described_class.new }
-    it 'add image,metadata,raster to file' do
+    it 'adds image file set, metadata file set, and raster work' do
       subject.members << image_file1
       subject.members << ext_metadata_file1
       subject.members << ext_metadata_file2
@@ -34,6 +31,15 @@ describe ImageWork do
       expect(subject.image_file).to eq image_file1
       expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
       expect(subject.raster_works).to eq [raster1, raster2]
+    end
+    it 'defines what type of object it is' do
+      expect(subject.image_work?).to be_truthy
+      expect(subject.image_file?).to be_falsey
+      expect(subject.raster_work?).to be_falsey
+      expect(subject.raster_file?).to be_falsey
+      expect(subject.vector_work?).to be_falsey
+      expect(subject.vector_file?).to be_falsey
+      expect(subject.external_metadata_file?).to be_falsey
     end
   end
 
@@ -95,10 +101,6 @@ describe ImageWork do
                                        part_of: ['Village Maps of India']
                                        ).to_solr
     }
-
-    it "indexes ordered_by_ssim field" do
-      expect(solr_doc.keys).to include 'ordered_by_ssim'
-    end
 
     context "as required by the GeoBlacklight Schema" do
       # There is likely some Redundancy with CurationConcerns metadata

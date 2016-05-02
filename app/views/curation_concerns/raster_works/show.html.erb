@@ -7,10 +7,10 @@
 <% editor    = can?(:edit,    @presenter.id) %>
 
 <%= render 'representative_media', presenter: @presenter %>
-<%= render 'attributes', presenter: @presenter %>
+<%= render 'geo_concerns/attributes', presenter: @presenter %>
 
 <%= render 'related_raster_files', presenter: @presenter %>
-<%= render 'related_external_metadata_files', presenter: @presenter %>
+<%= render 'geo_concerns/related_external_metadata_files', presenter: @presenter %>
 
 <%= render 'members', presenter: @presenter %>
 

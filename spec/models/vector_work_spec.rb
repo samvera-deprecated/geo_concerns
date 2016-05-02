@@ -1,6 +1,4 @@
-# Generated via
-#  `rails generate curation_concerns:work Vector`
-require 'rails_helper'
+require 'spec_helper'
 
 describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
@@ -12,13 +10,23 @@ describe VectorWork do
 
   describe 'with acceptable inputs' do
     subject { described_class.new }
-    it 'add vectorfile,metadatato file' do
+    it 'adds vector file set and metadatato file set' do
       subject.members << vector_file1
       subject.members << vector_file2
       subject.members << ext_metadata_file1
       subject.members << ext_metadata_file2
       expect(subject.vector_files).to eq [vector_file1, vector_file2]
       expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
+    end
+
+    it 'defines what type of object it is' do
+      expect(subject.vector_work?).to be_truthy
+      expect(subject.vector_file?).to be_falsey
+      expect(subject.image_work?).to be_falsey
+      expect(subject.image_file?).to be_falsey
+      expect(subject.raster_work?).to be_falsey
+      expect(subject.raster_file?).to be_falsey
+      expect(subject.external_metadata_file?).to be_falsey
     end
   end
 
@@ -60,6 +68,21 @@ describe VectorWork do
     end
   end
 
+  describe '#raster_work' do
+    let(:vector_work) { FactoryGirl.create(:vector_work, title: ['Vector'], coverage: coverage.to_s) }
+    let(:raster_work) { FactoryGirl.create(:raster_work, title: ['Raster'], coverage: coverage.to_s) }
+
+    before do
+      raster_work.ordered_members << vector_work
+      vector_work.save
+      raster_work.save
+    end
+
+    it 'has a parent image work' do
+      expect(vector_work.raster_work).to be_a RasterWork
+    end
+  end
+
   describe "to_solr" do
     references = {
       "http://schema.org/url" => "http://purl.stanford.edu/bb509gh7292",
@@ -90,10 +113,6 @@ describe VectorWork do
                                        part_of: ['Village Maps of India']
                                        ).to_solr
     }
-
-    it "indexes ordered_by_ssim field" do
-      expect(solr_doc.keys).to include 'ordered_by_ssim'
-    end
 
     context "as required by the GeoBlacklight Schema" do
       # There is likely some Redundancy with CurationConcerns metadata

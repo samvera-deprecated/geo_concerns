@@ -22,23 +22,24 @@ Lint/UselessAssignment:
 Metrics/LineLength:
   Max: 100
   Exclude:
-    - 'app/controllers/catalog_controller.rb'
-    - 'app/helpers/iso19139_helper.rb'
+    - 'app/models/concerns/geo_concerns/extractors/iso19139_helper.rb'
     - 'app/helpers/metadata_extraction_helper.rb'
     - 'app/models/concerns/file_set/image_file_behavior.rb'
     - 'app/models/concerns/file_set/raster_file_behavior.rb'
     - 'app/models/concerns/file_set/vector_file_behavior.rb'
     - 'app/models/concerns/georeferenced_behavior.rb'
     - 'app/models/solr_document.rb'
-    - 'app/schemas/basic_geo_metadata_required.rb'
+    - 'app/schemas/geo_concerns/basic_geo_metadata_required.rb'
     - 'config/**/*.rb'
-    - 'lib/geo_concerns/coverage.rb'
+    - 'app/values/geo_concerns/coverage.rb'
+    - 'app/values/geo_concerns/time_period.rb'
     - 'lib/geo_concerns/fgdc_metadata_extractor.rb'
+    - 'lib/generators/geo_concerns/install_generator.rb'
     - 'spec/**/*.rb'
 
 Metrics/AbcSize:
   Exclude:
-    - 'app/helpers/iso19139_helper.rb'
+    - 'app/models/concerns/geo_concerns/extractors/iso19139_helper.rb'
     - 'lib/geo_concerns/fgdc_metadata_extractor.rb'
     - 'lib/geo_concerns/coverage.rb'
     - 'app/models/concerns/basic_geo_metadata.rb'
@@ -46,13 +47,14 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Exclude:
     - 'Rakefile'
-    - 'app/helpers/iso19139_helper.rb'
+    - 'app/models/concerns/geo_concerns/extractors/iso19139_helper.rb'
     - 'app/models/concerns/basic_geo_metadata.rb'
     - 'lib/geo_concerns/coverage.rb'
 
 Metrics/ClassLength:
   Exclude:
     - 'app/controllers/catalog_controller.rb'
+   - 'lib/generators/geo_concerns/install_generator.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:

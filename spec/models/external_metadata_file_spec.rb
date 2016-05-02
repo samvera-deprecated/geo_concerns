@@ -66,7 +66,7 @@ describe FileSet do
     expect(subject.extract_iso19139_metadata(doc)).to include(title: ['S_566_1914_clip.tif'],
                                                               coverage: GeoConcerns::Coverage.new(57.595712, -109.860605, 56.407644, -112.469675).to_s,
                                                               description: ['This raster file is the result of georeferencing using esri\'s ArcScan of Sheet 566: McKay, Alberta, 1st ed. 1st of July, 1914. This sheet is part of the 3-mile to 1-inch sectional maps of Western Canada. vectorization was undertaken to extract a measure of line work density in order to measure Cartographic Intactness. The map series is described in Dubreuil, Lorraine. 1989. Sectional maps of western Canada, 1871-1955: An early Canadian topographic map series. Occasional paper no. 2, Association of Canadian Map Libraries and Archives.'],
-                                                              source: ['Larry Laliberte'])
+                                                              source: ['University of Alberta'])
   end
 
   it 'can extract ISO 19139 metadata - example 2' do

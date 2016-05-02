@@ -1,5 +1,5 @@
 <% options = { wrapper_mappings: { multifile: :horizontal_file_input } }
-   options[:url] = main_app.curation_concerns_member_raster_work_index_path(parent_id: params[:parent_id]) if params[:parent_id] %>
+   options[:url] = geo_concerns_engine.curation_concerns_member_raster_work_index_path(parent_id: params[:parent_id]) if params[:parent_id] %>
 <%= simple_form_for [main_app, @form], options do |f| %>
   <% if f.error_notification -%>
     <div class="alert alert-danger fade in">
@@ -8,8 +8,8 @@
     </div>
   <% end -%>
 
-  <%= render 'form_descriptive_fields', f: f %>
-  <%= render 'form_supplementary_fields', f: f %>
+  <%= render 'geo_concerns/form_descriptive_fields', f: f %>
+  <%= render 'geo_concerns/form_supplementary_fields', f: f %>
 
   <div class="row">
     <div class="col-md-12 form-actions">

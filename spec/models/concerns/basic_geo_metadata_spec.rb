@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe BasicGeoMetadata do
+RSpec.describe GeoConcerns::BasicGeoMetadata do
   subject { VectorWork.new }
 
   it 'inherits the specified properties' do
