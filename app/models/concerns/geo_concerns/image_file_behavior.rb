@@ -6,7 +6,7 @@ module GeoConcerns
     # Retrieve the Image Work of which this Object is a member
     # @return [GeoConcerns::ImageWork]
     def image_work
-      generic_works.select do |parent|
+      parents.select do |parent|
         parent.class.included_modules.include?(::GeoConcerns::ImageWorkBehavior)
       end.to_a
     end
