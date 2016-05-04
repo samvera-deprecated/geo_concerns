@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GeoConcerns::Processors::Vector::Shapefile do
   let(:output_file) { 'output/geo.png' }
   let(:file_name) { 'files/Shapefile.zip' }
-  let(:options) { { output_format: 'PNG', output_size: '150 150', label: :thumbnail } }
+  let(:options) { { output_size: '150 150', label: :thumbnail } }
 
   subject { described_class.new(file_name, {}) }
 

@@ -9,7 +9,6 @@ module GeoConcerns
         end
 
         # Returns a vector processor class based on mime type passed in the directives object.
-        #
         # @return vector processing class
         def vector_processor_class
           case directives.fetch(:input_format)

@@ -4,6 +4,7 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
   before do
     class TestProcessor
       include GeoConcerns::Processors::BaseGeoProcessor
+      include GeoConcerns::Processors::Gdal
       def directives
       end
 
@@ -22,19 +23,38 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
   let(:directives) { { format: 'png', size: '200x400' } }
   let(:output_file) { 'output/geo.png' }
   let(:file_name) { 'files/geo.tif' }
-  let(:options) { { output_format: 'PNG', output_size: '150 150' } }
+  let(:options) { { output_size: '150 150' } }
 
-  describe '#translate' do
-    it 'returns a gdal_translate command ' do
-      expect(subject.class.translate(file_name, options, output_file))
-        .to include('gdal_translate')
+  describe '#run_commands' do
+    let(:method_queue) { [:translate, :warp, :compress] }
+    it 'calls the methods in the queue and cleans up temp files' do
+      expect(subject.class).to receive(:translate)
+      expect(subject.class).to receive(:warp)
+      expect(subject.class).to receive(:compress)
+      expect(FileUtils).to receive(:rm_rf).twice
+      subject.class.run_commands(file_name, output_file, method_queue, options)
     end
   end
 
-  describe '#intermediate_file_path' do
+  describe '#convert' do
+    let(:image) { double }
+
+    before do
+      allow(MiniMagick::Image).to receive(:open).and_return(image)
+    end
+
+    it 'transforms the image and saves it as a jpeg' do
+      expect(image).to receive(:format).with('jpg')
+      expect(image).to receive(:combine_options)
+      expect(image).to receive(:write).with(output_file)
+      subject.class.convert(file_name, output_file, options)
+    end
+  end
+
+  describe '#temp_path' do
     it 'returns a path to a temporary file based on the input file' do
-      expect(subject.class.intermediate_file_path(output_file))
-        .to include('geo_temp.png')
+      expect(subject.class.temp_path(output_file))
+        .to include('geo')
     end
   end
 
@@ -49,21 +69,6 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
     context 'when directives hash does not have label value' do
       it 'returns an empty string' do
         expect(subject.label).to eq('')
-      end
-    end
-  end
-
-  describe '#output_format' do
-    context 'when given jpg as a format' do
-      let(:directives) { { format: 'jpg' } }
-      it 'returns JPEG' do
-        expect(subject.output_format).to eq('JPEG')
-      end
-    end
-
-    context 'when given png as a format' do
-      it 'returns PNG' do
-        expect(subject.output_format).to eq('PNG')
       end
     end
   end
@@ -99,8 +104,7 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
 
   describe '#options_for' do
     it 'returns a hash that includes output size and format' do
-      expect(subject.options_for("a")).to include(:output_format,
-                                                  :output_size,
+      expect(subject.options_for("a")).to include(:output_size,
                                                   :label,
                                                   :output_srid,
                                                   :basename)

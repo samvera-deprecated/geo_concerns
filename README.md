@@ -11,7 +11,12 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 
 ## Dependencies
 
-* [GDAL](http://www.gdal.org/)
+1. Solr
+1. [Fedora Commons](http://www.fedora-commons.org/) digital repository
+1. A SQL RDBMS (MySQL, PostgreSQL), though **note** that SQLite will be used by default if you're looking to get up and running quickly
+1. [Redis](http://redis.io/), a key-value store
+1. [ImageMagick](http://www.imagemagick.org/) with JPEG-2000 support
+1. [GDAL](http://www.gdal.org/)
     * You can install it on Mac OSX with `brew install gdal`.
     * On Ubuntu, use `sudo apt-get install gdal-bin`.
 
