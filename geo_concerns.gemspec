@@ -18,19 +18,18 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'rails', '~> 4.2.6'
   spec.add_dependency 'curation_concerns', '~> 0.14.0.pre1'
-  spec.add_dependency 'leaflet-rails'
+  spec.add_dependency 'leaflet-rails', '~> 0.7'
 
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'engine_cart'
-  spec.add_development_dependency 'solr_wrapper'
+  spec.add_development_dependency 'engine_cart', '~> 0.8'
+  spec.add_development_dependency 'solr_wrapper', '~> 0.10'
   spec.add_development_dependency 'fcrepo_wrapper', '~> 0.1'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'database_cleaner', '< 1.1.0'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'rubocop', '~> 0.39'
+  spec.add_development_dependency 'rubocop-rspec', '~> 1.4.1'
   spec.add_development_dependency 'factory_girl'
-  spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'capybara', '~> 2.7'
 end
