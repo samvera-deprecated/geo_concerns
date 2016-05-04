@@ -6,7 +6,7 @@ module GeoConcerns
     # Retrieve the Raster Work of which this Object is a member
     # @return [GeoConcerns::Raster]
     def raster_work
-      generic_works.select do |parent|
+      parents.select do |parent|
         parent.class.included_modules.include?(::GeoConcerns::RasterWorkBehavior)
       end.to_a
     end
