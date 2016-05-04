@@ -22,4 +22,20 @@ describe CurationConcerns::ImageWorksController, type: :controller do
       end
     end
   end
+
+  describe '#create' do
+    let(:user) { FactoryGirl.create(:admin) }
+    before do
+      sign_in user
+    end
+
+    context 'when create is successful' do
+      let(:work) { FactoryGirl.create(:image_work, user: user) }
+      it 'creates an image work' do
+        allow(controller).to receive(:curation_concern).and_return(work)
+        post :create, image_work: { title: ['a title'] }
+        expect(response).to redirect_to main_app.curation_concerns_image_work_path(work)
+      end
+    end
+  end
 end
