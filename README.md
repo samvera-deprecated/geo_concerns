@@ -22,9 +22,19 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 
 ## Installation
 
+Create and run a new GeoConcerns application from a template:
+
+```
+$ rails new app-name -m https://raw.githubusercontent.com/projecthydra-labs/geo_concerns/master/template.rb
+$ cd app-name
+$ rake hydra:server
+```
+
+Add GeoConcerns models to an existing CurationConcerns application:
+
 1. Add `gem 'geo_concerns'` to your Gemfile.
 2. `bundle install`
-3. `rails g geo_concerns:install`
+3. `rails generate geo_concerns:install`
 
 ## Development
 
@@ -44,7 +54,6 @@ $ rake geo_concerns:test_servers
 ```
 
 Then, in another terminal window:
-
 
 ```
 $ rake spec
