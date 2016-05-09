@@ -188,6 +188,13 @@
     <field name="lat" type="tdouble" stored="true" indexed="true" multiValued="false"/>
     <field name="lng" type="tdouble" stored="true" indexed="true" multiValued="false"/>
 
+    <!-- UUID field for GeoBlacklight schema compliance -->
+    <field name="uuid" type="string" stored="true" indexed="true" multiValued="false" />
+    <dynamicField name="*_s" type="string" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_i" type="int" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_dt" type="date" stored="true" indexed="true" multiValued="false"/>
+    <field name="solr_geom" type="location_rpt" stored="true" indexed="true" multiValued="false"/>
+
     <!-- NOTE:  not all possible Solr field types are represented in the dynamic fields -->
 
     <!-- text (_t...) -->

@@ -30,6 +30,12 @@ describe FileSet do
     it "indexes the coordinate reference system" do
       expect(solr_doc.keys).to include 'cartographic_projection_tesim'
     end
+
+    context "as required by the GeoBlacklight Schema" do
+      it "indexes the UUID" do
+        expect(solr_doc.keys).to include 'uuid'
+      end
+    end
   end
 
   describe 'metadata' do

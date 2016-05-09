@@ -68,4 +68,49 @@ describe ImageWork do
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
   end
+
+  # Please see https://github.com/geoblacklight/geoblacklight-schema/blob/master/docs/geoblacklight-schema.markdown
+  describe "to_solr" do
+    references = {
+      "http://schema.org/url" => "http://purl.stanford.edu/bb509gh7292",
+      "http://schema.org/downloadUrl" => "http://stacks.stanford.edu/file/druid:bb509gh7292/data.zip",
+      "http://www.loc.gov/mods/v3" => "http://purl.stanford.edu/bb509gh7292.mods",
+      "http://www.isotc211.org/schemas/2005/gmd/" => "http://opengeometadata.stanford.edu/metadata/edu.stanford.purl/druid:bb509gh7292/iso19139.xml",
+      "http://www.w3.org/1999/xhtml" => "http://opengeometadata.stanford.edu/metadata/edu.stanford.purl/druid:bb509gh7292/default.html",
+      "http://www.opengis.net/def/serviceType/ogc/wfs" => "https://geowebservices-restricted.stanford.edu/geoserver/wfs",
+      "http://www.opengis.net/def/serviceType/ogc/wms" => "https://geowebservices-restricted.stanford.edu/geoserver/wms"
+    }
+
+    let(:solr_doc) { FactoryGirl.build(:image_work,
+                                       date_uploaded: Time.zone.today,
+                                       title: ['an image file'], # @todo This must be restructured as a scalar value
+                                       identifier: ['urn:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'], # @todo This too must be restructured as a scalar value
+                                       description: ['lorem ipsum'], # @todo Scalar
+                                       rights: ['Public'], # @todo Scalar
+                                       provenance: 'Test Institution',
+                                       references: references.to_s,
+                                       coverage: 'ENVELOPE(76.76, 84.76, 19.91, 12.62)',
+                                       creator: ['Person A', 'Person B'],
+                                       format: 'image/tiff',
+                                       language: ['English'],
+                                       publisher: ['ML InfoMap'],
+                                       subject: ['Census', 'Human settlements'],
+                                       spatial: ['Paris, France'],
+                                       temporal: ['1989', 'circa 2010', '2007-2009'],
+                                       issued: '1990-01-01T00:00:00Z',
+                                       part_of: ['Village Maps of India']
+                                       ).to_solr
+    }
+
+    context "as required by the GeoBlacklight Schema" do
+      # There is likely some Redundancy with CurationConcerns metadata
+      # https://github.com/projecthydra-labs/curation_concerns/blob/master/app/models/concerns/curation_concerns/basic_metadata.rb
+      # https://github.com/projecthydra-labs/curation_concerns/blob/master/app/models/concerns/curation_concerns/required_metadata.rb
+      %w{ dc_identifier_s dc_title_s dc_description_s dc_rights_s dct_provenance_s georss_box_s layer_id_s layer_geom_type_s layer_modified_dt layer_slug_s solr_geom solr_year_i }.each do |dc_element|
+        it "indexes the Dublin Core element #{dc_element}" do
+          expect(solr_doc.keys).to include dc_element
+        end
+      end
+    end
+  end
 end

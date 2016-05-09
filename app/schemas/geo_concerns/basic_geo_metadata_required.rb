@@ -21,5 +21,22 @@ module GeoConcerns
     # @example
     #   raster.provenance = 'Stanford University'
     property :provenance, predicate: ::RDF::Vocab::DC.provenance, multiple: false
+
+    # Defines the file format of the layer
+    # @example
+    #   image.format = 'TIFF'
+    #   vector.format = 'Shapefile'
+    #   raster.format = 'GeoTIFF'
+    property :format, predicate: ::RDF::Vocab::DC11.format, multiple: false do |index|
+      index.as :stored_searchable, :facetable
+    end
+
+    # Defines URL's to related services for the layer.
+    # @example
+    #   raster.references = { "http://www.opengis.net/def/serviceType/ogc/wms" => "https://geowebservices-restricted.stanford.edu/geoserver/wms" }
+    #   vector.references = { "http://www.opengis.net/def/serviceType/ogc/wfs" => "https://geowebservices-restricted.stanford.edu/geoserver/wfs" }
+    property :references, predicate: ::RDF::Vocab::DC.references, multiple: false do |index|
+      index.as :stored_searchable, :facetable
+    end
   end
 end
