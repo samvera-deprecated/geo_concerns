@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe GeoConcerns::Coverage do
   subject { described_class } # prevent instantiation

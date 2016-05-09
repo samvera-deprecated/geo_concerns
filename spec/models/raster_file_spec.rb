@@ -24,12 +24,17 @@ describe FileSet do
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:raster_file,
                                        date_uploaded: Time.zone.today,
-                                       cartographic_projection: 'urn:ogc:def:crs:EPSG::6326'
-                                       ).to_solr
+                                       cartographic_projection: 'urn:ogc:def:crs:EPSG::6326').to_solr
     }
 
     it "indexes the coordinate reference system" do
       expect(solr_doc.keys).to include 'cartographic_projection_tesim'
+    end
+
+    context "as required by the GeoBlacklight Schema" do
+      it "indexes the UUID" do
+        expect(solr_doc.keys).to include 'uuid'
+      end
     end
   end
 

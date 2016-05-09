@@ -5,11 +5,13 @@ module GeoFileSetBehavior
   include ::RasterFileBehavior
   include ::VectorFileBehavior
   include ::ExternalMetadataFileBehavior
-  include GeoConcerns::FileSet::Derivatives
+
+  # Accessor for the UUID
+  alias_attribute :uuid, :id
 
   def to_solr
     solr_doc = super
-    # solr_doc[:uuid] = id
+    Solrizer.set_field(solr_doc, 'uuid', id, :stored_sortable)
     solr_doc
   end
 end

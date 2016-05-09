@@ -3,6 +3,7 @@ module GeoConcerns
   module ImageWorkBehavior
     extend ActiveSupport::Concern
     include ::GeoConcerns::MetadataExtractionHelper
+    include ::GeoConcerns::BasicGeoMetadata
 
     included do
       type [Hydra::PCDM::Vocab::PCDMTerms.Object,
