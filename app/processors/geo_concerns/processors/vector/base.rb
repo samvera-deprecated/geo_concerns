@@ -6,6 +6,7 @@ module GeoConcerns
         include GeoConcerns::Processors::BaseGeoProcessor
         include GeoConcerns::Processors::Ogr
         include GeoConcerns::Processors::Gdal
+        include GeoConcerns::Processors::Mapnik
         include GeoConcerns::Processors::Zip
 
         def self.encode(path, options, output_file)
@@ -20,7 +21,7 @@ module GeoConcerns
         # Set of commands to run to encode the vector thumbnail.
         # @return [Array] set of command name symbols
         def self.encode_queue
-          [:rasterize, :convert]
+          [:reproject, :mapnik_vector_thumbnail]
         end
 
         # Set of commands to run to reproject the vector.

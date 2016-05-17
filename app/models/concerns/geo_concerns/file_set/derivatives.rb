@@ -19,7 +19,7 @@ module GeoConcerns
       def image_derivatives(filename)
         Hydra::Derivatives::ImageDerivatives
           .create(filename, outputs: [{ label: :thumbnail,
-                                        format: 'jpg',
+                                        format: 'png',
                                         size: '200x150>',
                                         url: derivative_url('thumbnail') }])
       end
@@ -32,7 +32,7 @@ module GeoConcerns
                                         url: derivative_url('display_raster') },
                                       { input_format: geo_mime_type,
                                         label: :thumbnail,
-                                        format: 'jpg',
+                                        format: 'png',
                                         size: '200x150',
                                         url: derivative_url('thumbnail') }])
       end
@@ -45,7 +45,7 @@ module GeoConcerns
                                         url: derivative_url('display_vector') },
                                       { input_format: geo_mime_type,
                                         label: :thumbnail,
-                                        format: 'jpg',
+                                        format: 'png',
                                         size: '200x150',
                                         url: derivative_url('thumbnail') }])
       end

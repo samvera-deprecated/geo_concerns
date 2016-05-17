@@ -28,7 +28,7 @@ describe GeoConcerns::Processors::Vector::Base do
 
   describe '#encode_queue' do
     it 'returns an array of command name symbols' do
-      expect(subject.class.encode_queue).to include :rasterize
+      expect(subject.class.encode_queue).to include :mapnik_vector_thumbnail
     end
   end
 
