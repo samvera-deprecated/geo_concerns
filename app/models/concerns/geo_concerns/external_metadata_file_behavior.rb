@@ -25,7 +25,7 @@ module GeoConcerns
     end
 
     def schema
-      (MetadataFormatService.label(mime_type) || '').parameterize('_')
+      (MetadataFormatService.label(geo_mime_type) || '').parameterize('_')
     end
   end
 end

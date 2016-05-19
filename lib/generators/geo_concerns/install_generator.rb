@@ -102,10 +102,10 @@ module GeoConcerns
       def install_work
         name = @class_name.underscore
         model_path = "app/models/#{name}.rb"
-        actor_path = "app/actors/curation_concerns/#{name}_actor.rb"
+        actor_path = "app/actors/curation_concerns/actors/#{name}_actor.rb"
         controller_path = "app/controllers/curation_concerns/#{name.pluralize}_controller.rb"
         copy_file "models/#{name}.rb", model_path
-        copy_file "actors/curation_concerns/#{name}_actor.rb", actor_path
+        copy_file "actors/curation_concerns/actors/#{name}_actor.rb", actor_path
         copy_file "controllers/curation_concerns/#{name.pluralize}_controller.rb", controller_path
       end
 

@@ -11,7 +11,7 @@ module GeoConcerns
     def raster_file_presenters
       # filter for raster files
       members(::FileSetPresenter).select do |member|
-        RasterFormatService.include? member.solr_document[:mime_type_ssi]
+        RasterFormatService.include? member.solr_document[:geo_mime_type_tesim][0]
       end
     end
   end

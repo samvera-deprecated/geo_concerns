@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe FileSet do
   let(:user) { create(:user) }
-  subject { described_class.new(mime_type: 'application/xml; schema=iso19139') }
+  subject { described_class.new(geo_mime_type: 'application/xml; schema=iso19139') }
 
-  context "when mime_type is a metadata format" do
+  context "when geo_mime_type is a metadata format" do
     it "responds as a metadata file" do
       expect(subject.external_metadata_file?).to be_truthy
     end
@@ -16,7 +16,7 @@ describe FileSet do
   describe "to_solr" do
     let(:solr_doc) { FactoryGirl.build(:external_metadata_file,
                                        date_uploaded: Time.zone.today,
-                                       mime_type: 'application/xml; schema=iso19139').to_solr
+                                       geo_mime_type: 'application/xml; schema=iso19139').to_solr
     }
 
     it "does not index bbox field" do
@@ -26,7 +26,7 @@ describe FileSet do
 
   describe 'metadata' do
     it 'has standard' do
-      expect(subject).to respond_to(:mime_type)
+      expect(subject).to respond_to(:geo_mime_type)
     end
   end
 
@@ -38,26 +38,26 @@ describe FileSet do
   it 'will route the extraction request for ISO' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_iso19139_metadata)
-    subject.mime_type = 'application/xml; schema=iso19139'
+    subject.geo_mime_type = 'application/xml; schema=iso19139'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will route the extraction request for FGDC' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_fgdc_metadata)
-    subject.mime_type = 'application/xml; schema=fgdc'
+    subject.geo_mime_type = 'application/xml; schema=fgdc'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will route the extraction request for MODS' do
     expect(subject).to receive(:original_file) { Hydra::PCDM::File.new }
     expect(subject).to receive(:extract_mods_metadata)
-    subject.mime_type = 'application/mods+xml'
+    subject.geo_mime_type = 'application/mods+xml'
     expect(subject.extract_metadata).to be_nil
   end
 
   it 'will not route the extraction request for bogus standard' do
-    subject.mime_type = 'bogus'
+    subject.geo_mime_type = 'bogus'
     expect { subject.extract_metadata }.to raise_error(ArgumentError)
   end
 

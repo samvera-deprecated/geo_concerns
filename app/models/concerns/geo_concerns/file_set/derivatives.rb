@@ -4,7 +4,7 @@ module GeoConcerns
       extend ActiveSupport::Concern
 
       def create_derivatives(filename)
-        case mime_type
+        case geo_mime_type
         when *ImageFormatService.select_options.map(&:last)
           image_derivatives(filename)
         when *RasterFormatService.select_options.map(&:last)
@@ -26,11 +26,11 @@ module GeoConcerns
 
       def raster_derivatives(filename)
         GeoConcerns::Runners::RasterDerivatives
-          .create(filename, outputs: [{ input_format: mime_type,
+          .create(filename, outputs: [{ input_format: geo_mime_type,
                                         label: :display_raster,
                                         format: 'tif',
                                         url: derivative_url('display_raster') },
-                                      { input_format: mime_type,
+                                      { input_format: geo_mime_type,
                                         label: :thumbnail,
                                         format: 'jpg',
                                         size: '200x150',
@@ -39,11 +39,11 @@ module GeoConcerns
 
       def vector_derivatives(filename)
         GeoConcerns::Runners::VectorDerivatives
-          .create(filename, outputs: [{ input_format: mime_type,
+          .create(filename, outputs: [{ input_format: geo_mime_type,
                                         label: :display_vector,
                                         format: 'zip',
                                         url: derivative_url('display_vector') },
-                                      { input_format: mime_type,
+                                      { input_format: geo_mime_type,
                                         label: :thumbnail,
                                         format: 'jpg',
                                         size: '200x150',

@@ -15,13 +15,13 @@ module GeoConcerns
     def external_metadata_file_formats_presenters
       # filter for external metadata files
       members(::FileSetPresenter).select do |member|
-        MetadataFormatService.include? member.solr_document[:mime_type_ssi]
+        MetadataFormatService.include? member.solr_document[:geo_mime_type_tesim][0]
       end
     end
 
     def attribute_to_html(field, options = {})
       if field == :coverage
-        ::CoverageRenderer.new(field, send(field), options).render
+        GeoConcerns::CoverageRenderer.new(field, send(field), options).render
       else
         super field, options
       end

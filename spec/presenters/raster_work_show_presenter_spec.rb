@@ -5,18 +5,18 @@ RSpec.describe GeoConcerns::RasterWorkShowPresenter do
   let(:ability) { nil }
 
   describe "delegated methods" do
-    let(:attributes)  { { "mime_type_ssi" => ['image/tiff; gdal-format=GTiff'] } }
+    let(:attributes)  { { "geo_mime_type_tesim" => ['image/tiff; gdal-format=GTiff'] } }
     subject { described_class.new(solr_document, ability) }
 
     describe "#first" do
       it "delegates to solr document" do
-        expect(subject.first('mime_type_ssi')).to eq('image/tiff; gdal-format=GTiff')
+        expect(subject.first('geo_mime_type_tesim')).to eq('image/tiff; gdal-format=GTiff')
       end
     end
 
     describe "#has?" do
       it "delegates to solr document" do
-        expect(subject.has?('mime_type_ssi')).to be_truthy
+        expect(subject.has?('geo_mime_type_tesim')).to be_truthy
       end
     end
   end

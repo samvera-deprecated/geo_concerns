@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     factory :vector_work_with_one_file do
       before(:create) do |vector_work, evaluator|
-        vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user, title: ['A shapefile'], filename: 'filename.zip')
+        vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user, title: ['A shapefile'])
       end
     end
 

@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     factory :raster_work_with_one_file do
       before(:create) do |raster_work, evaluator|
-        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title: ['A GeoTIFF file'], filename: 'filename.tif')
+        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title: ['A GeoTIFF file'])
       end
     end
 

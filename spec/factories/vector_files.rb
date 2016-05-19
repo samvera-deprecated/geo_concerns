@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :vector_file, class: FileSet do
-    initialize_with { new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
+    initialize_with { new(geo_mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
     transient do
       user { FactoryGirl.create(:user) }
       content nil

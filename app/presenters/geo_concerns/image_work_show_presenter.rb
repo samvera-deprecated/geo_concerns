@@ -11,7 +11,7 @@ module GeoConcerns
     def image_file_presenters
       # filter for image files
       members(::FileSetPresenter).select do |member|
-        ImageFormatService.include? member.solr_document[:mime_type_ssi]
+        ImageFormatService.include? member.solr_document[:geo_mime_type_tesim][0]
       end
     end
   end

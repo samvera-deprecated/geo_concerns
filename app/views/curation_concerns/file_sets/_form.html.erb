@@ -24,7 +24,7 @@
               VectorFormatService.select_options
             end %>
           <% if select_options %>
-           <%= f.input(:mime_type, as: :select, collection: select_options,
+           <%= f.input(:geo_mime_type, as: :select, collection: select_options,
                 input_html: { class: 'form-control' }, label: 'Type') %>
           <% end %>
           <%= f.input :files, as: :multifile %>

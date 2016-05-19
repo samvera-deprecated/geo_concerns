@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe RasterWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:raster_file1) { FileSet.new(mime_type: 'image/tiff; gdal-format=GTiff') }
-  let(:raster_file2) { FileSet.new(mime_type: 'image/tiff; gdal-format=GTiff') }
-  let(:ext_metadata_file1) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
-  let(:ext_metadata_file2) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
+  let(:raster_file1) { FileSet.new(geo_mime_type: 'image/tiff; gdal-format=GTiff') }
+  let(:raster_file2) { FileSet.new(geo_mime_type: 'image/tiff; gdal-format=GTiff') }
+  let(:ext_metadata_file1) { FileSet.new(geo_mime_type: 'application/xml; schema=iso19139') }
+  let(:ext_metadata_file2) { FileSet.new(geo_mime_type: 'application/xml; schema=iso19139') }
   let(:vector1) { VectorWork.new }
   let(:vector2) { VectorWork.new }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
@@ -59,7 +59,7 @@ describe RasterWork do
 
     it 'has two files' do
       expect(subject.raster_files.size).to eq 2
-      expect(subject.raster_files.first.mime_type).to eq 'image/tiff; gdal-format=GTiff'
+      expect(subject.raster_files.first.geo_mime_type).to eq 'image/tiff; gdal-format=GTiff'
     end
   end
 
@@ -77,7 +77,7 @@ describe RasterWork do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first.mime_type).to eq 'application/xml; schema=iso19139'
+      expect(subject.metadata_files.first.geo_mime_type).to eq 'application/xml; schema=iso19139'
     end
   end
 
@@ -114,7 +114,7 @@ describe RasterWork do
     it 'can perform extraction and set properties for ISO 19139' do
       external_metadata_file = subject.metadata_files.first
       allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
-      allow(external_metadata_file).to receive(:mime_type).and_return('application/xml; schema=iso19139')
+      allow(external_metadata_file).to receive(:geo_mime_type).and_return('application/xml; schema=iso19139')
       subject.should_populate_metadata = 'true'
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
