@@ -22,19 +22,19 @@ RSpec.describe ::GeoConcerns::VectorWorkShowPresenter do
   end
 
   describe "file presenters" do
-    let(:obj) { FactoryGirl.create(:vector_work_with_vector_and_metadata_files) }
+    let(:obj) { FactoryGirl.create(:vector_work_with_vector_and_metadata_file) }
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 
-    describe "#vector_file_presenters" do
-      it "returns only vector file presenters" do
-        expect(subject.vector_file_presenters.count).to eq 2
+    describe "#geo_file_set_presenters" do
+      it "returns only vector file set presenters" do
+        expect(subject.geo_file_set_presenters.count).to eq 1
       end
     end
 
-    describe "#external_metadata_file_formats_presenters" do
-      it "returns only external_metadata_file_formats_presenters" do
-        expect(subject.external_metadata_file_formats_presenters.count).to eq 2
+    describe "#external_metadata_file_set_presenters" do
+      it "returns only external_metadata_file_set_presenters" do
+        expect(subject.external_metadata_file_set_presenters.count).to eq 1
       end
     end
   end

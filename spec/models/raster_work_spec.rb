@@ -64,10 +64,10 @@ describe RasterWork do
   end
 
   context 'with vector feature extractions' do
-    subject { FactoryGirl.create(:raster_work_with_vector_works) }
+    subject { FactoryGirl.create(:raster_work_with_vector_work) }
 
     it 'aggregates vector data set resources' do
-      expect(subject.vector_works.size).to eq 2
+      expect(subject.vector_works.size).to eq 1
       expect(subject.vector_works.first).to be_kind_of VectorWork
     end
   end

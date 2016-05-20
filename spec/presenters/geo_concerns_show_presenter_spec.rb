@@ -21,16 +21,6 @@ RSpec.describe ::GeoConcerns::GeoConcernsShowPresenter do
     end
   end
 
-  describe "#external_metadata_file_formats_presenters" do
-    let(:obj) { FactoryGirl.create(:raster_work_with_metadata_files) }
-    let(:attributes) { obj.to_solr }
-    subject { described_class.new(solr_document, ability) }
-
-    it "returns external_metadata_file_formats_presenters" do
-      expect(subject.external_metadata_file_formats_presenters.count).to eq 2
-    end
-  end
-
   describe "#attribute_to_html" do
     let(:attributes) { FactoryGirl.create(:raster_work).to_solr }
     let(:attribute_renderer) { double('attribute_renderer') }

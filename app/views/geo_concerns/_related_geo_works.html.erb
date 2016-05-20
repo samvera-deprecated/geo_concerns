@@ -1,7 +1,7 @@
-<% if presenter.raster_work_presenters.present? %>
+<% if presenter.work_presenters.present? %>
   <div class="panel panel-default raster_works">
     <div class="panel-heading">
-      <h2>Raster Works</h2>
+      <h2><%= child_geo_works_type(presenter) %> Works</h2>
     </div>
     <table class="table">
       <thead>
@@ -11,13 +11,13 @@
         </tr>
       </thead>
       <tbody>
-        <% presenter.raster_work_presenters.each do |res| %>
+        <% presenter.work_presenters.each do |res| %>
           <tr class="file_set attributes">
             <td class="thumbnail" style="margin-bottom: 0px">
               <%= render_thumbnail_tag res %>
             </td>
             <td>
-              <%= link_to res.title, main_app.curation_concerns_raster_work_path(res.id) %>
+              <%= link_to res.title.first, polymorphic_path([main_app, res]) %>
             </td>
           </tr>
         <% end %>
@@ -25,6 +25,8 @@
     </table>
   </div>
 <% elsif can? :edit, presenter.id %>
-  <h2>Raster Works</h2>
-  <p class="center"><em>This <%= presenter.human_readable_type %> has no raster works associated with it. You can add one using the "Attach a Raster Work" button below.</em></p>
+  <% if child_geo_works_type(presenter) %>
+    <h2><%= child_geo_works_type(presenter) %> Works</h2>
+    <p class="center"><em>This <%= presenter.human_readable_type %> has no <%= child_geo_works_type(presenter).downcase %> works associated with it.</em></p>
+  <% end %>
 <% end %>

@@ -47,7 +47,7 @@ describe ImageWork do
     subject { FactoryGirl.create(:image_work_with_raster_works, title: ['Test title 4'], coverage: coverage.to_s) }
 
     it 'aggregates by raster resources' do
-      expect(subject.raster_works.size).to eq 2
+      expect(subject.raster_works.size).to eq 1
       expect(subject.raster_works.first).to be_kind_of RasterWork
     end
   end

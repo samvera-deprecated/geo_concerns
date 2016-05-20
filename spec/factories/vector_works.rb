@@ -49,10 +49,11 @@ FactoryGirl.define do
       end
     end
 
-    factory :vector_work_with_vector_and_metadata_files do
+    factory :vector_work_with_vector_and_metadata_file do
       before(:create) do |vector_work, evaluator|
-        2.times { vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user) }
-        2.times { vector_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+        vector_work.ordered_members << FactoryGirl.create(:vector_file, user: evaluator.user)
+        vector_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user)
+        vector_work.save
       end
     end
 

@@ -13,7 +13,7 @@ FactoryGirl.define do
 
     after(:create) do |file, evaluator|
       if evaluator.content
-        Hydra::Works::UploadFileToGenericFile.call(file, evaluator.content)
+        Hydra::Works::UploadFileToFileSet.call(file, evaluator.content)
       end
     end
   end

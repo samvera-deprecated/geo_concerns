@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe BoundingBoxHelper do
+describe GeoConcerns::BoundingBoxHelper do
   let(:property) { :coverage }
   let(:helper) { TestingHelper.new }
   before do
     class TestingHelper
-      include BoundingBoxHelper
+      include GeoConcerns::BoundingBoxHelper
 
       def curation_concern
       end

@@ -12,7 +12,7 @@ FactoryGirl.define do
 
     after(:create) do |file, evaluator|
       if evaluator.content
-        Hydra::Works::UploadFileToGenericFile.call(file, evaluator.content)
+        Hydra::Works::UploadFileToFileSet.call(file, evaluator.content)
       end
     end
 
@@ -22,7 +22,7 @@ FactoryGirl.define do
       end
       after(:create) do |file, evaluator|
         if evaluator.content
-          Hydra::Works::UploadFileToGenericFile.call(file, evaluator.content)
+          Hydra::Works::UploadFileToFileSet.call(file, evaluator.content)
         end
         FactoryGirl.create(:vector, user: evaluator.user).vector_files << file
       end

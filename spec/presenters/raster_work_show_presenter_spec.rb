@@ -21,14 +21,14 @@ RSpec.describe GeoConcerns::RasterWorkShowPresenter do
     end
   end
 
-  describe "#vector_work_presenters" do
-    let(:obj) { FactoryGirl.create(:raster_work_with_vector_works) }
+  describe "#work_presenters" do
+    let(:obj) { FactoryGirl.create(:raster_work_with_vector_work) }
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 
     it "returns vector work presenters" do
-      expect(subject.vector_work_presenters.count).to eq 2
-      expect(subject.vector_work_presenters.first.first('has_model_ssim')).to eq "VectorWork"
+      expect(subject.work_presenters.count).to eq 1
+      expect(subject.work_presenters.first.first('has_model_ssim')).to eq "VectorWork"
     end
   end
 
@@ -37,15 +37,15 @@ RSpec.describe GeoConcerns::RasterWorkShowPresenter do
     let(:attributes) { obj.to_solr }
     subject { described_class.new(solr_document, ability) }
 
-    describe "#raster_file_presenters" do
-      it "returns only raster_file_presenters file presenters" do
-        expect(subject.raster_file_presenters.count).to eq 2
+    describe "#geo_file_set_presenters" do
+      it "returns only raster file presenters" do
+        expect(subject.geo_file_set_presenters.count).to eq 1
       end
     end
 
-    describe "#external_metadata_file_formats_presenters" do
-      it "returns only external_metadata_file_formats_presenters" do
-        expect(subject.external_metadata_file_formats_presenters.count).to eq 2
+    describe "#external_metadata_file_set_presenters" do
+      it "returns only external_metadata_file_set_presenters" do
+        expect(subject.external_metadata_file_set_presenters.count).to eq 1
       end
     end
   end
