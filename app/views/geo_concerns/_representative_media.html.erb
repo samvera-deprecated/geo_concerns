@@ -1,0 +1,5 @@
+<% if presenter.representative_id.present? %>
+  <%= render partial: 'geo_concerns/file_sets/media_display/geo', locals: { file_set: presenter.representative_presenter } %>
+<% else %>
+  <%= image_tag 'nope.png', class: "canonical-image" %>
+<% end %>
