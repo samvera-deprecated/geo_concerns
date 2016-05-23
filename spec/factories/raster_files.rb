@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :raster_file, class: FileSet do
-    initialize_with { new(mime_type: 'image/tiff; gdal-format=GTiff') }
+    initialize_with { new(geo_mime_type: 'image/tiff; gdal-format=GTiff') }
     transient do
       user { FactoryGirl.create(:user) }
       content nil
@@ -14,7 +14,7 @@ FactoryGirl.define do
 
     after(:create) do |file, evaluator|
       if evaluator.content
-        Hydra::Works::UploadFileToGenericFile.call(file, evaluator.content)
+        Hydra::Works::UploadFileToFileSet.call(file, evaluator.content)
       end
     end
 
@@ -24,7 +24,7 @@ FactoryGirl.define do
       # end
       after(:create) do |file, evaluator|
         if evaluator.content
-          Hydra::Works::UploadFileToGenericFile.call(file, evaluator.content)
+          Hydra::Works::UploadFileToFileSet.call(file, evaluator.content)
         end
 
         raster = FactoryGirl.create(:raster, user: evaluator.user)

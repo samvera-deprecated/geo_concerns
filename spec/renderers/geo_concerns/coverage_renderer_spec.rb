@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CoverageRenderer do
+describe GeoConcerns::CoverageRenderer do
   let(:coverage) { 'northlimit=2.7; eastlimit=4.0; southlimit=1.3; westlimit=2.9; units=degrees; projection=EPSG:4326' }
   let(:renderer) { described_class.new(:coverage, [coverage]) }
   subject { renderer.render }

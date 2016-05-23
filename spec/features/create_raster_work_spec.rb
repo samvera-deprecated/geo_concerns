@@ -39,7 +39,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
 
       click_link 'Attach a Metadata File'
       fill_in 'file_set[title][]', with: 'File Title'
-      select 'FGDC', from: 'file_set_mime_type'
+      select 'FGDC', from: 'file_set_geo_mime_type'
       attach_file 'file_set[files][]', fgdc_file
       click_button 'Attach to Vector Work'
 

@@ -1,4 +1,4 @@
-<% if presenter.external_metadata_file_formats_presenters.present? %>
+<% if presenter.external_metadata_file_set_presenters.present? %>
 <div class="panel panel-default related_files">
   <div class="panel-heading">
     <h2>Metadata Files</h2>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: 'member', collection: presenter.external_metadata_file_formats_presenters %>
+      <%= render partial: 'member', collection: presenter.external_metadata_file_set_presenters %>
     </tbody>
   </table>
 </div>

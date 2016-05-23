@@ -2,26 +2,25 @@ module GeoConcerns
   class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
     delegate :has?, :first, to: :solr_document
     delegate :spatial, :temporal, :issued, :coverage, :provenance, to: :solr_document
+    class_attribute :file_format_service
 
-    def members(presenter)
-      # TODO: member ids appear twice in member_ids_ssim.
-      # Figure out why instead of removing duplicates.
-      ids = solr_document.fetch('member_ids_ssim', [])
-      CurationConcerns::PresenterFactory.build_presenters(ids.uniq,
-                                                          presenter,
-                                                          current_ability)
+    def geo_file_set_presenters
+      # filter for geo file sets
+      file_set_presenters.select do |member|
+        file_format_service.include? member.solr_document[:geo_mime_type_tesim][0]
+      end
     end
 
-    def external_metadata_file_formats_presenters
+    def external_metadata_file_set_presenters
       # filter for external metadata files
-      members(::FileSetPresenter).select do |member|
-        MetadataFormatService.include? member.solr_document[:mime_type_ssi]
+      file_set_presenters.select do |member|
+        MetadataFormatService.include? member.solr_document[:geo_mime_type_tesim][0]
       end
     end
 
     def attribute_to_html(field, options = {})
       if field == :coverage
-        ::CoverageRenderer.new(field, send(field), options).render
+        GeoConcerns::CoverageRenderer.new(field, send(field), options).render
       else
         super field, options
       end

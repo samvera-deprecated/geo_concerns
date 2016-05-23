@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe VectorWork do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:vector_file1) { FileSet.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
-  let(:vector_file2) { FileSet.new(mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
-  let(:ext_metadata_file1) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
-  let(:ext_metadata_file2) { FileSet.new(mime_type: 'application/xml; schema=iso19139') }
+  let(:vector_file1) { FileSet.new(geo_mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
+  let(:vector_file2) { FileSet.new(geo_mime_type: 'application/zip; ogr-format="ESRI Shapefile"') }
+  let(:ext_metadata_file1) { FileSet.new(geo_mime_type: 'application/xml; schema=iso19139') }
+  let(:ext_metadata_file2) { FileSet.new(geo_mime_type: 'application/xml; schema=iso19139') }
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
 
   describe 'with acceptable inputs' do
@@ -55,7 +55,7 @@ describe VectorWork do
 
     it 'has two files' do
       expect(subject.vector_files.size).to eq 2
-      expect(subject.vector_files.first.mime_type).to eq 'application/zip; ogr-format="ESRI Shapefile"'
+      expect(subject.vector_files.first.geo_mime_type).to eq 'application/zip; ogr-format="ESRI Shapefile"'
     end
   end
 
@@ -64,7 +64,7 @@ describe VectorWork do
 
     it 'aggregates external metadata files' do
       expect(subject.metadata_files.size).to eq 2
-      expect(subject.metadata_files.first.mime_type).to eq 'application/xml; schema=iso19139'
+      expect(subject.metadata_files.first.geo_mime_type).to eq 'application/xml; schema=iso19139'
     end
   end
 
@@ -101,7 +101,7 @@ describe VectorWork do
     it 'can perform extraction and set for ISO 19139' do
       external_metadata_file = subject.metadata_files.first
       allow(external_metadata_file).to receive(:metadata_xml) { doc }
-      allow(external_metadata_file).to receive(:mime_type) { 'application/xml; schema=iso19139' }
+      allow(external_metadata_file).to receive(:geo_mime_type) { 'application/xml; schema=iso19139' }
       subject.populate_metadata
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end

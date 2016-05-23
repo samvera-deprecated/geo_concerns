@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     factory :raster_work_with_one_file do
       before(:create) do |raster_work, evaluator|
-        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title: ['A GeoTIFF file'], filename: 'filename.tif')
+        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user, title: ['A GeoTIFF file'])
       end
     end
 
@@ -35,9 +35,10 @@ FactoryGirl.define do
       end
     end
 
-    factory :raster_work_with_vector_works do
+    factory :raster_work_with_vector_work do
       after(:create) do |raster_work, evaluator|
-        2.times { raster_work.ordered_members << FactoryGirl.create(:vector_work, user: evaluator.user) }
+        raster_work.ordered_members << FactoryGirl.create(:vector_work, user: evaluator.user)
+        raster_work.save
       end
     end
 
@@ -55,8 +56,9 @@ FactoryGirl.define do
 
     factory :raster_work_with_files_and_metadata_files do
       after(:create) do |raster_work, evaluator|
-        2.times { raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user) }
-        2.times { raster_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user) }
+        raster_work.ordered_members << FactoryGirl.create(:raster_file, user: evaluator.user)
+        raster_work.ordered_members << FactoryGirl.create(:external_metadata_file, user: evaluator.user)
+        raster_work.save
       end
     end
 

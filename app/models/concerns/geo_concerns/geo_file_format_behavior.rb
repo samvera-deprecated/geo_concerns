@@ -3,19 +3,19 @@ module GeoConcerns
     extend ActiveSupport::Concern
 
     def image_file?
-      ImageFormatService.include?(mime_type)
+      ImageFormatService.include?(geo_mime_type)
     end
 
     def raster_file?
-      RasterFormatService.include?(mime_type)
+      RasterFormatService.include?(geo_mime_type)
     end
 
     def vector_file?
-      VectorFormatService.include?(mime_type)
+      VectorFormatService.include?(geo_mime_type)
     end
 
     def external_metadata_file?
-      MetadataFormatService.include?(mime_type)
+      MetadataFormatService.include?(geo_mime_type)
     end
 
     def geo_file_format?

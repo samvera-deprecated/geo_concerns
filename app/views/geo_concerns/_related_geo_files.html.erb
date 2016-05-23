@@ -1,7 +1,7 @@
-<% if presenter.raster_file_presenters.present? %>
+<% if presenter.geo_file_set_presenters.present? %>
 <div class="panel panel-default related_files">
   <div class="panel-heading">
-    <h2>Raster File</h2>
+    <h2><%= geo_work_type(presenter) %> File</h2>
   </div>
   <table class="table table-striped">
     <thead>
@@ -14,11 +14,11 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: 'member', collection: @presenter.raster_file_presenters %>
+      <%= render partial: 'member', collection: @presenter.geo_file_set_presenters %>
     </tbody>
   </table>
 </div>
 <% elsif can? :edit, presenter.id %>
-  <h2>Raster File</h2>
-  <p class="center"><em>This <%= presenter.human_readable_type %> doesn't have a raster file associated with it. You can add one using the "Attach a File" button below.</em></p>
+  <h2><%= geo_work_type(presenter) %> File</h2>
+  <p class="center"><em>This <%= presenter.human_readable_type %> doesn't have an <%= geo_work_type(presenter).downcase %> file associated with it.</em></p>
 <% end %>

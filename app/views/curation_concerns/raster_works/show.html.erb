@@ -9,9 +9,8 @@
 <%= render 'representative_media', presenter: @presenter %>
 <%= render 'geo_concerns/attributes', presenter: @presenter %>
 
-<%= render 'related_raster_files', presenter: @presenter %>
+<%= render 'geo_concerns/related_geo_files', presenter: @presenter %>
 <%= render 'geo_concerns/related_external_metadata_files', presenter: @presenter %>
-
-<%= render 'members', presenter: @presenter %>
+<%= render 'geo_concerns/related_geo_works', presenter: @presenter %>
 
 <%= render "show_actions", collector: collector, editor: editor%>
