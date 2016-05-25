@@ -17,6 +17,10 @@ module GeoConcerns
         (authority.find(id) || {}).fetch('term', nil)
       end
 
+      def code(id)
+        (authority.find(id) || {}).fetch('code', nil)
+      end
+
       def include?(id)
         !authority.find(id).nil? && !authority.find(id).empty?
       end
