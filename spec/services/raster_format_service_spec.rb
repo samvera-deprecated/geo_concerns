@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RasterFormatService do
+describe GeoConcerns::RasterFormatService do
   subject { described_class }
 
   it 'has select_options' do
