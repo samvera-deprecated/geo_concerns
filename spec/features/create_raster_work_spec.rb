@@ -16,7 +16,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
       fill_in 'raster_work_title', with: 'Raster Title'
       fill_in 'raster_work_temporal', with: '1989'
       choose 'raster_work_visibility_open'
-      select 'Attribution 3.0 United States', from: 'raster_work[rights]'
+      select 'Attribution 3.0 United States', from: 'raster_work[rights][]'
       click_button 'Create Raster work'
 
       expect(page).to have_text 'Raster Title'
@@ -24,18 +24,19 @@ RSpec.feature 'RasterWorkController', type: :feature do
       expect(page).to have_text 'Open Access'
       expect(page).to have_link 'Attribution 3.0 United States', href: 'http://creativecommons.org/licenses/by/3.0/us/'
 
-      click_link 'Attach a Vector Work'
+      click_button 'Attach Child'
+      click_link 'Attach Vector Work'
       expect(page).not_to have_text 'Add Your Content'
       fill_in 'vector_work_title', with: 'Vector Title'
       fill_in 'vector_work_temporal', with: '1990'
       choose 'vector_work_visibility_authenticated'
-      select 'Attribution-ShareAlike 3.0 United States', from: 'vector_work[rights]'
+      select 'Attribution 3.0 United States', from: 'vector_work[rights][]'
       click_button 'Create Vector work'
 
       expect(page).to have_text 'Vector Title'
       expect(page).to have_text '1990'
       expect(page).to have_text 'Institution Name'
-      expect(page).to have_link 'Attribution-ShareAlike 3.0 United States', href: 'http://creativecommons.org/licenses/by-sa/3.0/us/'
+      expect(page).to have_link 'Attribution 3.0 United States', href: 'http://creativecommons.org/licenses/by/3.0/us/'
 
       click_button 'Attach a File'
       click_link 'Metadata'

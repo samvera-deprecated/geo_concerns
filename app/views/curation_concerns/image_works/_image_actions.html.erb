@@ -1,11 +1,11 @@
 <div class="btn-group">
-  <button class="btn btn-default btn-small dropdown-toggle" data-toggle="dropdown" href="#"> Attach a File <span class="caret"></span></button>
+  <button class="btn btn-default btn-small dropdown-toggle" data-toggle="dropdown" href="#"> Attach File <span class="caret"></span></button>
   <ul class="dropdown-menu">
     <li>
-      <%= link_to "Image", main_app.new_curation_concerns_file_set_path(@presenter, type: 'image-data') %>
+      <%= link_to "Attach Image", main_app.new_curation_concerns_file_set_path(@presenter, type: 'image-data') %>
     </li>
     <li>
-      <%= link_to "Metadata", main_app.new_curation_concerns_file_set_path(@presenter, type: 'metadata') %>
+      <%= link_to "Attach Metadata", main_app.new_curation_concerns_file_set_path(@presenter, type: 'metadata') %>
     </li>
   </ul>
 </div>
