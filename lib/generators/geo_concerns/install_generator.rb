@@ -50,6 +50,11 @@ module GeoConcerns
       end
     end
 
+    def install_mapnik_config
+      file_path = 'config/mapnik.yml'
+      copy_file file_path, file_path
+    end
+
     def override_characterize_job
       file_path = 'app/jobs/characterize_job.rb'
       copy_file 'jobs/characterize_job.rb', file_path

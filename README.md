@@ -20,6 +20,19 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
     * You can install it on Mac OSX with `brew install gdal`.
     * On Ubuntu, use `sudo apt-get install gdal-bin`.
 
+## Mapnik
+
+GeoConcerns requires that Mapnik 3.x or 2.x be installed at `/usr/local/lib/libmapnik.*`. For linux, a C++ compiler and build environment is also needed.
+
+Mac OS X:
+
+- https://github.com/mapnik/mapnik/wiki/MacInstallation or ```brew install mapnik```
+
+Linux:
+
+- https://github.com/mapnik/mapnik/wiki/LinuxInstallation
+- Build environment: [gcc](https://help.ubuntu.com/community/InstallingCompilers) or clang 
+
 ## Installation
 
 Create and run a new GeoConcerns application from a template:

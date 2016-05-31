@@ -1,0 +1,3 @@
+INFO: Open of `/tmp/sufia20160517-80724-1u8757b_out'
+      using driver `ESRI Shapefile' successful.
+1: tufts-cambridgegrid100-04 (Polygon)
