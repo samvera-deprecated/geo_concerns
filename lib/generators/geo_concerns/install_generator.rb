@@ -9,6 +9,30 @@ module GeoConcerns
       inject_into_file 'config/routes.rb', after: /curation_concerns_embargo_management\s*\n/ do
         "  mount GeoConcerns::Engine => '/'\n"\
       end
+
+      inject_into_file 'config/routes.rb', after: /root 'welcome#index'\s*\n/ do
+        "  default_url_options Rails.application.config.action_mailer.default_url_options\n"\
+      end
+    end
+
+    def install_default_url
+      inject_into_file 'config/environments/development.rb', after: /Rails.application.configure do\s*\n/ do
+        "  config.action_mailer.default_url_options = { host: 'localhost:3000' }\n"\
+      end
+
+      inject_into_file 'config/environments/test.rb', after: /Rails.application.configure do\s*\n/ do
+        "  config.action_mailer.default_url_options = { host: 'localhost:3000' }\n"\
+      end
+
+      inject_into_file 'config/environments/production.rb', after: /Rails.application.configure do\s*\n/ do
+        "  config.action_mailer.default_url_options = { host: 'geo.example.com', protocol: 'https' }\n"\
+      end
+    end
+
+    def install_ability
+      inject_into_file 'app/models/ability.rb', after: "include CurationConcerns::Ability\n" do
+        "  include GeoConcerns::Ability\n"
+      end
     end
 
     def register_work
@@ -52,6 +76,11 @@ module GeoConcerns
 
     def install_mapnik_config
       file_path = 'config/mapnik.yml'
+      copy_file file_path, file_path
+    end
+
+    def install_discovery_config
+      file_path = "config/discovery/geoblacklight_schema.json"
       copy_file file_path, file_path
     end
 
