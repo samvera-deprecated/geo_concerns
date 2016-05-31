@@ -15,13 +15,13 @@
           Attach Your File
         </legend>
           <% select_options = if params['type'] == 'metadata'
-              MetadataFormatService.select_options
+              GeoConcerns::MetadataFormatService.select_options
             elsif params['type'] == 'image-data'
-              ImageFormatService.select_options
+              GeoConcerns::ImageFormatService.select_options
             elsif params['type'] == 'raster-data'
-              RasterFormatService.select_options
+              GeoConcerns::RasterFormatService.select_options
             elsif params['type'] == 'vector-data'
-              VectorFormatService.select_options
+              GeoConcerns::VectorFormatService.select_options
             end %>
           <% if select_options %>
            <%= f.input(:geo_mime_type, as: :select, collection: select_options,

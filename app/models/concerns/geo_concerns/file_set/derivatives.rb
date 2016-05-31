@@ -5,11 +5,11 @@ module GeoConcerns
 
       def create_derivatives(filename)
         case geo_mime_type
-        when *ImageFormatService.select_options.map(&:last)
+        when *GeoConcerns::ImageFormatService.select_options.map(&:last)
           image_derivatives(filename)
-        when *RasterFormatService.select_options.map(&:last)
+        when *GeoConcerns::RasterFormatService.select_options.map(&:last)
           raster_derivatives(filename)
-        when *VectorFormatService.select_options.map(&:last)
+        when *GeoConcerns::VectorFormatService.select_options.map(&:last)
           vector_derivatives(filename)
         end
 
