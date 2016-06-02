@@ -3,7 +3,7 @@ gem 'geo_concerns', '0.0.5'
 
 run 'bundle install'
 
-generate 'curation_concerns:install'
-generate 'geo_concerns:install'
+generate 'curation_concerns:install', '-f'
+generate 'geo_concerns:install', '-f'
 
 rake 'db:migrate'
