@@ -37,7 +37,8 @@ RSpec.feature 'RasterWorkController', type: :feature do
       expect(page).to have_text 'Institution Name'
       expect(page).to have_link 'Attribution-ShareAlike 3.0 United States', href: 'http://creativecommons.org/licenses/by-sa/3.0/us/'
 
-      click_link 'Attach a Metadata File'
+      click_button 'Attach a File'
+      click_link 'Metadata'
       fill_in 'file_set[title][]', with: 'File Title'
       select 'FGDC', from: 'file_set_geo_mime_type'
       attach_file 'file_set[files][]', fgdc_file
