@@ -1,0 +1,25 @@
+<% if can?(:edit, file_set.id) %>
+  <%= link_to( 'Edit', edit_polymorphic_path([main_app, file_set]),
+    { class: 'btn btn-default', title: "Edit #{file_set}" }) %>
+  <%= link_to( 'Rollback', main_app.versions_curation_concerns_file_set_path(file_set),
+    { class: 'btn btn-default', title: "Rollback to previous version" }) %>
+<% end %>
+<% if can?(:destroy, file_set.id) %>
+  <%= link_to( 'Delete', polymorphic_path([main_app, file_set]),
+    class: 'btn btn-default', method: :delete, title: "Delete #{file_set}",
+    data: {confirm: "Deleting #{file_set} from #{application_name} is permanent. Click OK to delete this from #{application_name}, or Cancel to cancel this operation"}
+  )%>
+<% end %>
+<% if can?(:read, file_set.id) %>
+  <div class="btn-group">
+    <button class="btn btn-default btn-small dropdown-toggle" data-toggle="dropdown" href="#">   Download <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li>
+        <%= link_to "File", main_app.download_path(file_set) %>
+      </li>
+      <li>
+        <%= link_to "Display Raster",main_app.download_path(file_set, file: 'display_raster') %>
+      </li>
+    </ul>
+  </div>
+<% end %>
