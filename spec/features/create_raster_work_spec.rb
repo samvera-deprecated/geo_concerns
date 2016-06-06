@@ -45,6 +45,9 @@ RSpec.feature 'RasterWorkController', type: :feature do
       click_button 'Attach to Vector Work'
 
       expect(page).to have_text 'zipcodes_fgdc.xml'
+
+      click_link 'Download'
+      expect(page).to have_text '7F6FAACA-6BBB-4199-BDC5-51D038E4431C'
     end
   end
 end

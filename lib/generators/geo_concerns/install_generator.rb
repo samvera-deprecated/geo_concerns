@@ -67,6 +67,11 @@ module GeoConcerns
       copy_file 'controllers/curation_concerns/file_sets_controller.rb', file_path
     end
 
+    def install_downloads_controller
+      file_path = 'app/controllers/downloads_controller.rb'
+      copy_file 'controllers/downloads_controller.rb', file_path
+    end
+
     def install_authorities
       %w(metadata image vector raster).each do |type|
         file_path = "config/authorities/#{type}_formats.yml"
