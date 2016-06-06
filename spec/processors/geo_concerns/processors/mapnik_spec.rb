@@ -44,5 +44,27 @@ describe GeoConcerns::Processors::Mapnik do
         expect(subject.class.mapnik_config(file_name, options)).to be_a(SimpleMapnik::Config)
       end
     end
+
+    describe '#mapnik_datasources' do
+      context 'with a mapnik plugin directory in a standard location' do
+        before do
+          allow(Dir).to receive(:exist?).and_return(true)
+        end
+
+        it 'returns a path to the standard input pugin directory' do
+          expect(subject.class.mapnik_datasources).to eq('/usr/local/lib/mapnik/input')
+        end
+      end
+
+      context 'with a mapnik plugin directory that is not in a standard location' do
+        before do
+          allow(Dir).to receive(:exist?).and_return(false)
+        end
+
+        it 'returns an alternate path to the input pugin directory' do
+          expect(subject.class.mapnik_datasources).to eq('/usr/lib/mapnik/input')
+        end
+      end
+    end
   end
 end
