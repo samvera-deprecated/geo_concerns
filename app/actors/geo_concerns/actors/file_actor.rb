@@ -2,7 +2,8 @@ module GeoConcerns
   module Actors
     class FileActor < CurationConcerns::Actors::FileActor
       def ingest_file(file)
-        working_file = copy_file_to_working_directory(file, file_set.id)
+        working_file = CurationConcerns::WorkingDirectory
+                       .copy_file_to_working_directory(file, file_set.id)
         IngestFileJob.perform_later(file_set,
                                     working_file,
                                     mime_type(file),

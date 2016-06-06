@@ -17,7 +17,7 @@
               <%= render_thumbnail_tag res %>
             </td>
             <td>
-              <%= link_to res.title.first, polymorphic_path([main_app, res]) %>
+              <%= link_to res.title.first, contextual_path(res, @presenter) %>
             </td>
           </tr>
         <% end %>

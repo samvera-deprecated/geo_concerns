@@ -3,4 +3,5 @@ class ImageWork < ActiveFedora::Base
   include ::GeoConcerns::ImageWorkBehavior
   include ::CurationConcerns::BasicMetadata
   include ::GeoConcerns::BasicGeoMetadata
+  self.valid_child_concerns = [RasterWork]
 end

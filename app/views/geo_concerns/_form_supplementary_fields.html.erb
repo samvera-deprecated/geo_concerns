@@ -9,6 +9,7 @@
 </div>
 
 <%= render "form_rights", f: f %>
+<%= render "form_in_works", f: f %>
 
 <% unless curation_concern.new_record? %>
   <%= render "geo_concerns/form_populate_metadata", f: f %>

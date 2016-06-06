@@ -5,8 +5,21 @@
       <%= link_to_select_collection @presenter, class: 'btn btn-default' %>
     <% end %>
     <% if editor %>
-      <%= link_to "Edit This #{@presenter.human_readable_type}", edit_polymorphic_path([main_app, @presenter]), class: 'btn btn-default' %>
-	    <%= link_to "Attach a Raster Work", geo_concerns_engine.new_curation_concerns_member_raster_work_path(@presenter), class: 'btn btn-default' %>
+    <%= link_to "Edit This #{@presenter.human_readable_type}", edit_polymorphic_path([main_app, @presenter]), class: 'btn btn-default' %>
+      <% if @presenter.valid_child_concerns.length > 0 %>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Attach Child <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <% @presenter.valid_child_concerns.each do |concern| %>
+              <li>
+                <%= link_to "Attach #{concern.human_readable_type}", polymorphic_path([main_app, :new, :curation_concerns, :parent, concern.model_name.singular], parent_id: @presenter.id) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <%= render 'image_actions', document: @presenter %>
       <%= link_to "Delete This #{@presenter.human_readable_type}", [main_app, @presenter], class: 'btn btn-danger pull-right', data: { confirm: "Delete this #{@presenter.human_readable_type}?" }, method: :delete %>
     <% end %>

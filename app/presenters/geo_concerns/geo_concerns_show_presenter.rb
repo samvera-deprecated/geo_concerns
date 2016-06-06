@@ -1,6 +1,5 @@
 module GeoConcerns
   class GeoConcernsShowPresenter < CurationConcerns::WorkShowPresenter
-    delegate :has?, :first, to: :solr_document
     delegate :spatial, :temporal, :issued, :coverage, :provenance, to: :solr_document
     class_attribute :file_format_service
 
