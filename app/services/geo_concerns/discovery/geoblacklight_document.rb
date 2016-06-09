@@ -38,6 +38,7 @@ module GeoConcerns
             geoblacklight_version: '1.0',
             dc_identifier_s: identifier,
             layer_slug_s: slug,
+            uuid: slug,
             dc_title_s: title.first,
             solr_geom: solr_coverage,
             dct_provenance_s: provenance,
