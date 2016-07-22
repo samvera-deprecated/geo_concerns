@@ -2,7 +2,7 @@ require 'solr_wrapper'
 require 'fcrepo_wrapper'
 task ci: ['engine_cart:generate'] do
   # TODO: set port to nil (random port)
-  solr_params = { port: '8985', verbose: true, managed: true }
+  solr_params = { port: '8985', verbose: true, managed: true, instance_dir: 'tmp/solr', download_dir: 'tmp' }
   fcrepo_params = { port: '8986', verbose: true, managed: true }
   SolrWrapper.wrap(solr_params) do |solr|
     ENV['SOLR_TEST_PORT'] = solr.port
@@ -18,7 +18,7 @@ end
 namespace :geo_concerns do
   desc "Run development servers for Geo Concerns"
   task :dev_servers do
-    solr_params = { port: '8983', verbose: true, managed: true }
+    solr_params = { port: '8983', verbose: true, managed: true, instance_dir: 'tmp/solr', download_dir: 'tmp' }
     fcrepo_params = { port: '8984', verbose: true, managed: true }
     SolrWrapper.wrap(solr_params) do |solr|
       ENV['SOLR_TEST_PORT'] = solr.port
@@ -33,7 +33,7 @@ namespace :geo_concerns do
   end
   desc "Run test servers for Geo Concerns"
   task :test_servers do
-    solr_params = { port: '8985', verbose: true, managed: true }
+    solr_params = { port: '8985', verbose: true, managed: true, instance_dir: 'tmp/solr', download_dir: 'tmp' }
     fcrepo_params = { port: '8986', verbose: true, managed: true }
     SolrWrapper.wrap(solr_params) do |solr|
       ENV['SOLR_TEST_PORT'] = solr.port
