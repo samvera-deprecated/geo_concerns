@@ -11,4 +11,4 @@ test/dummy/.sass-cache
 fcrepo4-data
 Gemfile.lock
 coverage
-tmp/
+fcrepo4-test-data/
