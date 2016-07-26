@@ -12,7 +12,8 @@ module GeoConcerns
     def load_file
       file_reference = params[:file]
       return default_file unless file_reference
-      file_path = GeoConcerns::DerivativePath.derivative_path_for_reference(asset, file_reference)
+      file_path = GeoConcerns::DerivativePath.derivative_path_for_reference(params[asset_param_key],
+                                                                            file_reference)
       File.exist?(file_path) ? file_path : nil
     end
   end
