@@ -13,7 +13,7 @@ end
 task spec: :rubocop do
   RSpec::Core::RakeTask.new(:spec)
 end
-Dir.glob('tasks/*.rake').each { |r| import r }
+Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
 Bundler::GemHelper.install_tasks
 
