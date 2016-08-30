@@ -11,7 +11,7 @@ module GeoConcerns
         # @param out_path [String] processor output file path
         def self.reproject(in_path, out_path, options)
           execute "env SHAPE_ENCODING= ogr2ogr -q -nln #{options[:basename]} -f 'ESRI Shapefile'"\
-                    " -t_srs #{options[:output_srid]} '#{out_path}' '#{in_path}'"
+                    " -t_srs #{options[:output_srid]} -preserve_fid '#{out_path}' '#{in_path}'"
         end
       end
     end
