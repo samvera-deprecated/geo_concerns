@@ -12,23 +12,6 @@ Dir.glob('tasks/*.rake').each { |r| import r }
 
 Bundler::GemHelper.install_tasks
 
-namespace :geo_concerns do
-  desc 'Run style checker'
-  RuboCop::RakeTask.new(:rubocop) do |task|
-    task.requires << 'rubocop-rspec'
-    task.fail_on_error = true
-  end
-
-  RSpec::Core::RakeTask.new(:rspec)
-
-  desc 'Run test suite'
-  task :spec do
-    with_server 'test' do
-      Rake::Task['geo_concerns:rspec'].invoke
-    end
-  end
-end
-
 desc 'Run test suite and style checker'
 task spec: ['geo_concerns:spec']
 
