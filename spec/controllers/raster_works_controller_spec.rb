@@ -17,7 +17,7 @@ describe CurationConcerns::RasterWorksController, type: :controller do
         image.save
         raster.update_index
 
-        get :show, id: raster.id
+        get :show, params: { id: raster.id }
         expect(response).to be_success
       end
     end

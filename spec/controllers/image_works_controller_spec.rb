@@ -17,7 +17,7 @@ describe CurationConcerns::ImageWorksController, type: :controller do
       it "is a success" do
         image = FactoryGirl.create(:image_work, user: user)
 
-        get :show, id: image.id
+        get :show, params: { id: image.id }
         expect(response).to be_success
       end
     end
@@ -33,7 +33,7 @@ describe CurationConcerns::ImageWorksController, type: :controller do
       let(:work) { FactoryGirl.create(:image_work, user: user) }
       it 'creates an image work' do
         allow(controller).to receive(:curation_concern).and_return(work)
-        post :create, image_work: { title: ['a title'] }
+        post :create, params: { image_work: { title: ['a title'] } }
         expect(response).to redirect_to main_app.curation_concerns_image_work_path(work)
       end
     end

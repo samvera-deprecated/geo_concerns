@@ -30,10 +30,10 @@ namespace :geo_concerns do
 end
 
 desc 'Run test suite and style checker'
-task spec: ['geo_concerns:rubocop', 'geo_concerns:spec']
+task spec: ['geo_concerns:spec']
 
 desc 'Spin up Solr & Fedora and run the test suite'
-task ci: ['engine_cart:generate'] do
+task ci: ['geo_concerns:rubocop', 'engine_cart:generate'] do
   Rake::Task['spec'].invoke
 end
 
