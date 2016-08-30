@@ -32,6 +32,15 @@ RSpec.configure do |config|
   end
   config.fixture_path = File.expand_path("../fixtures", __FILE__)
 
+  config.include FactoryGirl::Syntax::Methods
+  if defined? Devise::Test::ControllerHelpers
+    config.include Devise::Test::ControllerHelpers, type: :controller
+    config.include Devise::Test::ControllerHelpers, type: :view
+  else
+    config.include Devise::TestHelpers, type: :controller
+    config.include Devise::TestHelpers, type: :view
+  end
+
   config.include TestViewHelpers, type: :view
 
   config.include(ControllerLevelHelpers, type: :helper)
@@ -41,6 +50,7 @@ RSpec.configure do |config|
   config.before(:each, type: :view) { initialize_controller_helpers(view) }
 
   config.include BackportTest, type: :controller unless Rails.version > '5'
-
+  config.include Controllers::EngineHelpers, type: :controller
+  config.include Controllers::EngineHelpers, type: :helper
   config.include ::Rails.application.routes.url_helpers
 end

@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json-schema'
 
   spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'devise', '4.1.1'
+  spec.add_development_dependency 'devise', '>= 3.0', '< 5'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'engine_cart', '~> 0.10'
   spec.add_development_dependency 'solr_wrapper', '>= 0.13.1'

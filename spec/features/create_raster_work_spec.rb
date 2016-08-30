@@ -6,7 +6,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
 
   context "an authorized user" do
     before do
-      expect(CharacterizeJob).to receive(:perform_later)
+      allow(CharacterizeJob).to receive(:perform_later)
       sign_in user
     end
 
@@ -46,9 +46,7 @@ RSpec.feature 'RasterWorkController', type: :feature do
       click_button 'Attach to Vector Work'
 
       expect(page).to have_text 'zipcodes_fgdc.xml'
-
-      click_link 'Download'
-      expect(page).to have_text '7F6FAACA-6BBB-4199-BDC5-51D038E4431C'
+      expect(page).to have_selector(:link_or_button, 'Download')
     end
   end
 end

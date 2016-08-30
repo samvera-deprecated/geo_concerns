@@ -8,7 +8,7 @@ gemspec
 group :development, :test do
   # Peg simplecov to < 0.8 until this is resolved:
   # https://github.com/colszowka/simplecov/issues/281
-  gem 'simplecov', '~> 0.7.1', require: false
+  gem 'simplecov', '~> 0.9', require: false
   gem 'coveralls', require: false
 end
 
@@ -46,3 +46,5 @@ else
   end
 end
 # END ENGINE_CART BLOCK
+
+gem 'rails-controller-testing' if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5\./
