@@ -28,7 +28,7 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
   describe '#reproject' do
     it 'executes a reproject command' do
       command = "env SHAPE_ENCODING= ogr2ogr -q -nln  -f 'ESRI Shapefile' "\
-                  "-t_srs EPSG:4326 'output/geo.png' 'files/geo.zip'"
+                  "-t_srs EPSG:4326 -preserve_fid 'output/geo.png' 'files/geo.zip'"
       expect(subject.class).to receive(:execute).with command
       subject.class.reproject(file_name, output_file, options)
     end
