@@ -3,7 +3,7 @@ module GeoConcerns
     #
     # The following properties are inherited from Curation Concerns' metadata
     #
-    # @see https://github.com/projecthydra-labs/curation_concerns/blob/master/curation_concerns-models/app/models/concerns/curation_concerns/required_metadata.rb
+    # @see https://github.com/projecthydra/curation_concerns/blob/v1.5.0/app/models/concerns/curation_concerns/required_metadata.rb
     # Required:
     #   :title
     #   :date_uploaded (DC.dateSubmitted)
