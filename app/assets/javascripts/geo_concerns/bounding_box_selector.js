@@ -1,4 +1,4 @@
-function boundingBoxSelector(options) {
+  function boundingBoxSelector(options) {
   var inputId = options.inputId;
   var initialBounds;
   var coverage = options.coverage;
@@ -18,7 +18,7 @@ function boundingBoxSelector(options) {
     scrollWheelZoom: false
   }).fitBounds(initialBounds);
 
-  L.tileLayer('https://otile1-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     maxZoom: 18
   }).addTo(map);
   L.Control.geocoder({ position: 'topleft' }).addTo(map);
