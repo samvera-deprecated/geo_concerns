@@ -15,8 +15,8 @@ describe VectorWork do
       subject.members << vector_file2
       subject.members << ext_metadata_file1
       subject.members << ext_metadata_file2
-      expect(subject.vector_files).to eq [vector_file1, vector_file2]
-      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
+      expect(subject.vector_files).to match_array [vector_file1, vector_file2]
+      expect(subject.metadata_files).to match_array [ext_metadata_file1, ext_metadata_file2]
     end
 
     it 'defines what type of object it is' do

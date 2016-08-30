@@ -21,7 +21,7 @@ describe FileSet do
     let(:work) { FactoryGirl.create(:image_work_with_one_file) }
     subject { work.file_sets.first.reload }
     it 'belongs to image work' do
-      expect(subject.image_work).to eq [work]
+      expect(subject.image_work).to match_array [work]
     end
   end
 

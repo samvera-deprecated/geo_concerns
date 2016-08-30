@@ -1,6 +1,6 @@
 module GeoConcerns
   class DerivativePath < CurationConcerns::DerivativePath
-    def self.extension_for(destination_name)
+    def self.extension(destination_name)
       case destination_name
       when 'thumbnail'
         ".#{MIME::Types.type_for('jpg').first.extensions.first}"

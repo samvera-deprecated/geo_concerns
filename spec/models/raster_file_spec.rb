@@ -17,7 +17,7 @@ describe FileSet do
     let(:work) { FactoryGirl.create(:raster_work_with_one_file) }
     subject { work.file_sets.first.reload }
     it 'belongs to raster work' do
-      expect(subject.raster_work).to eq [work]
+      expect(subject.raster_work).to match_array [work]
     end
   end
 

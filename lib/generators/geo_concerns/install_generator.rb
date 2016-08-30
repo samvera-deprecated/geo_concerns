@@ -134,6 +134,10 @@ module GeoConcerns
     def install_assets
       copy_file 'geo_concerns.js', 'app/assets/javascripts/geo_concerns.js'
       copy_file 'geo_concerns.scss', 'app/assets/stylesheets/geo_concerns.scss'
+      file_path = 'app/assets/javascripts/application.js'
+      inject_into_file file_path, before: %r{\/\/= require_tree \..*$} do
+        "//= require geo_concerns\n"
+      end
     end
 
     private

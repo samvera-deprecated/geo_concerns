@@ -17,7 +17,7 @@ describe CurationConcerns::VectorWorksController, type: :controller do
         raster.save
         vector.update_index
 
-        get :show, id: vector.id
+        get :show, params: { id: vector.id }
         expect(response).to be_success
       end
     end
@@ -44,7 +44,7 @@ describe CurationConcerns::VectorWorksController, type: :controller do
       end
 
       it 'renders the document' do
-        get :geoblacklight, id: vector_work.id, format: :json
+        get :geoblacklight, params: { id: vector_work.id, format: :json }
         expect(response).to be_success
       end
     end
@@ -55,7 +55,7 @@ describe CurationConcerns::VectorWorksController, type: :controller do
       end
 
       it 'returns an error message with a 404 status' do
-        get :geoblacklight, id: vector_work.id, format: :json
+        get :geoblacklight, params: { id: vector_work.id, format: :json }
         expect(response.body).to include('problem')
         expect(response.status).to eq(404)
       end

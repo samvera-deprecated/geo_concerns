@@ -39,9 +39,9 @@ describe RasterWork do
       subject.members << ext_metadata_file2
       subject.members << vector1
       subject.members << vector2
-      expect(subject.raster_files).to eq [raster_file1, raster_file2]
-      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
-      expect(subject.vector_works).to eq [vector1, vector2]
+      expect(subject.raster_files).to match_array [raster_file1, raster_file2]
+      expect(subject.metadata_files).to match_array [ext_metadata_file1, ext_metadata_file2]
+      expect(subject.vector_works).to match_array [vector1, vector2]
     end
     it 'defines what type of object it is' do
       expect(subject.raster_work?).to be_truthy
