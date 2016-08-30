@@ -6,13 +6,13 @@ describe SolrDocument do
   describe "spatial" do
     let(:attributes) { { Solrizer.solr_name('spatial') => ['one', 'two'] } }
     subject { document.spatial }
-    it { is_expected.to eq ['one', 'two'] }
+    it { is_expected.to match_array ['one', 'two'] }
   end
 
   describe "temporal" do
     let(:attributes) { { Solrizer.solr_name('temporal') => ['one', 'two'] } }
     subject { document.temporal }
-    it { is_expected.to eq ['one', 'two'] }
+    it { is_expected.to match_array ['one', 'two'] }
   end
 
   describe "issued" do

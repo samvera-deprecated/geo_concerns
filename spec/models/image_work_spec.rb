@@ -29,8 +29,8 @@ describe ImageWork do
       subject.members << raster1
       subject.members << raster2
       expect(subject.image_file).to eq image_file1
-      expect(subject.metadata_files).to eq [ext_metadata_file1, ext_metadata_file2]
-      expect(subject.raster_works).to eq [raster1, raster2]
+      expect(subject.metadata_files).to match_array [ext_metadata_file1, ext_metadata_file2]
+      expect(subject.raster_works).to match_array [raster1, raster2]
     end
     it 'defines what type of object it is' do
       expect(subject.image_work?).to be_truthy

@@ -17,7 +17,7 @@ describe FileSet do
     let(:work) { FactoryGirl.create(:vector_work_with_one_file) }
     subject { work.file_sets.first.reload }
     it 'belongs to vector work' do
-      expect(subject.vector_work).to eq [work]
+      expect(subject.vector_work).to match_array [work]
     end
   end
 

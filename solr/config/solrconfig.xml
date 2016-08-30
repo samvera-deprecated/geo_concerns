@@ -28,7 +28,7 @@
        that you fully re-index after changing this setting as it can
        affect both how text is indexed and queried.
   -->
-  <luceneMatchVersion>LUCENE_CURRENT</luceneMatchVersion>
+  <luceneMatchVersion>5.0.0</luceneMatchVersion>
   
   <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lib" />
   <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lucene-libs" />
@@ -102,7 +102,6 @@
        -->
         <str name="qf">
           id
-          active_fedora_model_ssi
           title_tesim
           author_tesim
           subject_tesim
@@ -186,6 +185,17 @@
       <str name="rows">1</str>
       <str name="q">{!term f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
     </lst>
+  </requestHandler>
+
+  <searchComponent name="termsComponent" class="solr.TermsComponent" />
+
+  <requestHandler name="/terms" class="solr.SearchHandler">
+    <lst name="defaults">
+      <bool name="terms">true</bool>
+    </lst>
+    <arr name="components">
+      <str>termsComponent</str>
+    </arr>
   </requestHandler>
 
 <!-- Spell Check
@@ -309,4 +319,3 @@
     <!-- </lst> -->
   </requestHandler>
 </config>
-
