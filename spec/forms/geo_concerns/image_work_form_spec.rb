@@ -5,7 +5,7 @@ describe GeoConcerns::ImageWorkForm do
   let(:raw_attributes) { ActionController::Parameters.new(coverage: coverage.to_s) }
 
   describe ".model_attributes" do
-    subject { described_class.model_attributes(raw_attributes) }
-    it { is_expected.to eq('coverage' => coverage.to_s) }
+    subject { described_class.model_attributes(raw_attributes).to_unsafe_h }
+    it { is_expected.to include('coverage' => coverage.to_s) }
   end
 end
