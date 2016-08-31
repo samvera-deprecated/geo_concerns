@@ -21,7 +21,9 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
   subject { TestProcessor.new }
 
   let(:directives) { { format: 'png', size: '200x400' } }
-  let(:output_file) { 'output/geo.png' }
+  let(:output_file_jpg) { 'output/geo.jpg' }
+  let(:output_file_png) { 'output/geo.png' }
+  let(:output_file) { output_file_png }
   let(:file_name) { 'files/geo.tif' }
   let(:options) { { output_size: '150 150' } }
 
@@ -43,18 +45,25 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
       allow(MiniMagick::Image).to receive(:open).and_return(image)
     end
 
-    it 'transforms the image and saves it as a jpeg' do
+    it 'transforms the image and saves it as a PNG' do
+      expect(image).to receive(:format).with('png')
+      expect(image).to receive(:combine_options)
+      expect(image).to receive(:write).with(output_file_png)
+      subject.class.convert(file_name, output_file_png, options)
+    end
+
+    it 'transforms the image and saves it as a JPG' do
       expect(image).to receive(:format).with('jpg')
       expect(image).to receive(:combine_options)
-      expect(image).to receive(:write).with(output_file)
-      subject.class.convert(file_name, output_file, options)
+      expect(image).to receive(:write).with(output_file_jpg)
+      subject.class.convert(file_name, output_file_jpg, options)
     end
   end
 
   describe '#temp_path' do
     it 'returns a path to a temporary file based on the input file' do
       expect(subject.class.temp_path(output_file))
-        .to include('geo')
+        .to match(%r{output/geo_\d+})
     end
   end
 
