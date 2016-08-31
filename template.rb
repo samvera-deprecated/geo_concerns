@@ -1,5 +1,5 @@
-gem 'curation_concerns', '1.0.0.beta7'
-gem 'geo_concerns', '0.0.6'
+gem 'curation_concerns', '1.5.0'
+gem 'geo_concerns', '0.0.7'
 
 run 'bundle install'
 
