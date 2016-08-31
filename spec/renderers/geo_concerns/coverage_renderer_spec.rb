@@ -11,7 +11,7 @@ describe GeoConcerns::CoverageRenderer do
 
   it 'includes a map' do
     expect(subject).to include "<div id='bbox'"
-    expect(subject).to include "<script>boundingBoxSelector"
+    expect(subject).to include "boundingBoxSelector"
   end
 
   it 'includes a toggle button' do

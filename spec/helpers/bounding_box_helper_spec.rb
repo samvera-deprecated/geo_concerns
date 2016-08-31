@@ -26,6 +26,11 @@ describe GeoConcerns::BoundingBoxHelper do
     end
   end
 
+  describe '#bbox_display_inputs' do
+    subject { helper.bbox_display_inputs }
+    it { is_expected.to include('North', 'East', 'South', 'West') }
+  end
+
   describe '#base_input_id' do
     it 'returns the id of the bounding box input element' do
       expect(helper.bbox_input_id(property)).to eq('vector_work_coverage')
