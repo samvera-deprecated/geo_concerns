@@ -1,7 +1,8 @@
 language: ruby
 sudo: true
 rvm:
-  - 2.3.0
+  - 2.2.2 # oldest version supported by Rails 5
+  - 2.3.1 # latest release
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
