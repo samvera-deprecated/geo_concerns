@@ -1,5 +1,5 @@
 # Geo Concerns
-[![Build Status](https://travis-ci.org/projecthydra-labs/geo_concerns.svg)](https://travis-ci.org/projecthydra-labs/geo_concerns)
+[![Build Status](https://travis-ci.org/projecthydra-labs/geo_concerns.svg?branch=master)](https://travis-ci.org/projecthydra-labs/geo_concerns)
 [![Coverage Status](https://coveralls.io/repos/github/projecthydra-labs/geo_concerns/badge.svg?branch=master)](https://coveralls.io/github/projecthydra-labs/geo_concerns?branch=master)
 [![API Docs](http://img.shields.io/badge/API-docs-blue.svg)](http://www.rubydoc.info/github/projecthydra-labs/geo_concerns)
 [![Gem Version](https://img.shields.io/gem/v/geo_concerns.svg)](https://github.com/projecthydra-labs/geo_concerns/releases)
