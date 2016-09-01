@@ -8,9 +8,9 @@ env:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - MAPNIK_VERSION="2.3"
   matrix:
-    - RAILS_VERSION=4.2.7
+    - RAILS_VERSION=4.2.7.1
       RDF_VERSION=1.99.1
-    - RAILS_VERSION=5.0.0
+    - RAILS_VERSION=5.0.0.1
       RDF_VERSION=2.1.0
 before_install:
  - sudo apt-add-repository --yes ppa:mapnik/nightly-${MAPNIK_VERSION}
@@ -20,7 +20,7 @@ install:
 before_script:
   - jdk_switcher use oraclejdk8
   - gdalinfo --version
-  - gem install bundler -v 1.12.3
+  - bundle --version
   - bundle install
 services:
   - redis-server
