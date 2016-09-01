@@ -8,6 +8,7 @@ function boundingBoxSelector(options) {
 
   if (coverage) {
     initialBounds = coverageToBounds(coverage);
+    updateBboxInputs(initialBounds);
   } else {
     initialBounds = L.latLngBounds([[-50, -100], [72, 100]]);
   };
@@ -17,8 +18,6 @@ function boundingBoxSelector(options) {
     touchZoom: false,
     scrollWheelZoom: false
   }).fitBounds(initialBounds);
-
-  updateBboxInputs(initialBounds);
 
   L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     maxZoom: 18
