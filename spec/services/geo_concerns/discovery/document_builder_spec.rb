@@ -28,7 +28,6 @@ describe GeoConcerns::Discovery::DocumentBuilder do
                        spatial: ['Micronesia'],
                        temporal: ['2011'],
                        subject: ['Human settlements'],
-                       provenance: 'Pacific Islands University',
                        language: ['Esperanto'] }
   }
 
@@ -39,11 +38,11 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
     context 'required' do
       it 'has all metadata' do
-        expect(document['dc_identifier_s']).to eq('geo-work-1')
-        expect(document['layer_slug_s']).to eq('pacific-islands-university-geo-work-1')
+        expect(document['dc_identifier_s']).to eq('https://your-institution/geo-work-1')
+        expect(document['layer_slug_s']).to eq('your-institution-geo-work-1')
         expect(document['dc_title_s']).to eq('Geo Work')
         expect(document['solr_geom']).to eq('ENVELOPE(-71.032, -69.856, 43.039, 42.943)')
-        expect(document['dct_provenance_s']).to eq('Pacific Islands University')
+        expect(document['dct_provenance_s']).to eq('Your Institution')
         expect(document['dc_rights_s']).to eq('Restricted')
         expect(document['geoblacklight_version']).to eq('1.0')
       end

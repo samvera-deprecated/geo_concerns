@@ -20,7 +20,7 @@ module GeoConcerns
           # Returns an array of attributes to add to document.
           # @return [Array] attributes
           def simple_attributes
-            [:id, :creator, :subject, :spatial, :temporal,
+            [:creator, :subject, :spatial, :temporal,
              :title, :provenance, :language, :publisher]
           end
 
@@ -35,6 +35,8 @@ module GeoConcerns
           # Builds more complex metadata attributes.
           # @param [AbstractDocument] discovery document
           def build_complex_attributes(document)
+            document.identifier = URI.join(I18n.t('geo_concerns.institution.uri'),
+                                           geo_concern.id).to_s
             document.description = description
             document.access_rights = geo_concern.solr_document.visibility
             document.slug = slug

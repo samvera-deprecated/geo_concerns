@@ -25,7 +25,9 @@ module GeoConcerns
 
     # @return [String]
     def provenance
-      first(Solrizer.solr_name('provenance'))
+      name = I18n.t('curation_concerns.institution.name')
+      raise ArgumentError, "Provenance required in configuration" unless name.present?
+      name
     end
 
     # @return [DateTime]
