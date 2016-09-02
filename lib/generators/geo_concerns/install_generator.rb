@@ -131,7 +131,10 @@ module GeoConcerns
       copy_file 'geo_concerns.scss', 'app/assets/stylesheets/geo_concerns.scss'
       file_path = 'app/assets/javascripts/application.js'
       inject_into_file file_path, before: %r{\/\/= require_tree \..*$} do
-        "//= require geo_concerns\n"
+        "//= require geo_concerns\n" \
+        "//= require curation_concerns\n" \
+        "// Require es6 modules after almond is loaded in curation concerns.\n" \
+        "//= require geo_concerns/es6-modules\n"
       end
     end
 
