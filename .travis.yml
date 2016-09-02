@@ -4,6 +4,8 @@ sudo: true
 rvm:
   - 2.2.2 # oldest version supported by Rails 5
   - 2.3.1 # latest release
+jdk:
+  - oraclejdk8
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
@@ -16,13 +18,10 @@ env:
 before_install:
  - sudo apt-add-repository --yes ppa:mapnik/nightly-${MAPNIK_VERSION}
  - sudo apt-get update -y
-install:
- - sudo apt-get -y install wget build-essential make libmapnik=${MAPNIK_VERSION}* mapnik-utils=${MAPNIK_VERSION}* libmapnik-dev=${MAPNIK_VERSION}* mapnik-input-plugin*=${MAPNIK_VERSION}*
+ - sudo apt-get -y install libmapnik=${MAPNIK_VERSION}* mapnik-utils=${MAPNIK_VERSION}* libmapnik-dev=${MAPNIK_VERSION}* mapnik-input-plugin*=${MAPNIK_VERSION}*
+install: bundle install --jobs=3 --retry=3
 before_script:
-  - jdk_switcher use oraclejdk8
   - gdalinfo --version
-  - bundle --version
-  - bundle install
 services:
   - redis-server
 addons:
