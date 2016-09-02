@@ -1,2 +1,7 @@
+//= require geo_concerns/geo_concerns_boot
 //= require geo_concerns/relationships
-//= require geo_concerns/app
+
+Blacklight.onLoad(function() {
+  Initializer = require('geo_concerns/geo_concerns_boot')
+  window.gc = new Initializer()
+})

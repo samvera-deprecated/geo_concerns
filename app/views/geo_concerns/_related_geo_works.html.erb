@@ -1,32 +1,24 @@
-<% if presenter.work_presenters.present? %>
-  <div class="panel panel-default raster_works">
+<% if child_geo_works_type(presenter) %>
+  <div class="panel panel-default" id="child-works">
     <div class="panel-heading">
-      <h2><%= child_geo_works_type(presenter) %> Works</h2>
+      <h2>Child Works</h2>
     </div>
-    <table class="table">
+    <table class="table table-striped child-works" data-query-url="<%= polymorphic_path([main_app, :curation_concerns, presenter.model_name.singular], id: @presenter.id) %>" data-members="<%= @presenter.member_presenters.map(&:id) %>" data-param-key="<%= @presenter.model_name.param_key %>">
       <thead>
-        <tr>
-          <th class="col-xs-3"></th>
-          <th>Work Name</th>
-        </tr>
+        <% if presenter.work_presenters.present? %>
+          <tr>
+            <th class="col-xs-3"></th>
+            <th>Work Name</th>
+            <th>Actions</th>
+          </tr>
+        <% end %>
       </thead>
       <tbody>
-        <% presenter.work_presenters.each do |res| %>
-          <tr class="file_set attributes">
-            <td class="thumbnail" style="margin-bottom: 0px">
-              <%= render_thumbnail_tag res %>
-            </td>
-            <td>
-              <%= link_to res.title.first, contextual_path(res, @presenter) %>
-            </td>
-          </tr>
+        <% if presenter.work_presenters.present? %>
+          <%= render partial: 'geo_concerns/work_member', collection: @presenter.work_presenters %>
         <% end %>
       </tbody>
     </table>
+    <%= render partial: 'geo_concerns/new_work_member' %>
   </div>
-<% elsif can? :edit, presenter.id %>
-  <% if child_geo_works_type(presenter) %>
-    <h2><%= child_geo_works_type(presenter) %> Works</h2>
-    <p class="center"><em>This <%= presenter.human_readable_type %> has no <%= child_geo_works_type(presenter).downcase %> works associated with it.</em></p>
-  <% end %>
 <% end %>

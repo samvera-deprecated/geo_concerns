@@ -1,2 +1,1 @@
-//= require geo_concerns/relationships/table
-//= require geo_concerns/relationships/table_row
+//= require geo_concerns/relationships/child_works
