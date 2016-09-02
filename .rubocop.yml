@@ -32,6 +32,7 @@ Metrics/LineLength:
     - 'app/models/concerns/georeferenced_behavior.rb'
     - 'app/models/solr_document.rb'
     - 'app/schemas/geo_concerns/basic_geo_metadata_required.rb'
+    - 'app/services/geo_concerns/discovery/geoblacklight_document.rb'
     - 'config/**/*.rb'
     - 'app/values/geo_concerns/coverage.rb'
     - 'app/values/geo_concerns/time_period.rb'

@@ -12,25 +12,36 @@ module GeoConcerns
         # @param [AbstractDocument] discovery document
         def build(document)
           document.layer_year = layer_year
-          document.date_modified = date_modified
+          document.layer_modified = layer_modified
+          document.issued = issued
         end
 
         private
 
           # Returns a year associated with the layer. Taken from first
-          # value in temporal or from date uploaded. If neither is valid,
-          # the current year is used.
+          # value in temporal.
           # @return [Integer] year
           def layer_year
-            date = geo_concern.temporal.first || geo_concern.date_uploaded
+            date = geo_concern.temporal.first
             year = date.match(/(?<=\D|^)(\d{4})(?=\D|$)/)
-            year ? year[0].to_i : Time.current.year
+            year ? year[0].to_i : nil
           end
 
           # Returns the date the work was modified.
-          # @return [String] date in rfc3339 format.
-          def date_modified
-            DateTime.rfc3339(geo_concern.solr_document[:date_modified_dtsi]).to_s
+          # @return [String] date in XMLSchema format.
+          def layer_modified
+            geo_concern.layer_modified.try(:xmlschema)
+          end
+
+          # Returns the date the layer was issued.
+          # @return [String] date in XMLSchema format.
+          def issued
+            datetime = geo_concern.issued.first
+            datetime = DateTime.parse(datetime.to_s).utc
+            # TODO: Rails 4 doesn't implement the timezone correctly -- it adds "+00:00" not "Z"
+            Rails::VERSION::MAJOR == 4 ? datetime.utc.strftime('%FT%TZ') : datetime.utc.xmlschema
+          rescue
+            ''
           end
       end
     end

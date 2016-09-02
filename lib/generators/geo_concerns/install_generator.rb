@@ -84,11 +84,6 @@ module GeoConcerns
       copy_file file_path, file_path
     end
 
-    def install_discovery_config
-      file_path = "config/discovery/geoblacklight_schema.json"
-      copy_file file_path, file_path
-    end
-
     def override_characterize_job
       file_path = 'app/jobs/characterize_job.rb'
       copy_file 'jobs/characterize_job.rb', file_path

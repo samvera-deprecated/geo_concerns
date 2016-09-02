@@ -1,8 +1,14 @@
 require 'json-schema'
+require 'open-uri'
 
 module GeoConcerns
   module Discovery
+    # For details on the schema,
+    # @see 'https://github.com/geoblacklight/geoblacklight/wiki/Schema'
     class GeoblacklightDocument < AbstractDocument
+      GEOBLACKLIGHT_RELEASE_VERSION = 'v1.1.2'.freeze
+      GEOBLACKLIGHT_SCHEMA = JSON.parse(open("https://raw.githubusercontent.com/geoblacklight/geoblacklight/#{GEOBLACKLIGHT_RELEASE_VERSION}/schema/geoblacklight-schema.json").read).freeze
+
       # Implements the to_hash method on the abstract document.
       # @param _args [Array<Object>] arguments needed for the renderer, unused here
       # @return [Hash] geoblacklight document as a hash
@@ -21,30 +27,39 @@ module GeoConcerns
 
         # Builds the geoblacklight document hash.
         # @return [Hash] geoblacklight document as a hash
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def document_hash
+          document_hash_required.merge(document_hash_optional)
+        end
+
+        def document_hash_required
           {
-            uuid: id,
-            dc_identifier_s: identifier,
+            geoblacklight_version: '1.0',
+            dc_identifier_s: id,
+            layer_slug_s: slug,
             dc_title_s: title.first,
+            solr_geom: solr_coverage,
+            dct_provenance_s: provenance,
+            dc_rights_s: rights
+          }
+        end
+
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def document_hash_optional
+          {
             dc_description_s: description,
-            dc_rights_s: rights,
-            dct_provenance_s: provenance.first,
             dc_creator_sm: creator,
-            dc_language_s: language.first,
-            dc_publisher_s: publisher.first,
+            dc_language_s: language.try(:first),
+            dc_publisher_s: publisher.try(:first),
             dc_subject_sm: subject,
             dct_spatial_sm: spatial,
             dct_temporal_sm: temporal,
-            layer_slug_s: slug,
-            georss_box_s: geo_rss_coverage,
-            solr_geom: solr_coverage,
             solr_year_i: layer_year,
-            layer_modified_dt: date_modified,
+            layer_modified_dt: layer_modified,
             layer_id_s: wxs_identifier,
-            dct_references_s: clean_document(references).to_json,
+            dct_references_s: clean_document(references).to_json.to_s,
             layer_geom_type_s: geom_type,
-            dc_format_s: process_format_codes(format)
+            dc_format_s: process_format_codes(format),
+            dct_issued_dt: issued
           }
         end
         # rubocop:enable Metrics/LineLength, Metrics/AbcSize
@@ -87,22 +102,22 @@ module GeoConcerns
           end
         end
 
-        # Returns the location of geoblacklight json schema document.
-        # @return [String] geoblacklight json schema document path
+        # Returns the content of geoblacklight JSON-Schema document.
+        # @return [Hash] geoblacklight json schema
         def schema
-          Rails.root.join('config', 'discovery', 'geoblacklight_schema.json').to_s
+          GEOBLACKLIGHT_SCHEMA
         end
 
         # Validates the geoblacklight document against the json schema.
         # @return [Boolean] is the document valid?
         def valid?(doc)
-          JSON::Validator.validate(schema, doc, validate_schema: true)
+          JSON::Validator.validate(schema, doc, fragment: '#/properties/layer')
         end
 
         # Returns a hash of errors from json schema validation.
         # @return [Hash] json schema validation errors
         def schema_errors(doc)
-          { error: JSON::Validator.fully_validate(schema, doc) }
+          { error: JSON::Validator.fully_validate(schema, doc, fragment: '#/properties/layer') }
         end
 
         # Cleans the geoblacklight document hash by removing unused fields,

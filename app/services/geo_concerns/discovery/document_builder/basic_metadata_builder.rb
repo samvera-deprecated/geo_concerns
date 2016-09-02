@@ -35,7 +35,6 @@ module GeoConcerns
           # Builds more complex metadata attributes.
           # @param [AbstractDocument] discovery document
           def build_complex_attributes(document)
-            document.identifier = identifier
             document.description = description
             document.access_rights = geo_concern.solr_document.visibility
             document.slug = slug
@@ -52,16 +51,8 @@ module GeoConcerns
           # Returns the document slug for use in discovery systems.
           # @return [String] document slug
           def slug
-            return unless geo_concern.provenance
-            "#{geo_concern.provenance[0].downcase.tr(' ', '-')}-#{geo_concern.id}"
-          end
-
-          # Returns the document identifier. If there is no identifier,
-          # the work id is used instead.
-          # @return [String] document identifier
-          def identifier
-            field = geo_concern.solr_document[:identifier_tesim]
-            field ? field.first : geo_concern.id
+            return geo_concern.id unless geo_concern.provenance
+            "#{geo_concern.provenance.parameterize}-#{geo_concern.id}"
           end
       end
     end

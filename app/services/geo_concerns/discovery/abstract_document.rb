@@ -2,9 +2,9 @@ module GeoConcerns
   module Discovery
     class AbstractDocument
       attr_accessor :id, :provenance, :creator, :subject, :spatial, :temporal,
-                    :title, :identifier, :description, :access_rights, :language,
-                    :publisher, :slug, :solr_coverage, :geo_rss_coverage, :layer_year,
-                    :date_modified, :geom_type, :format, :resource_type, :wxs_identifier,
+                    :title, :description, :access_rights, :language, :issued,
+                    :publisher, :slug, :solr_coverage, :layer_year,
+                    :layer_modified, :geom_type, :format, :resource_type, :wxs_identifier,
                     :dct_references, :fgdc, :iso19139, :mods, :download, :url, :thumbnail
 
       # Cleans the document hash by removing unused fields.
