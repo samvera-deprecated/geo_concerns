@@ -135,6 +135,10 @@ module GeoConcerns
       end
     end
 
+    def install_locale_config
+      copy_file 'config/locales/geo_concerns.en.yml'
+    end
+
     private
 
       def install_work
