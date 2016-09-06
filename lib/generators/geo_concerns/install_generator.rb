@@ -84,6 +84,11 @@ module GeoConcerns
       copy_file file_path, file_path
     end
 
+    def install_geoserver_config
+      file_path = 'config/geoserver.yml'
+      copy_file file_path, file_path
+    end
+
     def inject_into_file_set
       file_path = 'app/models/file_set.rb'
       if File.exist?(file_path)
