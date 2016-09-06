@@ -28,8 +28,8 @@ describe SolrDocument do
   end
 
   describe "provenance" do
-    let(:attributes) { { Solrizer.solr_name('provenance') => ['one'] } }
+    let(:attributes) { { Solrizer.solr_name('provenance') => ['unused'] } }
     subject { document.provenance }
-    it { is_expected.to eq 'one' }
+    it { is_expected.to eq 'Your Institution' }
   end
 end

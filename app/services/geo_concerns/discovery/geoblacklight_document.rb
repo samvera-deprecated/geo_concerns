@@ -34,7 +34,7 @@ module GeoConcerns
         def document_hash_required
           {
             geoblacklight_version: '1.0',
-            dc_identifier_s: id,
+            dc_identifier_s: identifier,
             layer_slug_s: slug,
             dc_title_s: title.first,
             solr_geom: solr_coverage,

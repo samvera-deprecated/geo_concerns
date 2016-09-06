@@ -1,7 +1,7 @@
 module GeoConcerns
   module Discovery
     class AbstractDocument
-      attr_accessor :id, :provenance, :creator, :subject, :spatial, :temporal,
+      attr_accessor :identifier, :provenance, :creator, :subject, :spatial, :temporal,
                     :title, :description, :access_rights, :language, :issued,
                     :publisher, :slug, :solr_coverage, :layer_year,
                     :layer_modified, :geom_type, :format, :resource_type, :wxs_identifier,
