@@ -84,11 +84,6 @@ module GeoConcerns
       copy_file file_path, file_path
     end
 
-    def override_characterize_job
-      file_path = 'app/jobs/characterize_job.rb'
-      copy_file 'jobs/characterize_job.rb', file_path
-    end
-
     def inject_into_file_set
       file_path = 'app/models/file_set.rb'
       if File.exist?(file_path)
