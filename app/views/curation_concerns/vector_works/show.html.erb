@@ -16,9 +16,5 @@
 
 <%= render 'geo_concerns/representative_media', presenter: @presenter %>
 <%= render 'geo_concerns/attributes', presenter: @presenter %>
-
-<%= render 'geo_concerns/related_geo_files', presenter: @presenter %>
-<%= render 'geo_concerns/related_external_metadata_files', presenter: @presenter %>
-<%= render 'geo_concerns/related_geo_works', presenter: @presenter %>
-
+<%= render 'geo_concerns/related', presenter: @presenter %>
 <%= render "show_actions", collector: collector, editor: editor%>

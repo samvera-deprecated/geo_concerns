@@ -1,7 +1,13 @@
-.thumbnail a > img {
-  display: block;
-  height: auto;
-  margin-right: 0px;
-  margin-left: 0px;
-  max-width: 250px;
+.thumbnail {
+  max-width: 200px;
+  border: none;
+  background-color: transparent;
+  a > img {
+    display: block;
+    height: auto;
+    margin-right: 0px;
+    margin-left: 0px;
+    max-height: 150px;
+    max-width: 200px;
+  }
 }
