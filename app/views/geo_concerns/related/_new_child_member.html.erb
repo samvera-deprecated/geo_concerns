@@ -1,11 +1,11 @@
 <% if can? :edit, @presenter.id %>
   <% if @presenter.valid_child_concerns.length > 0 %>
-    <div class="row child-actions">
+    <div class="row member-actions">
       <div class="col-sm-5">
         <div class="input-group">
-          <input class="related_works_ids work_child_members_ids form-control" id="work_child_members_ids"  value="" aria-labelledby="work_child_members_ids_label" type="text" placeholder="Work id...">
+          <input class="related_works_ids work_child_members_ids form-control" id="work_child_members_ids"  value="" aria-labelledby="work_child_members_ids_label" type="text" placeholder="Existing child id...">
           <span class="input-group-btn">
-            <a class="btn btn-primary btn-add-row">Attach Existing</a>
+            <a class="btn btn-primary btn-add-row">Attach</a>
           </span>
         </div>
         <div class="message has-warning hidden"></div>

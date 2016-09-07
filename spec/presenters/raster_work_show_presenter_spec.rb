@@ -32,6 +32,28 @@ RSpec.describe GeoConcerns::RasterWorkShowPresenter do
     end
   end
 
+  describe "#parent_work_presenters" do
+    let(:obj) { FactoryGirl.create(:raster_work) }
+    let(:parent_work) { FactoryGirl.create(:image_work) }
+    let(:collection) { FactoryGirl.create(:collection) }
+    let(:attributes) { obj.to_solr }
+
+    subject { described_class.new(solr_document, ability) }
+
+    before do
+      parent_work.members << obj
+      parent_work.save!
+      collection.members << obj
+      collection.save!
+      obj.save!
+    end
+
+    it "filters out collections and only returns work presenters" do
+      expect(subject.parent_work_presenters.count).to eq 1
+      expect(subject.parent_work_presenters.first.model_name.name).to eq "ImageWork"
+    end
+  end
+
   describe "file presenters" do
     let(:obj) { FactoryGirl.create(:raster_work_with_files_and_metadata_files) }
     let(:attributes) { obj.to_solr }

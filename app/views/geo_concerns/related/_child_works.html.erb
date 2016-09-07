@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <h2>Child Works</h2>
     </div>
-    <table class="table table-striped child-works" data-query-url="<%= polymorphic_path([main_app, :curation_concerns, presenter.model_name.singular], id: @presenter.id) %>" data-members="<%= @presenter.member_presenters.map(&:id) %>" data-param-key="<%= @presenter.model_name.param_key %>">
+    <table class="table table-striped" data-query-url="<%= polymorphic_path([main_app, :curation_concerns, presenter.model_name.singular], id: @presenter.id) %>" data-members="<%= @presenter.member_presenters.map(&:id) %>" data-param-key="<%= @presenter.model_name.param_key %>">
       <thead>
         <% if presenter.work_presenters.present? %>
           <tr>
@@ -15,10 +15,10 @@
       </thead>
       <tbody>
         <% if presenter.work_presenters.present? %>
-          <%= render partial: 'geo_concerns/work_member', collection: @presenter.work_presenters %>
+          <%= render partial: 'geo_concerns/related/child_member', collection: @presenter.work_presenters %>
         <% end %>
       </tbody>
     </table>
-    <%= render partial: 'geo_concerns/new_work_member' %>
+    <%= render partial: 'geo_concerns/related/new_child_member' %>
   </div>
 <% end %>

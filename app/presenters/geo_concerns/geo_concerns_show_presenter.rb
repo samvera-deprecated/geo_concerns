@@ -18,6 +18,13 @@ module GeoConcerns
       end
     end
 
+    def parent_work_presenters
+      # filter out collection presenters
+      collection_presenters.select do |member|
+        member.model_name.name != "Collection"
+      end
+    end
+
     def attribute_to_html(field, options = {})
       if field == :coverage
         GeoConcerns::CoverageRenderer.new(field, send(field), options).render

@@ -25,7 +25,8 @@ RSpec.feature 'RasterWorkController', type: :feature do
       expect(page).to have_link 'Attribution 3.0 United States', href: 'http://creativecommons.org/licenses/by/3.0/us/'
 
       expect(page).to have_css("input#work_child_members_ids")
-      expect(page).to have_text 'Attach Existing'
+      expect(page).to have_css("input#work_parent_members_ids")
+      expect(page).to have_text 'Attach'
 
       click_link 'Attach New Vector Work'
       expect(page).not_to have_text 'Add Your Content'
