@@ -15,10 +15,10 @@
     <button class="btn btn-default btn-small dropdown-toggle" data-toggle="dropdown" href="#">   Download <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li>
-        <%= link_to "File", main_app.download_path(file_set) %>
+        <%= link_to "File", main_app.download_path(file_set), target: '_blank' %>
       </li>
       <li>
-        <%= link_to "Display Raster",main_app.download_path(file_set, file: 'display_raster') %>
+        <%= link_to "Display Raster", main_app.download_path(file_set, file: 'display_raster'), target: '_blank' %>
       </li>
     </ul>
   </div>

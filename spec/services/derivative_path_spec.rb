@@ -1,12 +1,26 @@
 require 'spec_helper'
 
 describe GeoConcerns::DerivativePath do
+  subject { described_class.derivative_path_for_reference('12', destination_name) }
   describe '#extension' do
-    it 'returns the appropriate file extension for a geo derivative' do
-      expect(described_class.extension('thumbnail')).to eq('.jpeg')
-      expect(described_class.extension('display_raster')).to eq('.tif')
-      expect(described_class.extension('display_vector')).to eq('.zip')
-      expect(described_class.extension('simplified')).to eq('.simplified')
+    context 'with thumbnail destination' do
+      let(:destination_name) { 'thumbnail' }
+      it { is_expected.to include('.jpeg') }
+    end
+
+    context 'with display_raster destination' do
+      let(:destination_name) { 'display_raster' }
+      it { is_expected.to include('.tif') }
+    end
+
+    context 'with display_vector destination' do
+      let(:destination_name) { 'display_vector' }
+      it { is_expected.to include('.zip') }
+    end
+
+    context 'with simplified destination' do
+      let(:destination_name) { 'simplified' }
+      it { is_expected.to include('.simplified') }
     end
   end
 end
