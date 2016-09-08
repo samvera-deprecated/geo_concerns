@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'curation_concerns', '1.5.0'
   spec.add_dependency 'leaflet-rails', '~> 0.7'
-  spec.add_dependency 'simple_mapnik', '0.1.0'
+  spec.add_dependency 'simple_mapnik', '0.1.2'
   spec.add_dependency 'json-schema', '>= 2.6.2'
 
   spec.add_development_dependency 'sqlite3'
