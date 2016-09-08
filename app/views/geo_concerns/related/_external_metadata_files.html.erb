@@ -6,7 +6,6 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>File</th>
         <th>Filename</th>
         <th>Date Uploaded</th>
         <th>Visibility</th>
@@ -14,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: 'geo_concerns/member', collection: presenter.external_metadata_file_set_presenters %>
+      <%= render partial: 'geo_concerns/related/external_metadata_file_member', collection: presenter.external_metadata_file_set_presenters %>
     </tbody>
   </table>
 </div>
