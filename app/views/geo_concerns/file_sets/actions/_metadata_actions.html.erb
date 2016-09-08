@@ -14,3 +14,7 @@
   <%= link_to 'Download', main_app.download_path(file_set),
     class: 'btn btn-default', title: "Download #{file_set.to_s.inspect}", target: "_blank" %>
 <% end %>
+<% if can?(:edit, @presenter.id) %>
+  <a class="btn btn-default btn-populate">Populate</a>
+<% end %>
+<div class="message has-warning" style="display: none; width: 68%;"></div>

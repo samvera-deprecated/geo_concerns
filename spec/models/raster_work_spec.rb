@@ -115,7 +115,7 @@ describe RasterWork do
       external_metadata_file = subject.metadata_files.first
       allow(external_metadata_file).to receive(:metadata_xml).and_return(doc)
       allow(external_metadata_file).to receive(:geo_mime_type).and_return('application/xml; schema=iso19139')
-      subject.should_populate_metadata = 'true'
+      subject.should_populate_metadata = external_metadata_file.id
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
     end
   end

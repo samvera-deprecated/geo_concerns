@@ -1,0 +1,8 @@
+<tr class="<%= dom_class(external_metadata_file_member) %> attributes" data-member-id="<%= external_metadata_file_member.id %>">
+  <td class="attribute filename"><%= link_to(external_metadata_file_member.link_name, main_app.curation_concerns_file_set_path(external_metadata_file_member)) %></td>
+  <td class="attribute date_uploaded"><%= external_metadata_file_member.date_uploaded %></td>
+  <td class="attribute permission"><%= external_metadata_file_member.permission_badge %></td>
+  <td>
+    <%= file_set_actions(external_metadata_file_member) %>
+  </td>
+</tr>
