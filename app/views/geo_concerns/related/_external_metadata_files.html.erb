@@ -1,12 +1,11 @@
 <% if presenter.external_metadata_file_set_presenters.present? %>
-<div class="panel panel-default related_files">
+<div class="panel panel-default related_files" id="metadata-files">
   <div class="panel-heading">
     <h2>Metadata Files</h2>
   </div>
-  <table class="table table-striped">
+  <table class="table table-striped" data-query-url="<%= polymorphic_path([main_app, :curation_concerns, presenter.model_name.singular], id: @presenter.id) %>" data-members="<%= @presenter.parent_work_presenters.map(&:id) %>" data-param-key="<%= @presenter.model_name.param_key %>">
     <thead>
       <tr>
-        <th>File</th>
         <th>Filename</th>
         <th>Date Uploaded</th>
         <th>Visibility</th>
@@ -14,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: 'geo_concerns/member', collection: presenter.external_metadata_file_set_presenters %>
+      <%= render partial: 'geo_concerns/related/external_metadata_file_member', collection: presenter.external_metadata_file_set_presenters %>
     </tbody>
   </table>
 </div>

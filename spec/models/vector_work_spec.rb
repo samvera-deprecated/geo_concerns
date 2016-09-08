@@ -102,12 +102,8 @@ describe VectorWork do
       external_metadata_file = subject.metadata_files.first
       allow(external_metadata_file).to receive(:metadata_xml) { doc }
       allow(external_metadata_file).to receive(:geo_mime_type) { 'application/xml; schema=iso19139' }
-      subject.populate_metadata
+      subject.populate_metadata(external_metadata_file.id)
       expect(subject.title).to eq(['S_566_1914_clip.tif'])
-    end
-
-    it 'will fail if there are multiple metadata files' do
-      expect { FactoryGirl.create(:vector_work_with_metadata_files).extract_metadata }.to raise_error(NotImplementedError)
     end
   end
 end
