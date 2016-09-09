@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <fieldset id="set-populate-metadata">
       <legend>Automatically Populate Metadata</legend>
-      <%= f.input :should_populate_metadata, as: :select, input_html: { class: 'form-control' }, label: 'Populate Metadata from External Metadata File', selected: false %>
+      <%= f.input :should_populate_metadata, as: :select, input_html: { class: 'form-control' }, label: 'Populate Metadata from External Metadata File', selected: false, include_blank: true, label_method: lambda { |x| x.label }, collection: external_metadata_file_presenters %>
     </fieldset>
   </div>
 </div>
