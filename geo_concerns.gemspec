@@ -25,6 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_mapnik', '0.1.2'
   spec.add_dependency 'json-schema', '>= 2.6.2'
 
+  spec.add_dependency 'bundler', '~> 1.12.5' # TODO: 1.13 breaks our builds
+
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'devise', '>= 3.0', '< 5'
   spec.add_development_dependency 'rspec-rails', '>= 3.5.2'
