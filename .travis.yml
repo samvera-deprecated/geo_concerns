@@ -2,7 +2,6 @@ language: ruby
 cache: bundler
 sudo: true
 rvm:
-  - 2.2.2 # oldest version supported by Rails 5
   - 2.3.1 # latest release
 jdk:
   - oraclejdk8
