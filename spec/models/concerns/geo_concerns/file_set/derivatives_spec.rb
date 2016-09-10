@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 shared_examples 'a set of raster derivatives' do
+  before do
+    expect(DeliveryJob).to receive(:perform_later).with(file_set, /file/)
+  end
   it 'makes a thumbnail' do
     new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"
     expect {
@@ -19,6 +22,9 @@ shared_examples 'a set of raster derivatives' do
 end
 
 shared_examples 'a set of vector derivatives' do
+  before do
+    expect(DeliveryJob).to receive(:perform_later).with(file_set, /file/)
+  end
   it 'makes a thumbnail' do
     new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"
     expect {
@@ -37,6 +43,9 @@ shared_examples 'a set of vector derivatives' do
 end
 
 shared_examples 'a set of image derivatives' do
+  before do
+    expect(DeliveryJob).not_to receive(:perform_later)
+  end
   it 'makes a thumbnail' do
     new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"
     expect {
