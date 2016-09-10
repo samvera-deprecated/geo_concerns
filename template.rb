@@ -1,5 +1,5 @@
 gem 'curation_concerns', '1.5.0'
-gem 'geo_concerns', '0.0.7'
+gem 'geo_concerns', '0.0.8'
 
 run 'bundle install'
 
