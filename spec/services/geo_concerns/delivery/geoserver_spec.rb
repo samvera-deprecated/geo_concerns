@@ -51,6 +51,8 @@ describe GeoConcerns::Delivery::Geoserver do
     it 'dispatches to RGeoServer' do
       ws_dbl = double
       expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'geo')).and_return(ws_dbl)
+      expect(ws_dbl).to receive(:'new?').and_return(true)
+      expect(ws_dbl).to receive(:save)
       ds_dbl = double
       expect(RGeoServer::DataStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws_dbl, name: id)).and_return(ds_dbl)
       expect(ds_dbl).to receive(:upload_file).with(filename, hash_including(publish: true))

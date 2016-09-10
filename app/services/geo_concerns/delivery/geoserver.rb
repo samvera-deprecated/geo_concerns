@@ -50,6 +50,7 @@ module GeoConcerns
           raise ArgumentError, "Not ZIPed Shapefile: #{filename}" unless filename =~ /\.zip$/
 
           workspace = RGeoServer::Workspace.new catalog, name: 'geo'
+          workspace.save if workspace.new?
           datastore = RGeoServer::DataStore.new catalog, workspace: workspace, name: id
           datastore.upload_file filename, publish: true
         end
