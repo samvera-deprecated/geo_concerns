@@ -18,6 +18,7 @@ before_install:
  - sudo apt-add-repository --yes ppa:mapnik/nightly-${MAPNIK_VERSION}
  - sudo apt-get update -y
  - sudo apt-get -y install libmapnik=${MAPNIK_VERSION}* mapnik-utils=${MAPNIK_VERSION}* libmapnik-dev=${MAPNIK_VERSION}* mapnik-input-plugin*=${MAPNIK_VERSION}*
+ - gem install bundler -v 1.13.1 # hopefully temporary
 install: bundle install --jobs=3 --retry=3
 before_script:
   - gdalinfo --version
