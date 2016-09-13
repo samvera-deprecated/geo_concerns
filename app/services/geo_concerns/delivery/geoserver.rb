@@ -6,21 +6,13 @@ require 'erb'
 module GeoConcerns
   module Delivery
     class Geoserver
-      DEFAULT_CONFIG = {
-        url: 'http://localhost:8181/geoserver/rest',
-        user: 'admin',
-        password: 'geoserver'
-      }.with_indifferent_access.freeze
+      attr_reader :config, :workspace_name, :file_set, :file_path
 
-      attr_reader :config
-
-      def initialize
-        begin
-          data = ERB.new(File.read(Rails.root.join('config', 'geoserver.yml'))).result
-          @config = YAML.load(data)['geoserver'].with_indifferent_access.freeze
-        rescue Errno::ENOENT
-          @config = DEFAULT_CONFIG
-        end
+      def initialize(file_set, file_path)
+        @file_set = file_set
+        @file_path = file_path
+        @config = fetch_config
+        @workspace_name = @config.delete(:workspace)
         validate!
       end
 
@@ -28,12 +20,12 @@ module GeoConcerns
         @catalog ||= RGeoServer.catalog(config)
       end
 
-      def publish(id, filename, type = :vector)
+      def publish(type = :vector)
         case type
         when :vector
-          publish_vector(id, filename)
+          publish_vector
         when :raster
-          publish_raster(id, filename)
+          publish_raster
         else
           raise ArgumentError, "Unknown file type #{type}"
         end
@@ -41,23 +33,41 @@ module GeoConcerns
 
       private
 
+        def fetch_config
+          raise ArgumentError, "FileSet visibility must be open or authenticated" unless visibility
+
+          data = ERB.new(File.read(Rails.root.join('config', 'geoserver.yml'))).result
+          YAML.load(data)['geoserver'][visibility].with_indifferent_access
+        end
+
+        def visibility
+          return file_set.visibility if file_set.visibility == 'open'
+          return file_set.visibility if file_set.visibility == 'authenticated'
+        end
+
         def validate!
           %w(url user password).map(&:to_sym).each do |k|
             raise ArgumentError, "Missing #{k} in configuration" unless config[k].present?
           end
         end
 
-        def publish_vector(id, filename)
-          raise ArgumentError, "Not ZIPed Shapefile: #{filename}" unless filename =~ /\.zip$/
-
-          workspace = RGeoServer::Workspace.new catalog, name: 'geo'
+        def workspace
+          workspace = RGeoServer::Workspace.new catalog, name: workspace_name
           workspace.save if workspace.new?
-          datastore = RGeoServer::DataStore.new catalog, workspace: workspace, name: id
-          datastore.upload_file filename, publish: true
+          workspace
         end
 
-        def publish_raster(_id, filename)
-          raise ArgumentError, "Not GeoTIFF: #{filename}" unless filename =~ /\.tif$/
+        def datastore
+          RGeoServer::DataStore.new catalog, workspace: workspace, name: file_set.id
+        end
+
+        def publish_vector
+          raise ArgumentError, "Not ZIPed Shapefile: #{file_path}" unless file_path =~ /\.zip$/
+          datastore.upload_file file_path, publish: true
+        end
+
+        def publish_raster
+          raise ArgumentError, "Not GeoTIFF: #{file_path}" unless file_path =~ /\.tif$/
           raise NotImplementedError
         end
     end

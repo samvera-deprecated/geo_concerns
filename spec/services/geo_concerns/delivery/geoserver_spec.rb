@@ -2,71 +2,96 @@ require 'spec_helper'
 
 describe GeoConcerns::Delivery::Geoserver do
   let(:id) { 'abc123' }
+  let(:file_set) { instance_double("FileSet") }
+  let(:visibility) { 'open' }
+  let(:path) { 'spec/fixtures/files/tufts-cambridgegrid100-04.zip' }
 
-  context '#initialize' do
-    it 'configures correctly with defaults' do
-      expect(File).to receive(:read).and_raise(Errno::ENOENT)
+  subject { described_class.new file_set, path }
+
+  before do
+    allow(file_set).to receive(:visibility).and_return(visibility)
+    allow(file_set).to receive(:id).and_return(id)
+  end
+
+  context 'with an authenticated file set visibility' do
+    let(:visibility) { 'authenticated' }
+    it 'does not raise error' do
       expect { subject }.not_to raise_error
-      expect(subject.config).to include('url' => 'http://localhost:8181/geoserver/rest',
-                                        'user' => 'admin',
-                                        'password' => 'geoserver')
     end
   end
 
-  context '#catalog' do
+  context 'with a private file set visibility' do
+    let(:visibility) { 'private' }
+    it 'raises an error' do
+      expect { subject }.to raise_error(ArgumentError, /FileSet visibility/)
+    end
+  end
+
+  describe '#publish' do
+    it 'requires a valid type' do
+      expect { subject.publish(:unknown) }.to raise_error(ArgumentError, /Unknown file type/)
+    end
+
+    context 'when type is vector' do
+      let(:type) { :vector }
+      it 'routes to publish_vector' do
+        expect(subject).to receive(:publish_vector)
+        subject.publish(type)
+      end
+    end
+
+    context 'when type is raster' do
+      let(:type) { :raster }
+      it 'routes to publish_raster' do
+        expect(subject).to receive(:publish_raster)
+        subject.publish(type)
+      end
+    end
+  end
+
+  describe '#publish_vector' do
+    context 'when a vector is not a zip file' do
+      let(:path) { 'not-a-zip' }
+      it 'raises an error' do
+        expect { subject.send(:publish_vector) }.to raise_error(ArgumentError, /Not ZIPed Shapefile/)
+      end
+    end
+
+    context 'with a path to a zipped shapefile' do
+      let(:ws) { double }
+      let(:ds) { double }
+
+      it 'dispatches to RGeoServer' do
+        expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'public')).and_return(ws)
+        expect(ws).to receive(:'new?').and_return(true)
+        expect(ws).to receive(:save)
+        expect(RGeoServer::DataStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws, name: id)).and_return(ds)
+        expect(ds).to receive(:upload_file).with(path, hash_including(publish: true))
+        subject.send(:publish_vector)
+      end
+    end
+  end
+
+  describe '#publish_raster' do
+    let(:path) { 'spec/fixtures/files/S_566_1914_clip.tif' }
+
+    it 'is not implemented yet' do
+      expect { subject.send(:publish_raster) }.to raise_error(NotImplementedError)
+    end
+
+    context 'when a raster is not a GeoTIFF file' do
+      let(:path) { 'not-a-tiff' }
+      it 'raises an error' do
+        expect { subject.send(:publish_raster) }.to raise_error(ArgumentError, /Not GeoTIFF/)
+      end
+    end
+  end
+
+  describe '#catalog' do
     it 'connects to a RGeoServer catalog' do
       expect(RGeoServer).to receive(:catalog).with(hash_including(:url, :user, :password)).and_return(double).once
       subject.catalog
       subject.catalog # should cache result
-    end
-  end
-
-  context '#publish' do
-    it 'requires a valid type' do
-      expect { subject.publish(id, 'some/file', :unknown) }.to raise_error(ArgumentError, /Unknown file type/)
-    end
-    context 'vector' do
-      let(:type) { :vector }
-      let(:filename) { 'file.zip' }
-      it 'routes to publish_vector' do
-        expect(subject).to receive(:publish_vector).with(id, filename)
-        subject.publish(id, filename, type)
-      end
-    end
-    context 'raster' do
-      let(:type) { :raster }
-      let(:filename) { 'file.tif' }
-      it 'routes to publish_raster' do
-        expect(subject).to receive(:publish_raster).with(id, filename)
-        subject.publish(id, filename, type)
-      end
-    end
-  end
-
-  context '#publish_vector' do
-    let(:filename) { 'spec/fixtures/files/tufts-cambridgegrid100-04.zip' }
-    it 'requires a vector ZIP file' do
-      expect { subject.send(:publish_vector, id, 'not-a-zip') }.to raise_error(ArgumentError, /Not ZIPed Shapefile/)
-    end
-    it 'dispatches to RGeoServer' do
-      ws_dbl = double
-      expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'geo')).and_return(ws_dbl)
-      expect(ws_dbl).to receive(:'new?').and_return(true)
-      expect(ws_dbl).to receive(:save)
-      ds_dbl = double
-      expect(RGeoServer::DataStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws_dbl, name: id)).and_return(ds_dbl)
-      expect(ds_dbl).to receive(:upload_file).with(filename, hash_including(publish: true))
-      subject.send(:publish_vector, id, filename)
-    end
-  end
-
-  context '#publish_raster' do
-    let(:filename) { 'spec/fixtures/files/S_566_1914_clip.tif' }
-    it 'requires GeoTIFF' do
-      expect { subject.send(:publish_raster, id, 'not-a-tiff') }.to raise_error(ArgumentError, /Not GeoTIFF/)
-    end
-    it 'is not implemented yet' do
-      expect { subject.send(:publish_raster, id, filename) }.to raise_error(NotImplementedError)
     end
   end
 end

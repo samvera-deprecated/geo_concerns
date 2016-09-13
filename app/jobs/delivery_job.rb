@@ -13,6 +13,6 @@ class DeliveryJob < ActiveJob::Base
   def perform(file_set, content_url)
     uri = URI.parse(content_url)
     raise NotImplementedError, 'Only supports file URLs' unless uri.scheme == 'file'
-    GeoConcerns::DeliveryService.new.publish(file_set.id, uri.path)
+    GeoConcerns::DeliveryService.new(file_set, uri.path).publish
   end
 end
