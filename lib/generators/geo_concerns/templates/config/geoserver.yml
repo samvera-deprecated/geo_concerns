@@ -1,15 +1,15 @@
 geoserver:
   # Set to the REST API for the GeoServer
-  url: "http://localhost:8181/geoserver/rest"
+  url: <%= ENV['GEOSERVER_URL'] || "http://192.168.99.100:8181/geoserver/rest" %>
   # Optional user/password, set to false to disable
-  user: "admin"
-  password: "geoserver"
+  user: <%= ENV['GEOSERVER_USER'] || "admin" %>
+  password: <%= ENV['GEOSERVER_PASSWORD'] || "geoserver" %>
   # Set to your GWC server, or "builtin" for the one bundled with GeoServer
-  geowebcache_url: "builtin"
+  geowebcache_url: <%= ENV['GEOSERVER_GWC_URL'] || "builtin" %>""
 
   # RestClient:
   restclient:
-    # Set to false to disable or stdout/stderr or 'filename.out'
+    # Set to false to disable or stdout, stderr, or filename
     logfile: stderr
     # Timeout (in seconds)
     timeout: 300

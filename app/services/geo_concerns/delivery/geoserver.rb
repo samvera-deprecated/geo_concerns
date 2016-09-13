@@ -1,6 +1,7 @@
 require 'active_support/core_ext/hash/indifferent_access'
 require 'rgeoserver'
 require 'yaml'
+require 'erb'
 
 module GeoConcerns
   module Delivery
@@ -15,7 +16,7 @@ module GeoConcerns
 
       def initialize
         begin
-          data = File.read(Rails.root.join('config', 'geoserver.yml'))
+          data = ERB.new(File.read(Rails.root.join('config', 'geoserver.yml'))).result
           @config = YAML.load(data)['geoserver'].with_indifferent_access.freeze
         rescue Errno::ENOENT
           @config = DEFAULT_CONFIG
