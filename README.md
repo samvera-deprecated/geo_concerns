@@ -21,6 +21,7 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
 1. [GDAL](http://www.gdal.org/)
     * You can install it on Mac OSX with `brew install gdal`.
     * On Ubuntu, use `sudo apt-get install gdal-bin`.
+1. [GeoServer](http://geoserver.org/) (Optional)
 
 ## Mapnik
 
@@ -73,3 +74,43 @@ Then, in another terminal window:
 ```
 $ rake spec
 ```
+
+## Running GeoServer for Development with Docker
+
+### MacOS
+
+1. Make sure you have docker engine, docker-machine, and docker-compose installed.
+   - Docker Toolbox: [https://www.docker.com/products/docker-toolbox](https://www.docker.com/products/docker-toolbox)
+
+1. Execute the following command in the geo_concerns directory:
+   
+   ```
+   $ source ./run-docker.sh
+   ```
+
+### Linux
+
+1. Make sure you have docker engine and docker-compose installed.
+   - [https://docs.docker.com/engine/installation/linux/](https://docs.docker.com/engine/installation/linux/)
+   - [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+
+1. Execute the following commands in the geo_concerns directory:
+
+	```
+	$ docker-compose up -d
+	$ export GEOSERVER_URL="http://localhost:8181/geoserver/rest"
+	```
+
+## Running GeoServer for Development with Vagrant
+
+1. Make sure you have VirtualBox and Vagrant installed.
+	- [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
+	- [https://www.vagrantup.com/docs/installation/](https://www.vagrantup.com/docs/installation/)
+1. Execute the following commands:
+	
+	```
+	$ git clone https://github.com/geoconcerns/geoserver-vagrant.git
+	$ cd geoserver-vagrant/
+	$ vagrant up
+	
+	```
