@@ -2,8 +2,8 @@ module GeoConcerns
   class DeliveryService
     attr_reader :geoserver
 
-    def initialize
-      @geoserver = GeoConcerns::Delivery::Geoserver.new
+    def initialize(file_set, file_path)
+      @geoserver = GeoConcerns::Delivery::Geoserver.new(file_set, file_path)
     end
 
     delegate :publish, to: :geoserver
