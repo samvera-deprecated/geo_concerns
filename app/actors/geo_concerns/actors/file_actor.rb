@@ -2,13 +2,10 @@ module GeoConcerns
   module Actors
     class FileActor < CurationConcerns::Actors::FileActor
       def ingest_file(file)
-        working_file = CurationConcerns::WorkingDirectory
-                       .copy_file_to_working_directory(file, file_set.id)
         IngestFileJob.perform_later(file_set,
-                                    working_file,
-                                    mime_type(file),
+                                    working_file(file),
                                     user,
-                                    relation)
+                                    ingest_options(file))
         true
       end
 
@@ -21,6 +18,15 @@ module GeoConcerns
         return file_set.geo_mime_type if file_set.geo_mime_type
         file.respond_to?(:content_type) ? file.content_type : nil || file_set.geo_mime_type
       end
+
+      private
+
+        def ingest_options(file, opts = {})
+          opts[:mime_type] = mime_type(file)
+          opts[:filename] = file.original_filename if file.respond_to?(:original_filename)
+          opts[:relation] = relation
+          opts
+        end
     end
   end
 end
