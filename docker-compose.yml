@@ -1,0 +1,10 @@
+version: '2'
+services:
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "8081:8080"
+  geoserver:
+    image: thinkwhere/geoserver
+    ports:
+      - "8181:8080"
