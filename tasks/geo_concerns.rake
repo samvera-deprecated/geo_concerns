@@ -20,7 +20,7 @@ namespace :geo_concerns do
   task :dev_servers do
     with_server 'development' do
       begin
-        sleep
+        Rake::Task['engine_cart:server'].invoke
       rescue Interrupt
         puts "Shutting down..."
       end

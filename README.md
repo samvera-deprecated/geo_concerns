@@ -57,7 +57,6 @@ Add GeoConcerns models to an existing CurationConcerns application:
 1. `bundle install`
 2. `rake engine_cart:generate`
 3. `rake geo_concerns:dev_servers`
-4. `cd .internal_test_app && rails s`
 
 ## Testing
 
@@ -73,6 +72,11 @@ Then, in another terminal window:
 
 ```
 $ rake spec
+```
+To run a specific test:
+
+```bash
+rspec spec/path/to/your_spec.rb:linenumber
 ```
 
 ## Running GeoServer for Development with Docker
