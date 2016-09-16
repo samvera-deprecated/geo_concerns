@@ -91,6 +91,12 @@ rspec spec/path/to/your_spec.rb:linenumber
    ```
    $ source ./run-docker.sh
    ```
+1. To stop the server and remove port forwarding:
+
+	```
+	$ docker-compose stop
+	$ killall ssh
+	```
 
 ### Linux
 
@@ -102,7 +108,6 @@ rspec spec/path/to/your_spec.rb:linenumber
 
 	```
 	$ docker-compose up -d
-	$ export GEOSERVER_URL="http://localhost:8181/geoserver/rest"
 	```
 
 ## Running GeoServer for Development with Vagrant
