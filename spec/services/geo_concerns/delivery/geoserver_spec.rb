@@ -74,9 +74,16 @@ describe GeoConcerns::Delivery::Geoserver do
 
   describe '#publish_raster' do
     let(:path) { 'spec/fixtures/files/S_566_1914_clip.tif' }
+    let(:ws) { double }
+    let(:cs) { double }
 
-    it 'is not implemented yet' do
-      expect { subject.send(:publish_raster) }.to raise_error(NotImplementedError)
+    it 'dispatches to RGeoServer' do
+      expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'public')).and_return(ws)
+      expect(ws).to receive(:'new?').and_return(true)
+      expect(ws).to receive(:save)
+      expect(RGeoServer::CoverageStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws, name: id)).and_return(cs)
+      expect(cs).to receive(:upload).with(path)
+      subject.send(:publish_raster)
     end
 
     context 'when a raster is not a GeoTIFF file' do

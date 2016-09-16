@@ -66,9 +66,13 @@ module GeoConcerns
           datastore.upload_file file_path, publish: true
         end
 
+        def coveragestore
+          RGeoServer::CoverageStore.new catalog, workspace: workspace, name: file_set.id
+        end
+
         def publish_raster
           raise ArgumentError, "Not GeoTIFF: #{file_path}" unless file_path =~ /\.tif$/
-          raise NotImplementedError
+          coveragestore.upload file_path
         end
     end
   end
