@@ -28,35 +28,31 @@ describe GeoConcerns::Delivery::Geoserver do
   end
 
   describe '#publish' do
-    it 'requires a valid type' do
-      expect { subject.publish(:unknown) }.to raise_error(ArgumentError, /Unknown file type/)
-    end
-
     context 'when type is vector' do
-      let(:type) { :vector }
+      let(:path) { 'spec/fixtures/files/tufts-cambridgegrid100-04.zip' }
       it 'routes to publish_vector' do
         expect(subject).to receive(:publish_vector)
-        subject.publish(type)
+        subject.publish
       end
     end
 
     context 'when type is raster' do
-      let(:type) { :raster }
+      let(:path) { 'spec/fixtures/files/S_566_1914_clip.tif' }
       it 'routes to publish_raster' do
         expect(subject).to receive(:publish_raster)
-        subject.publish(type)
+        subject.publish
+      end
+    end
+
+    context 'when type is not a raster or vector' do
+      let(:path) { 'not-a-zip-or-tif' }
+      it 'raises an error' do
+        expect { subject.publish }.to raise_error(ArgumentError, /Not a ZIPed Shapefile/)
       end
     end
   end
 
   describe '#publish_vector' do
-    context 'when a vector is not a zip file' do
-      let(:path) { 'not-a-zip' }
-      it 'raises an error' do
-        expect { subject.send(:publish_vector) }.to raise_error(ArgumentError, /Not ZIPed Shapefile/)
-      end
-    end
-
     context 'with a path to a zipped shapefile' do
       let(:ws) { double }
       let(:ds) { double }
@@ -84,13 +80,6 @@ describe GeoConcerns::Delivery::Geoserver do
       expect(RGeoServer::CoverageStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws, name: id)).and_return(cs)
       expect(cs).to receive(:upload).with(path)
       subject.send(:publish_raster)
-    end
-
-    context 'when a raster is not a GeoTIFF file' do
-      let(:path) { 'not-a-tiff' }
-      it 'raises an error' do
-        expect { subject.send(:publish_raster) }.to raise_error(ArgumentError, /Not GeoTIFF/)
-      end
     end
   end
 

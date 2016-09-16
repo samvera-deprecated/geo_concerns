@@ -20,14 +20,12 @@ module GeoConcerns
         @catalog ||= RGeoServer.catalog(config)
       end
 
-      def publish(type = :vector)
+      def publish
         case type
         when :vector
           publish_vector
         when :raster
           publish_raster
-        else
-          raise ArgumentError, "Unknown file type #{type}"
         end
       end
 
@@ -51,6 +49,12 @@ module GeoConcerns
           end
         end
 
+        def type
+          return :vector if file_path =~ /\.zip$/
+          return :raster if file_path =~ /\.tif$/
+          raise ArgumentError, "Not a ZIPed Shapefile or GeoTIFF: #{file_path}"
+        end
+
         def workspace
           workspace = RGeoServer::Workspace.new catalog, name: workspace_name
           workspace.save if workspace.new?
@@ -62,7 +66,6 @@ module GeoConcerns
         end
 
         def publish_vector
-          raise ArgumentError, "Not ZIPed Shapefile: #{file_path}" unless file_path =~ /\.zip$/
           datastore.upload_file file_path, publish: true
         end
 
@@ -71,7 +74,6 @@ module GeoConcerns
         end
 
         def publish_raster
-          raise ArgumentError, "Not GeoTIFF: #{file_path}" unless file_path =~ /\.tif$/
           coveragestore.upload file_path
         end
     end
