@@ -9,7 +9,7 @@ describe GeoConcerns::Processors::Vector::Info do
 
   context 'when initializing a new info class' do
     it 'shells out to ogrinfo and sets the doc variable to the output string' do
-      expect(Open3).to receive(:capture3).with("ogrinfo #{path}")
+      expect(Open3).to receive(:capture3).with("ogrinfo -ro -so -al #{path}")
         .and_return([info_doc, '', ''])
       expect(subject.doc).to eq(info_doc)
     end
@@ -35,6 +35,15 @@ describe GeoConcerns::Processors::Vector::Info do
     describe '#geom' do
       it 'returns raster size' do
         expect(subject.geom).to eq('Polygon')
+      end
+    end
+
+    describe '#bounds' do
+      it 'returns bounds hash' do
+        expect(subject.bounds).to eq(north: "42.408249",
+                                     east: "-71.052853",
+                                     south: "42.347654",
+                                     west: "-71.163867")
       end
     end
   end
