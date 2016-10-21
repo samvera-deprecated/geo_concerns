@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_mapnik', '0.1.2'
   spec.add_dependency 'json-schema', '>= 2.6.2'
   spec.add_dependency 'rgeoserver', '>= 0.10.0'
-
+  spec.add_dependency 'simpler-tiles'
 
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'sqlite3'

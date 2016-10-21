@@ -40,10 +40,10 @@ describe GeoConcerns::Processors::Vector::Info do
 
     describe '#bounds' do
       it 'returns bounds hash' do
-        expect(subject.bounds).to eq(north: "42.408249",
-                                     east: "-71.052853",
-                                     south: "42.347654",
-                                     west: "-71.163867")
+        expect(subject.bounds).to eq(north: 42.408249,
+                                     east: -71.052853,
+                                     south: 42.347654,
+                                     west: -71.163867)
       end
     end
   end

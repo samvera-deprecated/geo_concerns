@@ -76,7 +76,7 @@ module GeoConcerns
 
             # remove parens and spaces, split into array, and assign elements to variables
             w, s, e, n = extent.delete(' ').gsub(')-(', ',').delete('(').delete(')').split(',')
-            { north: n, east: e, south: s, west: w }
+            { north: n.to_f, east: e.to_f, south: s.to_f, west: w.to_f }
           end
       end
     end

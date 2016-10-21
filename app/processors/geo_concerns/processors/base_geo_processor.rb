@@ -37,6 +37,8 @@ module GeoConcerns
           "#{File.dirname(path)}/#{File.basename(path, File.extname(path))}_#{time}"
         end
 
+        ## TODO: Move to new image processor
+        #
         # Uses imagemagick to resize an image and convert it to the output format.
         # Keeps the aspect ratio of the original image and adds padding to
         # to the output image. The file extension is the output format.
@@ -73,7 +75,7 @@ module GeoConcerns
         directives.fetch(:label, '')
       end
 
-      # Tranforms the size directive into a GDAL size parameter.
+      # Transforms the size directive into a GDAL size parameter.
       # @return [String] derivative size
       def output_size
         return unless directives[:size]
