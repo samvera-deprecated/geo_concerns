@@ -49,8 +49,9 @@ $ rake hydra:server
 Add GeoConcerns models to an existing CurationConcerns application:
 
 1. Add `gem 'geo_concerns'` to your Gemfile.
-2. `bundle install`
-3. `rails generate geo_concerns:install`
+1. `bundle install`
+1. `rails generate curation_concerns:install`
+1. `rails generate geo_concerns:install -f`
 
 ## Development
 
