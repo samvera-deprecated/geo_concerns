@@ -12,5 +12,5 @@
 <% end %>
 <% if can?(:read, file_set.id) %>
   <%= link_to 'Download', main_app.download_path(file_set),
-    class: 'btn btn-default', title: "Download #{file_set.to_s.inspect}", target: "_blank" %>
+    class: 'btn btn-default', title: "Download #{file_set.to_s.inspect}", target: "_blank", data: { turbolinks: false }%>
 <% end %>
