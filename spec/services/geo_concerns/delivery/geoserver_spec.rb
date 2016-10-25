@@ -34,6 +34,12 @@ describe GeoConcerns::Delivery::Geoserver do
         expect(subject).to receive(:publish_vector)
         subject.publish
       end
+
+      it 'logs a message if there is an error' do
+        expect(subject).to receive(:publish_vector).and_raise(StandardError, 'error')
+        expect(Rails.logger).to receive(:error).with("GeoServer delivery job failed with: error")
+        subject.publish
+      end
     end
 
     context 'when type is raster' do
@@ -47,7 +53,8 @@ describe GeoConcerns::Delivery::Geoserver do
     context 'when type is not a raster or vector' do
       let(:path) { 'not-a-zip-or-tif' }
       it 'raises an error' do
-        expect { subject.publish }.to raise_error(ArgumentError, /Not a ZIPed Shapefile/)
+        expect(Rails.logger).to receive(:error).with(/Not a ZIPed Shapefile/)
+        subject.publish
       end
     end
   end
