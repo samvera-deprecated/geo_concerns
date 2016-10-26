@@ -27,6 +27,8 @@ module GeoConcerns
         when :raster
           publish_raster
         end
+      rescue StandardError => e
+        Rails.logger.error("GeoServer delivery job failed with: #{e}")
       end
 
       private
