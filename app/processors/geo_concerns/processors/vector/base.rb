@@ -1,9 +1,8 @@
 module GeoConcerns
   module Processors
     module Vector
-      class Base < Hydra::Derivatives::Processors::Processor
+      class Base < GeoConcerns::Processors::GeoProcessor
         include Hydra::Derivatives::Processors::ShellBasedProcessor
-        include GeoConcerns::Processors::BaseGeoProcessor
         include GeoConcerns::Processors::Image
         include GeoConcerns::Processors::Ogr
         include GeoConcerns::Processors::Gdal

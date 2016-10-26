@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeoConcerns::Processors::BaseGeoProcessor do
+describe GeoConcerns::Processors::GeoProcessor do
   before do
     class TestProcessor
       include GeoConcerns::Processors::BaseGeoProcessor

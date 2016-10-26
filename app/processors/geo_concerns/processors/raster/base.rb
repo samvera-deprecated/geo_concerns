@@ -1,9 +1,7 @@
 module GeoConcerns
   module Processors
     module Raster
-      class Base < Hydra::Derivatives::Processors::Processor
-        include Hydra::Derivatives::Processors::ShellBasedProcessor
-        include GeoConcerns::Processors::BaseGeoProcessor
+      class Base < GeoConcerns::Processors::GeoProcessor
         include GeoConcerns::Processors::Image
         include GeoConcerns::Processors::Gdal
 
