@@ -4,6 +4,7 @@ module GeoConcerns
       class Base < Hydra::Derivatives::Processors::Processor
         include Hydra::Derivatives::Processors::ShellBasedProcessor
         include GeoConcerns::Processors::BaseGeoProcessor
+        include GeoConcerns::Processors::Image
         include GeoConcerns::Processors::Ogr
         include GeoConcerns::Processors::Gdal
         include GeoConcerns::Processors::Rendering

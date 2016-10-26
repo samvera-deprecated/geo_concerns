@@ -13,31 +13,6 @@ module GeoConcerns
           map = GeoConcerns::Processors::Rendering.simple_tiles_map(in_path, options)
           File.open(out_path, 'wb') { |f| f.write map.to_png }
         end
-
-        # Trims extra whitespace
-        # TODO: move to new image processor
-        def self.trim(in_path, out_path, _options)
-          MiniMagick::Tool::Convert.new do |convert|
-            convert << in_path
-            convert << "-trim"
-            convert << out_path
-          end
-        end
-
-        # Centers and pads image
-        # TODO: move to new image processor
-        def self.center(in_path, out_path, options)
-          MiniMagick::Tool::Convert.new do |convert|
-            convert << "-size"
-            convert << options[:output_size].tr(' ', 'x')
-            convert << "xc:white"
-            convert << in_path
-            convert << "-gravity"
-            convert << "center"
-            convert << "-composite"
-            convert << out_path
-          end
-        end
       end
 
       class << self

@@ -4,6 +4,7 @@ module GeoConcerns
       class Base < Hydra::Derivatives::Processors::Processor
         include Hydra::Derivatives::Processors::ShellBasedProcessor
         include GeoConcerns::Processors::BaseGeoProcessor
+        include GeoConcerns::Processors::Image
         include GeoConcerns::Processors::Gdal
 
         def self.encode(path, options, output_file)
