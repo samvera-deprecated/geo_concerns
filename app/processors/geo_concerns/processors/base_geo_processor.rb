@@ -41,7 +41,8 @@ module GeoConcerns
           label: label,
           output_size: output_size,
           output_srid: output_srid,
-          basename: basename
+          basename: basename,
+          id: id
         }
       end
 
@@ -68,6 +69,12 @@ module GeoConcerns
       # @return [String] base file name for source
       def basename
         File.basename(source_path, File.extname(source_path))
+      end
+
+      # Gets the fileset id or returns nil.
+      # @return [String] fileset id
+      def id
+        directives.fetch(:id, nil)
       end
     end
   end

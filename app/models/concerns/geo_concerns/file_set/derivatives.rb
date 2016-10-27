@@ -3,7 +3,6 @@ module GeoConcerns
     module Derivatives
       extend ActiveSupport::Concern
 
-      # rubocop:disable Metrics/MethodLength
       def create_derivatives(filename)
         content_url = nil
         case geo_mime_type
@@ -23,11 +22,11 @@ module GeoConcerns
         # deliver them to external services
         DeliveryJob.perform_later(self, content_url) if content_url.present?
       end
-      # rubocop:enable Metrics/MethodLength
 
       def image_derivatives(filename)
         Hydra::Derivatives::ImageDerivatives
           .create(filename, outputs: [{ label: :thumbnail,
+                                        id: id,
                                         format: 'png',
                                         size: '200x150>',
                                         url: derivative_url('thumbnail') }])
@@ -37,10 +36,12 @@ module GeoConcerns
         GeoConcerns::Runners::RasterDerivatives
           .create(filename, outputs: [{ input_format: geo_mime_type,
                                         label: :display_raster,
+                                        id: id,
                                         format: 'tif',
                                         url: derivative_url('display_raster') },
                                       { input_format: geo_mime_type,
                                         label: :thumbnail,
+                                        id: id,
                                         format: 'png',
                                         size: '200x150',
                                         url: derivative_url('thumbnail') }])
@@ -50,10 +51,12 @@ module GeoConcerns
         GeoConcerns::Runners::VectorDerivatives
           .create(filename, outputs: [{ input_format: geo_mime_type,
                                         label: :display_vector,
+                                        id: id,
                                         format: 'zip',
                                         url: derivative_url('display_vector') },
                                       { input_format: geo_mime_type,
                                         label: :thumbnail,
+                                        id: id,
                                         format: 'png',
                                         size: '200x150',
                                         url: derivative_url('thumbnail') }])
