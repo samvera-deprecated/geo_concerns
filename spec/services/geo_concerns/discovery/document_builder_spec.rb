@@ -156,12 +156,12 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
   context 'with a missing required metadata field' do
     before do
-      attributes.delete(:title)
+      attributes.delete(:coverage)
       allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
     end
 
     it 'returns an error document' do
-      expect(document['error'][0]).to include('dc_title_s')
+      expect(document['error'][0]).to include('solr_geom')
       expect(document['error'].size).to eq(1)
     end
   end
@@ -174,6 +174,28 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
     it 'returns a document without the field but valid' do
       expect(document['dc_language_s']).to be_nil
+    end
+  end
+
+  context 'with a missing temporal field' do
+    before do
+      attributes.delete(:temporal)
+      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+    end
+
+    it 'returns a document without the field but valid' do
+      expect(document['dct_temporal_sm']).to be_nil
+    end
+  end
+
+  context 'with a missing issued field' do
+    before do
+      attributes.delete(:issued)
+      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+    end
+
+    it 'returns a document without the field but valid' do
+      expect(document['dct_issued_dt']).to be_nil
     end
   end
 

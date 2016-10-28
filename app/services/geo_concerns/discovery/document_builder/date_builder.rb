@@ -25,6 +25,8 @@ module GeoConcerns
             date = geo_concern.temporal.first
             year = date.match(/(?<=\D|^)(\d{4})(?=\D|$)/)
             year ? year[0].to_i : nil
+          rescue
+            ''
           end
 
           # Returns the date the work was modified.
