@@ -83,6 +83,21 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
     end
   end
 
+  describe '#id' do
+    context 'when directives hash has an id value' do
+      let(:directives) { { id: '123456' } }
+      it 'returns that value' do
+        expect(subject.id).to eq('123456')
+      end
+    end
+
+    context 'when directives hash does not have an id value' do
+      it 'returns nil' do
+        expect(subject.id).to be_nil
+      end
+    end
+  end
+
   describe '#basename' do
     it 'returns the base file name of the source file' do
       expect(subject.basename).to eq('geo')
