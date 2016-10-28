@@ -2,7 +2,7 @@ module GeoConcerns
   module Discovery
     class DocumentBuilder
       class ReferencesBuilder
-        attr_reader :geo_concern, :path
+        attr_reader :geo_concern, :path, :wxs
 
         def initialize(geo_concern, path)
           @geo_concern = geo_concern
@@ -33,12 +33,27 @@ module GeoConcerns
             document.download = download
             document.url = url
             document.thumbnail = thumbnail
+            document.wxs_identifier = wxs_identifier
+            document.wms_path = wms_path
+            document.wfs_path = wfs_path
           end
 
           # Returns the identifier to use with WMS/WFS/WCS services.
           # @return [String] wxs indentifier
           def wxs_identifier
-            geo_concern.id
+            Wxs.new(geo_concern).identifier
+          end
+
+          # Returns the wms server url.
+          # @return [String] wms server url
+          def wms_path
+            wxs.wms_path
+          end
+
+          # Returns the wfs server url.
+          # @return [String] wfs server url
+          def wfs_path
+            wxs.wfs_path
           end
 
           # Returns a url to access further descriptive information.
@@ -75,6 +90,10 @@ module GeoConcerns
           # @return [String] thumbnail url
           def thumbnail
             path.thumbnail
+          end
+
+          def wxs
+            @wxs ||= Wxs.new(geo_concern)
           end
       end
     end

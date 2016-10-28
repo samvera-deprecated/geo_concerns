@@ -5,7 +5,8 @@ module GeoConcerns
                     :title, :description, :access_rights, :language, :issued,
                     :publisher, :slug, :solr_coverage, :layer_year,
                     :layer_modified, :geom_type, :format, :resource_type, :wxs_identifier,
-                    :dct_references, :fgdc, :iso19139, :mods, :download, :url, :thumbnail
+                    :dct_references, :fgdc, :iso19139, :mods, :download, :url, :thumbnail,
+                    :wxs_identifier, :wms_path, :wfs_path
 
       # Cleans the document hash by removing unused fields.
       # @param [Hash] document hash

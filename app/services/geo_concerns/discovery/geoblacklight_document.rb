@@ -13,6 +13,7 @@ module GeoConcerns
       # @param _args [Array<Object>] arguments needed for the renderer, unused here
       # @return [Hash] geoblacklight document as a hash
       def to_hash(_args = nil)
+        return {} unless rights
         document
       end
 
@@ -20,6 +21,7 @@ module GeoConcerns
       # @param _args [Array<Object>] arguments needed for the json renderer, unused here
       # @return [String] geoblacklight document as a json string
       def to_json(_args = nil)
+        return '{}' unless rights
         document.to_json
       end
 
@@ -73,16 +75,19 @@ module GeoConcerns
             'http://www.isotc211.org/schemas/2005/gmd/' => iso19139,
             'http://www.loc.gov/mods/v3' => mods,
             'http://schema.org/downloadUrl' => download,
-            'http://schema.org/thumbnailUrl' => thumbnail
+            'http://schema.org/thumbnailUrl' => thumbnail,
+            'http://www.opengis.net/def/serviceType/ogc/wms' => wms_path,
+            'http://www.opengis.net/def/serviceType/ogc/wfs' => wfs_path
           }
         end
 
         # Returns the geoblacklight rights field based on work visibility.
         # @return [String] geoblacklight access rights
         def rights
-          if access_rights == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+          case access_rights
+          when Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
             'Public'
-          else
+          when Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
             'Restricted'
           end
         end
