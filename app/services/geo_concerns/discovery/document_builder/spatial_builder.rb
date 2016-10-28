@@ -28,6 +28,8 @@ module GeoConcerns
           # @return [String] coverage in solr format
           def to_solr
             "ENVELOPE(#{coverage.w}, #{coverage.e}, #{coverage.n}, #{coverage.s})"
+          rescue
+            ''
           end
       end
     end
