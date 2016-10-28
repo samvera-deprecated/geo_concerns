@@ -4,9 +4,10 @@ module GeoConcerns
       class Base < Hydra::Derivatives::Processors::Processor
         include Hydra::Derivatives::Processors::ShellBasedProcessor
         include GeoConcerns::Processors::BaseGeoProcessor
+        include GeoConcerns::Processors::Image
         include GeoConcerns::Processors::Ogr
         include GeoConcerns::Processors::Gdal
-        include GeoConcerns::Processors::Mapnik
+        include GeoConcerns::Processors::Rendering
         include GeoConcerns::Processors::Zip
 
         def self.encode(path, options, output_file)
@@ -21,7 +22,7 @@ module GeoConcerns
         # Set of commands to run to encode the vector thumbnail.
         # @return [Array] set of command name symbols
         def self.encode_queue
-          [:reproject, :mapnik_vector_thumbnail]
+          [:reproject, :vector_thumbnail, :trim, :center]
         end
 
         # Set of commands to run to reproject the vector.

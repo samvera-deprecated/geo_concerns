@@ -23,18 +23,32 @@ Rails application for developing Hydra Geo models. Built around Curation Concern
     * On Ubuntu, use `sudo apt-get install gdal-bin`.
 1. [GeoServer](http://geoserver.org/) (Optional)
 
-## Mapnik
+## Simple Tiles
 
-GeoConcerns requires that Mapnik 3.x or 2.x be installed at `/usr/local/lib/libmapnik.*`. For linux, a C++ compiler and build environment is also needed.
+GeoConcerns requires the image generation library [Simple Tiles](http://propublica.github.io/simple-tiles/).
 
 Mac OS X:
 
-- https://github.com/mapnik/mapnik/wiki/MacInstallation or ```brew install mapnik```
+- Install via Homebrew: ```brew install simple-tiles```
 
 Linux:
 
-- https://github.com/mapnik/mapnik/wiki/LinuxInstallation
-- Build environment: [gcc](https://help.ubuntu.com/community/InstallingCompilers) or clang 
+- Install dependencies:
+
+  ```
+  libgdal-dev
+  libcairo2-dev
+  libpango1.0-dev 
+  ```
+
+- Compile:
+	
+  ```
+  $ git clone git@github.com:propublica/simple-tiles.git
+  $ cd simple-tiles
+  $ ./configure
+  $ make && make install
+  ```
 
 ## Installation
 

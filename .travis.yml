@@ -15,9 +15,11 @@ env:
     - RAILS_VERSION=5.0.0.1
       RDF_VERSION=2.1.0
 before_install:
- - sudo apt-add-repository --yes ppa:mapnik/nightly-${MAPNIK_VERSION}
- - sudo apt-get update -y
- - sudo apt-get -y install libmapnik=${MAPNIK_VERSION}* mapnik-utils=${MAPNIK_VERSION}* libmapnik-dev=${MAPNIK_VERSION}* mapnik-input-plugin*=${MAPNIK_VERSION}*
+ - git clone https://github.com/propublica/simple-tiles.git
+ - cd simple-tiles
+ - ./configure && make
+ - sudo make install
+ - cd ..
  - gem install bundler -v 1.13.1 # hopefully temporary
 install: bundle install --jobs=3 --retry=3
 before_script:
@@ -27,4 +29,7 @@ services:
 addons:
   apt:
     packages:
+    - libgdal-dev
     - gdal-bin
+    - libcairo2-dev
+    - libpango1.0-dev

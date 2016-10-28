@@ -27,13 +27,19 @@ module GeoConcerns
           @geom = vector_geom
         end
 
+        # Returns vector bounds
+        # @return [String] bounds
+        def bounds
+          @bounds = vector_bounds
+        end
+
         private
 
           # Runs the ogrinfo command and returns the result as a string.
           # @param path [String] path to vector file or shapefile directory
           # @return [String] output of ogrinfo
           def ogrinfo(path)
-            stdout, _stderr, _status = Open3.capture3("ogrinfo #{path}")
+            stdout, _stderr, _status = Open3.capture3("ogrinfo -ro -so -al #{path}")
             stdout
           end
 
@@ -41,7 +47,7 @@ module GeoConcerns
           # the vector dataset name.
           # @return [String] vector dataset name
           def vector_name
-            match = /(?<=\d:\s).*?((?=\s)|($))/.match(doc)
+            match = /(?<=Layer name:\s).*?(?=\n)/.match(doc)
             match ? match[0] : ''
           end
 
@@ -57,8 +63,20 @@ module GeoConcerns
           # the vector geometry type.
           # @return [String] vector geom
           def vector_geom
-            match = /(?<=\().*?(?=\))/.match(doc)
+            match = /(?<=Geometry:\s).*?(?=\n)/.match(doc)
             match ? match[0] : ''
+          end
+
+          # Given an output string from the ogrinfo command, returns
+          # the vector bounding box.
+          # @return [Hash] vector bounds
+          def vector_bounds
+            match = /(?<=Extent:\s).*?(?=\n)/.match(doc)
+            extent = match ? match[0] : ''
+
+            # remove parens and spaces, split into array, and assign elements to variables
+            w, s, e, n = extent.delete(' ').gsub(')-(', ',').delete('(').delete(')').split(',')
+            { north: n.to_f, east: e.to_f, south: s.to_f, west: w.to_f }
           end
       end
     end

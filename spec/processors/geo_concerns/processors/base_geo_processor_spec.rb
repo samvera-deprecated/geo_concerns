@@ -38,28 +38,6 @@ describe GeoConcerns::Processors::BaseGeoProcessor do
     end
   end
 
-  describe '#convert' do
-    let(:image) { double }
-
-    before do
-      allow(MiniMagick::Image).to receive(:open).and_return(image)
-    end
-
-    it 'transforms the image and saves it as a PNG' do
-      expect(image).to receive(:format).with('png')
-      expect(image).to receive(:combine_options)
-      expect(image).to receive(:write).with(output_file_png)
-      subject.class.convert(file_name, output_file_png, options)
-    end
-
-    it 'transforms the image and saves it as a JPG' do
-      expect(image).to receive(:format).with('jpg')
-      expect(image).to receive(:combine_options)
-      expect(image).to receive(:write).with(output_file_jpg)
-      subject.class.convert(file_name, output_file_jpg, options)
-    end
-  end
-
   describe '#temp_path' do
     it 'returns a path to a temporary file based on the input file' do
       expect(subject.class.temp_path(output_file))

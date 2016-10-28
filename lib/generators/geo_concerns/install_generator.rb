@@ -79,9 +79,11 @@ module GeoConcerns
       end
     end
 
-    def install_mapnik_config
-      file_path = 'config/mapnik.yml'
-      copy_file file_path, file_path
+    def install_simpler_tiles_config
+      initializer_path = 'config/initializers/simpler_tiles.rb'
+      yaml_path = 'config/simpler_tiles.yml'
+      copy_file yaml_path, yaml_path
+      copy_file initializer_path, initializer_path
     end
 
     def install_geoserver_config
