@@ -2,15 +2,14 @@ module GeoConcerns
   class TimePeriod
     attr_accessor :doc, :initial_value
     def initialize(initial_value, doc)
-      @initial_value = initial_value
+      @initial_value = initial_value || []
       @doc = doc
-      append_caldate
-      append_begdate
-      initial_value.uniq!
     end
 
     def value
-      return nil unless initial_value.present?
+      append_caldate
+      append_begdate
+      initial_value.uniq!
       initial_value
     end
 
