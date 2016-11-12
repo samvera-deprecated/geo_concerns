@@ -37,5 +37,10 @@ module GeoConcerns
       dt = first(Solrizer.solr_name('system_modified', :stored_sortable, type: :date))
       dt.nil? ? nil : DateTime.parse(dt).utc
     end
+
+    # @return [Array<String>]
+    def identifier
+      fetch(Solrizer.solr_name('identifier'), [])
+    end
   end
 end

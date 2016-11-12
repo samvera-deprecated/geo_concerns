@@ -28,7 +28,8 @@ describe GeoConcerns::Discovery::DocumentBuilder do
                        spatial: ['Micronesia'],
                        temporal: ['2011'],
                        subject: ['Human settlements'],
-                       language: ['Esperanto'] }
+                       language: ['Esperanto'],
+                       identifier: ['ark:/99999/fk4'] }
   }
 
   describe 'vector work' do
@@ -38,7 +39,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
     context 'required' do
       it 'has all metadata' do
-        expect(document['dc_identifier_s']).to eq('https://your-institution/geo-work-1')
+        expect(document['dc_identifier_s']).to eq('ark:/99999/fk4')
         expect(document['layer_slug_s']).to eq('your-institution-geo-work-1')
         expect(document['dc_title_s']).to eq('Geo Work')
         expect(document['solr_geom']).to eq('ENVELOPE(-71.032, -69.856, 43.039, 42.943)')

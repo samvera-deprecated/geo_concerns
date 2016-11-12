@@ -1,3 +1,6 @@
+##
+# Workaround for setting the identifier in the geoblacklight document
+# Remove once
 module GeoConcerns
   module Discovery
     class DocumentBuilder
@@ -35,11 +38,19 @@ module GeoConcerns
           # Builds more complex metadata attributes.
           # @param [AbstractDocument] discovery document
           def build_complex_attributes(document)
-            document.identifier = URI.join(I18n.t('geo_concerns.institution.uri'),
-                                           geo_concern.id).to_s
+            document.identifier = identifier
             document.description = description
             document.access_rights = geo_concern.solr_document.visibility
             document.slug = slug
+          end
+
+          # Returns the work indentifier. This is (usually) different from the hydra/fedora work id.
+          # The identifier might be an ARK, DOI, PURL, etc.
+          # If identifier is not set, the work id is used.
+          # @return [String] identifier
+          def identifier
+            indentifiers = geo_concern.identifier
+            indentifiers.empty? ? geo_concern.id : indentifiers.first
           end
 
           # Returns the work description. If none is available,
