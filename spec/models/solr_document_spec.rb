@@ -32,4 +32,10 @@ describe SolrDocument do
     subject { document.provenance }
     it { is_expected.to eq 'Your Institution' }
   end
+
+  describe "identifier" do
+    let(:attributes) { { Solrizer.solr_name('identifier') => ['identifier'] } }
+    subject { document.identifier }
+    it { is_expected.to match_array ['identifier'] }
+  end
 end
