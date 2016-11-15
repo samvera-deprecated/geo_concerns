@@ -5,6 +5,7 @@ describe GeoConcerns::Discovery::GeoblacklightDocument do
 
   describe '#to_hash' do
     before do
+      allow(subject).to receive(:rights).and_return('Public')
       allow(subject).to receive(:document_hash).and_return(document_hash)
     end
     context 'incomplete data' do

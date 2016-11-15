@@ -62,7 +62,7 @@ module GeoConcerns
           def visibility
             return unless file_set
             visibility = file_set.solr_document.visibility
-            return visibility if valid_visibilities.include? visibility
+            visibility if valid_visibilities.include? visibility
           end
 
           def valid_visibilities

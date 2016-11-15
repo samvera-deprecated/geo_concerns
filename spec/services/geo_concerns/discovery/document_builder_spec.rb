@@ -9,6 +9,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
   let(:geo_concern_presenter) { GeoConcerns::VectorWorkShowPresenter.new(SolrDocument.new(geo_concern.to_solr), nil) }
   let(:document_class) { GeoConcerns::Discovery::GeoblacklightDocument.new }
   let(:document) { JSON.parse(subject.to_json(nil)) }
+  let(:visibility) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
   let(:metadata__mime_type) { 'application/xml; schema=iso19139' }
   let(:metadata_file) { FileSet.new(id: 'metadatafile', geo_mime_type: metadata__mime_type) }
   let(:metadata_presenter) { CurationConcerns::FileSetPresenter.new(SolrDocument.new(metadata_file.to_solr), nil) }
@@ -32,11 +33,14 @@ describe GeoConcerns::Discovery::DocumentBuilder do
                        identifier: ['ark:/99999/fk4'] }
   }
 
-  describe 'vector work' do
-    before do
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
-    end
+  before do
+    allow(geo_concern_presenter.solr_document).to receive(:visibility).and_return(visibility)
+    allow(geo_concern_presenter.solr_document).to receive(:representative_id).and_return(geo_file_presenter.id)
+    allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+    allow(geo_concern_presenter).to receive(:member_presenters).and_return([geo_file_presenter, metadata_presenter])
+  end
 
+  describe 'vector work' do
     context 'required' do
       it 'has all metadata' do
         expect(document['dc_identifier_s']).to eq('ark:/99999/fk4')
@@ -44,7 +48,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
         expect(document['dc_title_s']).to eq('Geo Work')
         expect(document['solr_geom']).to eq('ENVELOPE(-71.032, -69.856, 43.039, 42.943)')
         expect(document['dct_provenance_s']).to eq('Your Institution')
-        expect(document['dc_rights_s']).to eq('Restricted')
+        expect(document['dc_rights_s']).to eq('Public')
         expect(document['geoblacklight_version']).to eq('1.0')
       end
     end
@@ -99,10 +103,6 @@ describe GeoConcerns::Discovery::DocumentBuilder do
       let(:geo_file_mime_type) { 'image/tiff; gdal-format=GTiff' }
       let(:metadata__mime_type) { 'application/xml; schema=fgdc' }
 
-      before do
-        allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
-      end
-
       it 'has layer info fields' do
         expect(document['layer_geom_type_s']).to eq('Raster')
         expect(document['dc_format_s']).to eq('GeoTIFF')
@@ -117,10 +117,6 @@ describe GeoConcerns::Discovery::DocumentBuilder do
     context 'with an ArcGRID file and a MODS metadata file' do
       let(:geo_file_mime_type) { 'application/octet-stream; gdal-format=AIG' }
       let(:metadata__mime_type) { 'application/mods+xml' }
-
-      before do
-        allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
-      end
 
       it 'has layer info fields' do
         expect(document['dc_format_s']).to eq('ArcGRID')
@@ -140,8 +136,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
       let(:geo_file_mime_type) { 'image/tiff' }
 
       before do
-        attributes.delete(:description)
-        allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+        allow(geo_concern_presenter).to receive(:description).and_return([])
       end
 
       it 'uses a default description' do
@@ -157,8 +152,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
   context 'with a missing required metadata field' do
     before do
-      attributes.delete(:coverage)
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+      allow(geo_concern_presenter).to receive(:coverage).and_return(nil)
     end
 
     it 'returns an error document' do
@@ -169,8 +163,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
   context 'with a missing non-required metadata field' do
     before do
-      attributes.delete(:language)
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+      allow(geo_concern_presenter).to receive(:language).and_return([])
     end
 
     it 'returns a document without the field but valid' do
@@ -180,8 +173,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
   context 'with a missing temporal field' do
     before do
-      attributes.delete(:temporal)
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+      allow(geo_concern_presenter).to receive(:temporal).and_return([])
     end
 
     it 'returns a document without the field but valid' do
@@ -191,8 +183,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
 
   context 'with a missing issued field' do
     before do
-      attributes.delete(:issued)
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
+      allow(geo_concern_presenter).to receive(:issued).and_return(nil)
     end
 
     it 'returns a document without the field but valid' do
@@ -200,24 +191,24 @@ describe GeoConcerns::Discovery::DocumentBuilder do
     end
   end
 
-  context 'with a public visibility' do
-    before do
-      viz = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
-      allow(geo_concern_presenter.solr_document).to receive(:visibility).and_return(viz)
-    end
+  context 'with an authenticated visibility' do
+    let(:visibility) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
 
-    it 'return a public access' do
-      expect(document['dc_rights_s']).to eq('Public')
+    it 'returns a restricted rights field value' do
+      expect(document['dc_rights_s']).to eq('Restricted')
+    end
+  end
+
+  context 'with a private visibility' do
+    let(:visibility) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
+
+    it 'returns an empty document' do
+      expect(document).to eq({})
     end
   end
 
   context 'with ssl enabled' do
     subject { described_class.new(geo_concern_presenter, document_class, ssl: true) }
-
-    before do
-      allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
-    end
 
     it 'returns https reference urls' do
       refs = JSON.parse(document['dct_references_s'])
