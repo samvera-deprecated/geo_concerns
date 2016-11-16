@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rgeoserver', '>= 0.10.0'
   spec.add_dependency 'simpler-tiles'
   spec.add_dependency 'bunny'
+  spec.add_dependency 'geoblacklight_messaging'
 
 
   spec.add_development_dependency 'bundler', '~> 1.13'

@@ -17,18 +17,13 @@ module GeoConcerns
       end
 
       def message(type, record)
-        base_message(type, record).merge("exchange" => :geoserver,
-                                         "shapefile_url" => display_vector_url(record))
+        base_message(type, record).merge("exchange" => :geoserver)
       end
 
       private
 
         def geo_file?(record)
           record.respond_to?(:geo_file_format?) && record.geo_file_format?
-        end
-
-        def display_vector_url(record)
-          helper.download_url(record, file: 'display_vector')
         end
     end
   end

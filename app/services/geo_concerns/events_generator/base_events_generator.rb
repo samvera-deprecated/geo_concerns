@@ -21,10 +21,6 @@ module GeoConcerns
         def publish_message(message)
           @messaging_client.publish(message.to_json)
         end
-
-        def helper
-          @helper ||= GeoConcerns::Discovery::DocumentBuilder::DocumentHelper.new
-        end
     end
   end
 end
