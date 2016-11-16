@@ -3,6 +3,7 @@ module GeoConcerns
     module Derivatives
       extend ActiveSupport::Concern
 
+      # rubocop:disable Metrics/AbcSize
       def create_derivatives(filename)
         content_url = nil
         case geo_mime_type
@@ -22,6 +23,7 @@ module GeoConcerns
         DeliveryJob.perform_later(self, content_url) if content_url.present?
         messenger.derivatives_created(self)
       end
+      # rubocop:enable Metrics/AbcSize
 
       def image_derivatives(filename)
         Hydra::Derivatives::ImageDerivatives

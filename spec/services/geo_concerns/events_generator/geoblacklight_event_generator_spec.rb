@@ -14,6 +14,11 @@ RSpec.describe GeoConcerns::EventsGenerator::GeoblacklightEventGenerator do
                        temporal: ['2011'] }
   }
   let(:refs) { { "http://schema.org/url" => "http://localhost:3000/concern/vector_works/geo-work-1" } }
+  let(:layer_modified) do
+    datetime = record.solr_document[:system_modified_dtsi]
+    datetime = DateTime.parse(datetime.to_s).utc
+    Rails::VERSION::MAJOR == 4 ? datetime.utc.xmlschema : datetime.utc.strftime('%FT%TZ')
+  end
   let(:discovery_doc) { { "geoblacklight_version" => "1.0",
                           "dc_identifier_s" => "geo-work-1",
                           "layer_slug_s" => "your-institution-geo-work-1",
@@ -25,7 +30,7 @@ RSpec.describe GeoConcerns::EventsGenerator::GeoblacklightEventGenerator do
                           "dc_description_s" => "geo work",
                           "dct_temporal_sm" => ["2011"],
                           "solr_year_i" => 2011,
-                          "layer_modified_dt" => record.solr_document[:system_modified_dtsi],
+                          "layer_modified_dt" => layer_modified,
                           "dct_references_s" => refs.to_json,
                           "layer_geom_type_s" => "Mixed" }
   }

@@ -5,10 +5,6 @@ module GeoConcerns
         @messaging_client = messaging_client
       end
 
-      def message(type, record)
-        base_message(type, record).merge({})
-      end
-
       private
 
         def base_message(type, record)
