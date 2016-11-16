@@ -61,15 +61,21 @@ describe GeoConcerns::Delivery::Geoserver do
 
   describe '#publish_vector' do
     context 'with a path to a zipped shapefile' do
+      let(:shapefile_path) { ['/spec/fixtures/files/shapefile/tufts-cambridgegrid100-04/tufts-cambridgegrid100-04.shp'] }
+      let(:url) { "file:////opt/geoserver/data_dir/derivatives#{shapefile_path.first}" }
       let(:ws) { double }
       let(:ds) { double }
+
+      before do
+        allow(Dir).to receive(:glob).and_return(shapefile_path)
+      end
 
       it 'dispatches to RGeoServer' do
         expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'public')).and_return(ws)
         expect(ws).to receive(:'new?').and_return(true)
         expect(ws).to receive(:save)
         expect(RGeoServer::DataStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws, name: id)).and_return(ds)
-        expect(ds).to receive(:upload_file).with(path, hash_including(publish: true))
+        expect(ds).to receive(:upload_external).with(url, hash_including(publish: true))
         subject.send(:publish_vector)
       end
     end
@@ -77,15 +83,25 @@ describe GeoConcerns::Delivery::Geoserver do
 
   describe '#publish_raster' do
     let(:path) { 'spec/fixtures/files/S_566_1914_clip.tif' }
+    let(:url) { 'file:////opt/geoserver/data_dir/derivativesspec/fixtures/files/S_566_1914_clip.tif' }
     let(:ws) { double }
     let(:cs) { double }
+    let(:cov) { double }
 
     it 'dispatches to RGeoServer' do
-      expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'public')).and_return(ws)
-      expect(ws).to receive(:'new?').and_return(true)
-      expect(ws).to receive(:save)
+      expect(RGeoServer::Workspace).to receive(:new).with(subject.catalog, hash_including(name: 'public')).and_return(ws).twice
+      expect(ws).to receive(:'new?').and_return(true).twice
+      expect(ws).to receive(:save).twice
       expect(RGeoServer::CoverageStore).to receive(:new).with(subject.catalog, hash_including(workspace: ws, name: id)).and_return(cs)
-      expect(cs).to receive(:upload).with(path)
+      expect(cs).to receive(:name).and_return('abcdefg').at_least(:once)
+      expect(cs).to receive(:url=).with(url)
+      expect(cs).to receive(:enabled=).with('true')
+      expect(cs).to receive(:data_type=).with('GeoTIFF')
+      expect(cs).to receive(:save)
+      expect(RGeoServer::Coverage).to receive(:new).with(subject.catalog, hash_including(workspace: ws, coverage_store: cs, name: cs.name)).and_return(cov)
+      expect(cov).to receive(:title=).with(cs.name)
+      expect(cov).to receive(:metadata_links=).with([])
+      expect(cov).to receive(:save)
       subject.send(:publish_raster)
     end
   end

@@ -95,15 +95,16 @@ module GeoConcerns
         end
 
         def publish_vector
-          file_dir = File.dirname(file_path)
+          shapefile_dir = "#{File.dirname(file_path)}/shapefile"
 
-          # Delete existing shape files
-          Dir.glob("#{file_dir}/*.{shp,dbf,prj,shx}").each { |f| File.delete(f) }
+          # Delete existing shapefile
+          FileUtils.rm_rf(shapefile_dir)
 
           # Unzip derivative shapefiles
-          system "unzip -o #{file_path} -d #{file_dir}"
+          system "unzip -o #{file_path} -d #{shapefile_dir}"
 
-          shape_path = Dir.glob("#{file_dir}/*.shp").first
+          shape_path = Dir.glob("#{shapefile_dir}/*.shp").first
+          raise Errno::ENOENT, 'Shapefile not found' unless shape_path
           url = "file:///#{@config[:derivatives_path]}#{base_path(shape_path)}"
           datastore.upload_external url, publish: true
         end
