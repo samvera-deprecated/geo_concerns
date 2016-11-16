@@ -4,17 +4,16 @@ module GeoConcerns
       attr_reader :geo_concern, :document
       delegate :to_json, :to_xml, :to_hash, to: :document
 
-      def initialize(geo_concern, document, ssl: false)
+      def initialize(geo_concern, document)
         @geo_concern = geo_concern
         @document = document
-        @ssl = ssl
         builders.build(document)
       end
 
       # Returns a document path object. Used to get urls for links in the document.
       # @return [DocumentPath] geoblacklight document as a json string
       def root_path
-        @root_path ||= DocumentPath.new(geo_concern, ssl: @ssl)
+        @root_path ||= DocumentPath.new(geo_concern)
       end
 
       # Instantiates a CompositeBuilder object with an array of

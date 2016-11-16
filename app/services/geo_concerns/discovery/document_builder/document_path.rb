@@ -2,23 +2,22 @@ module GeoConcerns
   module Discovery
     class DocumentBuilder
       class DocumentPath
-        attr_reader :geo_concern, :ssl
-        def initialize(geo_concern, ssl: false)
+        attr_reader :geo_concern
+        def initialize(geo_concern)
           @geo_concern = geo_concern
-          @ssl = ssl
         end
 
         # Returns url for geo concern show page.
         # @return [String] geo concern show page url
         def to_s
-          helper.polymorphic_url(geo_concern, protocol: protocol)
+          helper.polymorphic_url(geo_concern, host: host, protocol: protocol)
         end
 
         # Returns url for downloading the original file.
         # @return [String] original file download url
         def file_download
           return unless file_set
-          helper.download_url(file_set, protocol: protocol)
+          helper.download_url(file_set, host: host, protocol: protocol)
         end
 
         # Returns url for downloading the metadata file.
@@ -26,7 +25,7 @@ module GeoConcerns
         # @return [String] metadata download url
         def metadata_download(format)
           return unless metadata_file_set
-          path = helper.download_url(metadata_file_set, protocol: protocol)
+          path = helper.download_url(metadata_file_set, host: host, protocol: protocol)
           mime_type = metadata_file_set.solr_document[:geo_mime_type_ssim].first
           path if MetadataFormatService.label(mime_type) == format
         end
@@ -64,7 +63,7 @@ module GeoConcerns
           # Indicates if the ssl is enabled.
           # @return [Boolean] use ssl
           def ssl?
-            @ssl == true
+            geo_concern.request.protocol == 'https://'
           end
 
           # Returns protocol to use in url. Depends on ssl status.
@@ -75,6 +74,12 @@ module GeoConcerns
             else
               :http
             end
+          end
+
+          # Returns hostname (with port) to use in url.
+          # @return [String] hostname
+          def host
+            geo_concern.request.host_with_port
           end
       end
     end

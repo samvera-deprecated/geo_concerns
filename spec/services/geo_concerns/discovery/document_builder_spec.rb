@@ -38,6 +38,7 @@ describe GeoConcerns::Discovery::DocumentBuilder do
     allow(geo_concern_presenter.solr_document).to receive(:representative_id).and_return(geo_file_presenter.id)
     allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter, metadata_presenter])
     allow(geo_concern_presenter).to receive(:member_presenters).and_return([geo_file_presenter, metadata_presenter])
+    allow(geo_file_presenter.request).to receive_messages(host_with_port: 'localhost:3000', protocol: 'http://')
   end
 
   describe 'vector work' do
@@ -208,8 +209,9 @@ describe GeoConcerns::Discovery::DocumentBuilder do
   end
 
   context 'with ssl enabled' do
-    subject { described_class.new(geo_concern_presenter, document_class, ssl: true) }
-
+    before do
+      allow(geo_file_presenter.request).to receive_messages(host_with_port: 'localhost:3000', protocol: 'https://')
+    end
     it 'returns https reference urls' do
       refs = JSON.parse(document['dct_references_s'])
       expect(refs['http://schema.org/url']).to eq('https://localhost:3000/concern/vector_works/geo-work-1')
