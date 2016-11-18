@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bunny'
   spec.add_dependency 'geoblacklight_messaging'
 
-
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'devise', '>= 3.0', '< 5'
