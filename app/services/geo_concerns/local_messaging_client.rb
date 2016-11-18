@@ -10,5 +10,9 @@ module GeoConcerns
     def geoblacklight(message)
       GeoblacklightJob.perform_later(message)
     end
+
+    def geoserver(message)
+      DeliveryJob.perform_later(message)
+    end
   end
 end
