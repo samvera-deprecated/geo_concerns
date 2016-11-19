@@ -68,6 +68,7 @@ describe GeoConcerns::Delivery::Geoserver do
 
       before do
         allow(Dir).to receive(:glob).and_return(shapefile_path)
+        allow(subject).to receive(:system).and_return(true)
       end
 
       it 'dispatches to RGeoServer' do
