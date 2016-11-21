@@ -8,7 +8,6 @@ jdk:
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - MAPNIK_VERSION="2.3"
   matrix:
     - RAILS_VERSION=4.2.7.1
       RDF_VERSION=1.99.1

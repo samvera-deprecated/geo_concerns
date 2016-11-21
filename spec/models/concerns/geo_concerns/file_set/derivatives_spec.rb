@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 shared_examples 'a set of raster derivatives' do
+  let(:messenger) { instance_double(GeoConcerns::EventsGenerator) }
   before do
-    expect(DeliveryJob).to receive(:perform_later).with(file_set, /file/)
+    allow(Messaging).to receive(:messenger).and_return(messenger)
+    expect(messenger).to receive(:derivatives_created).with(file_set)
   end
   it 'makes a thumbnail' do
     new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"
@@ -22,8 +24,10 @@ shared_examples 'a set of raster derivatives' do
 end
 
 shared_examples 'a set of vector derivatives' do
+  let(:messenger) { instance_double(GeoConcerns::EventsGenerator) }
   before do
-    expect(DeliveryJob).to receive(:perform_later).with(file_set, /file/)
+    allow(Messaging).to receive(:messenger).and_return(messenger)
+    expect(messenger).to receive(:derivatives_created).with(file_set)
   end
   it 'makes a thumbnail' do
     new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"
@@ -43,8 +47,10 @@ shared_examples 'a set of vector derivatives' do
 end
 
 shared_examples 'a set of image derivatives' do
+  let(:messenger) { instance_double(GeoConcerns::EventsGenerator) }
   before do
-    expect(DeliveryJob).not_to receive(:perform_later)
+    allow(Messaging).to receive(:messenger).and_return(messenger)
+    expect(messenger).to receive(:derivatives_created).with(file_set)
   end
   it 'makes a thumbnail' do
     new_thumb = "#{Rails.root}/tmp/derivatives/#{file_set.id}/thumbnail.thumbnail"

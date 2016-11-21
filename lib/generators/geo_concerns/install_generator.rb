@@ -73,6 +73,20 @@ module GeoConcerns
       copy_file file_path, file_path
     end
 
+    def install_messaging_config
+      config_file_path = 'config/messaging.yml'
+      initializer_file_path = 'config/initializers/messaging_config.rb'
+      copy_file config_file_path, config_file_path
+      copy_file initializer_file_path, initializer_file_path
+    end
+
+    def install_geoblacklight_config
+      config_file_path = 'config/geoblacklight.yml'
+      initializer_file_path = 'config/initializers/geoblacklight_config.rb'
+      copy_file config_file_path, config_file_path
+      copy_file initializer_file_path, initializer_file_path
+    end
+
     def inject_into_file_set
       file_path = 'app/models/file_set.rb'
       if File.exist?(file_path)
