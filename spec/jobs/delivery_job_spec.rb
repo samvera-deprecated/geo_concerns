@@ -34,7 +34,7 @@ describe GeoConcerns::DeliveryJob do
       let(:file_format) { 'image/jpeg' }
       it 'delegates to DeliveryService' do
         expect(GeoConcerns::DeliveryService).not_to receive(:new)
-        expect { subject.perform(message) }.to raise_error(NotImplementedError, /Only supports vector/)
+        subject.perform(message)
       end
     end
 
