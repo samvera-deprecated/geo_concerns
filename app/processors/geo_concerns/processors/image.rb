@@ -12,18 +12,25 @@ module GeoConcerns
         # @param out_path [String] processor output file path.
         # @param options [Hash] creation options
         # @option options [String] `:output_size` as "w h" or "wxh"
+        # rubocop:disable Metrics/MethodLength
         def self.convert(in_path, out_path, options)
-          image = MiniMagick::Image.open(in_path) # copies image
-          image.combine_options do |i|
-            size = options[:output_size].tr(' ', 'x')
-            i.resize size
-            i.background 'white'
-            i.gravity 'center'
-            i.extent size
-          end
-          image.format File.extname(out_path).gsub(/^\./, '')
-          image.write(out_path)
+          size = options[:output_size].tr(' ', 'x')
+          convert = MiniMagick::Tool::Convert.new(whiny: false)
+          convert << in_path
+          convert << "-resize"
+          convert << size
+          convert << "-extent"
+          convert << size
+          convert << "-background"
+          convert << "white"
+          convert << "-gravity"
+          convert << "center"
+          convert << out_path
+
+          # suppress stderr b/c geotiffs return 'unknown field' warnings
+          convert.call { |_stdout, _stderr| }
         end
+        # rubocop:enable Metrics/MethodLength
 
         # Trims extra whitespace.
         # @param in_path [String] file input path
