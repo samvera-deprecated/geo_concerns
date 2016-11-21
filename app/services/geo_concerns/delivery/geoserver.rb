@@ -64,19 +64,54 @@ module GeoConcerns
         end
 
         def datastore
-          RGeoServer::DataStore.new catalog, workspace: workspace, name: file_set.id
-        end
-
-        def publish_vector
-          datastore.upload_file file_path, publish: true
+          @datastore ||= RGeoServer::DataStore.new catalog, workspace: workspace,
+                                                            name: file_set.id
         end
 
         def coveragestore
-          RGeoServer::CoverageStore.new catalog, workspace: workspace, name: file_set.id
+          @coveragestore ||= RGeoServer::CoverageStore.new catalog, workspace: workspace,
+                                                                    name: file_set.id
+        end
+
+        def base_path(path)
+          path.gsub(CurationConcerns.config.derivatives_path, '')
+        end
+
+        def persist_coveragestore
+          url = "file:///#{@config[:derivatives_path]}#{base_path(file_path)}"
+          coveragestore.url = url
+          coveragestore.enabled = 'true'
+          coveragestore.data_type = 'GeoTIFF'
+          coveragestore.save
+        end
+
+        def persist_coverage
+          coverage = RGeoServer::Coverage.new catalog, workspace: workspace,
+                                                       coverage_store: coveragestore,
+                                                       name: coveragestore.name
+          coverage.title = coveragestore.name
+          coverage.metadata_links = []
+          coverage.save
+        end
+
+        def publish_vector
+          shapefile_dir = "#{File.dirname(file_path)}/shapefile"
+
+          # Delete existing shapefile
+          FileUtils.rm_rf(shapefile_dir)
+
+          # Unzip derivative shapefiles
+          system "unzip -o #{file_path} -d #{shapefile_dir}"
+
+          shape_path = Dir.glob("#{shapefile_dir}/*.shp").first
+          raise Errno::ENOENT, 'Shapefile not found' unless shape_path
+          url = "file:///#{@config[:derivatives_path]}#{base_path(shape_path)}"
+          datastore.upload_external url, publish: true
         end
 
         def publish_raster
-          coveragestore.upload file_path
+          persist_coveragestore
+          persist_coverage
         end
     end
   end

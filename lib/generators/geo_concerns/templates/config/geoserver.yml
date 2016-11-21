@@ -11,6 +11,8 @@ geoserver:
     geowebcache_url: <%= ENV['PUBLIC_GEOSERVER_GWC_URL'] || "builtin" %>
     # Name of the workspace to save your data in
     workspace: <%= ENV['PUBLIC_GEOSERVER_WS'] || "public" %>
+    # Path on geoserver machine to mounted/mirrored derivates directory
+    derivatives_path: <%= ENV['PUBLIC_GEOSERVER_DERIVATIVES_PATH'] || "/opt/geoserver/data_dir/derivatives" %>
     restclient:
       # Set to false to disable or stdout, stderr, or filename
       logfile: stderr
