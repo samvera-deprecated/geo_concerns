@@ -13,7 +13,7 @@ class DeliveryJob < ActiveJob::Base
   def perform(message)
     file_set = ActiveFedora::Base.find(message['id'])
     uri = URI.parse(content_url(file_set))
-    raise NotImplementedError, 'Only supports vector and raster file formats' if uri.path == ''
+    return if uri.path == ''
     raise NotImplementedError, 'Only supports file URLs' unless uri.scheme == 'file'
     GeoConcerns::DeliveryService.new(file_set, uri.path).publish
   end
