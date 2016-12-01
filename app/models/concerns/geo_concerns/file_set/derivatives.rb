@@ -5,8 +5,6 @@ module GeoConcerns
 
       def create_derivatives(filename)
         case geo_mime_type
-        when *GeoConcerns::ImageFormatService.select_options.map(&:last)
-          image_derivatives(filename)
         when *GeoConcerns::RasterFormatService.select_options.map(&:last)
           raster_derivatives(filename)
         when *GeoConcerns::VectorFormatService.select_options.map(&:last)
@@ -16,15 +14,6 @@ module GeoConcerns
 
         # Once all the derivatives are created, send a derivatives created message
         messenger.derivatives_created(self)
-      end
-
-      def image_derivatives(filename)
-        Hydra::Derivatives::ImageDerivatives
-          .create(filename, outputs: [{ label: :thumbnail,
-                                        id: id,
-                                        format: 'png',
-                                        size: '200x150>',
-                                        url: derivative_url('thumbnail') }])
       end
 
       def raster_derivatives(filename)
