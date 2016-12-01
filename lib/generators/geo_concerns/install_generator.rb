@@ -74,8 +74,8 @@ module GeoConcerns
     end
 
     def install_messaging_config
-      config_file_path = 'config/messaging.yml'
-      initializer_file_path = 'config/initializers/messaging_config.rb'
+      config_file_path = 'config/geo_concerns_messaging.yml'
+      initializer_file_path = 'config/initializers/geo_concerns_messaging_config.rb'
       copy_file config_file_path, config_file_path
       copy_file initializer_file_path, initializer_file_path
     end

@@ -15,11 +15,11 @@ module GeoConcerns
     private
 
       def geoblacklight_event_generator
-        GeoblacklightEventGenerator.new(Messaging.geoblacklight_client)
+        GeoblacklightEventGenerator.new(GeoConcerns::Messaging.geoblacklight_client)
       end
 
       def geoserver_event_generator
-        GeoserverEventGenerator.new(Messaging.geoserver_client)
+        GeoserverEventGenerator.new(GeoConcerns::Messaging.geoserver_client)
       end
   end
 end

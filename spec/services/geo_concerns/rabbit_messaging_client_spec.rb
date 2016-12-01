@@ -10,7 +10,7 @@ RSpec.describe GeoConcerns::RabbitMessagingClient do
   let(:bunny_session) { instance_double(Bunny::Session, create_channel: channel) }
 
   before do
-    allow(Messaging).to receive(:config).and_return(config)
+    allow(GeoConcerns::Messaging).to receive(:config).and_return(config)
     allow(Bunny).to receive(:new).and_return(bunny_session)
     allow(bunny_session).to receive(:start)
   end

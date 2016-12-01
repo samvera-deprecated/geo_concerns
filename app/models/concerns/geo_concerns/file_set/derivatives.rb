@@ -13,7 +13,7 @@ module GeoConcerns
         super
 
         # Once all the derivatives are created, send a derivatives created message
-        messenger.derivatives_created(self)
+        geo_concerns_messenger.derivatives_created(self)
       end
 
       def raster_derivatives(filename)
@@ -52,8 +52,8 @@ module GeoConcerns
           GeoConcerns::DerivativePath
         end
 
-        def messenger
-          @messenger ||= Messaging.messenger
+        def geo_concerns_messenger
+          @geo_concerns_messenger ||= GeoConcerns::Messaging.messenger
         end
     end
   end
