@@ -16,12 +16,12 @@ module GeoConcerns
     end
 
     def geoblacklight
-      exchange_name = Messaging.config['events']['exchange']['geoblacklight']
+      exchange_name = GeoConcerns::Messaging.config['events']['exchange']['geoblacklight']
       @exchange ||= channel.fanout(exchange_name, durable: true)
     end
 
     def geoserver
-      exchange_name = Messaging.config['events']['exchange']['geoserver']
+      exchange_name = GeoConcerns::Messaging.config['events']['exchange']['geoserver']
       @exchange ||= channel.fanout(exchange_name, durable: true)
     end
 

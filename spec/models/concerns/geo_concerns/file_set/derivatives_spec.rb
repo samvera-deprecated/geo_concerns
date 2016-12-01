@@ -3,7 +3,7 @@ require 'spec_helper'
 shared_examples 'a set of raster derivatives' do
   let(:messenger) { instance_double(GeoConcerns::EventsGenerator) }
   before do
-    allow(Messaging).to receive(:messenger).and_return(messenger)
+    allow(GeoConcerns::Messaging).to receive(:messenger).and_return(messenger)
     expect(messenger).to receive(:derivatives_created).with(file_set)
   end
   it 'makes a thumbnail' do
@@ -26,7 +26,7 @@ end
 shared_examples 'a set of vector derivatives' do
   let(:messenger) { instance_double(GeoConcerns::EventsGenerator) }
   before do
-    allow(Messaging).to receive(:messenger).and_return(messenger)
+    allow(GeoConcerns::Messaging).to receive(:messenger).and_return(messenger)
     expect(messenger).to receive(:derivatives_created).with(file_set)
   end
   it 'makes a thumbnail' do

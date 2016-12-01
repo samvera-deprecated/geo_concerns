@@ -24,7 +24,7 @@ describe CurationConcerns::FileSetsController, type: :controller do
 
     before do
       sign_in user
-      allow(Messaging).to receive(:messenger).and_return(messenger)
+      allow(GeoConcerns::Messaging).to receive(:messenger).and_return(messenger)
     end
 
     context 'after updating metadata' do

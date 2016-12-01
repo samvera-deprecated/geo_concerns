@@ -3,22 +3,22 @@ module GeoConcerns
     extend ActiveSupport::Concern
 
     def destroy
-      messenger.record_deleted(geo_concern)
+      geo_concerns_messenger.record_deleted(geo_concern)
       super
     end
 
     def after_create_response
       super
-      messenger.record_created(geo_concern)
+      geo_concerns_messenger.record_created(geo_concern)
     end
 
     def after_update_response
       super
-      messenger.record_updated(geo_concern)
+      geo_concerns_messenger.record_updated(geo_concern)
     end
 
-    def messenger
-      @messenger ||= Messaging.messenger
+    def geo_concerns_messenger
+      @geo_concerns_messenger ||= GeoConcerns::Messaging.messenger
     end
 
     def geo_concern
