@@ -41,7 +41,6 @@ module GeoConcerns
             document.identifier = identifier
             document.description = description
             document.access_rights = geo_concern.solr_document.visibility
-            document.slug = slug
           end
 
           # Returns the work indentifier. This is (usually) different from the hydra/fedora work id.
@@ -59,13 +58,6 @@ module GeoConcerns
           def description
             return geo_concern.description.first if geo_concern.description.first
             "A #{geo_concern.human_readable_type.downcase} object."
-          end
-
-          # Returns the document slug for use in discovery systems.
-          # @return [String] document slug
-          def slug
-            return geo_concern.id unless geo_concern.provenance
-            "#{geo_concern.provenance.parameterize}-#{geo_concern.id}"
           end
       end
     end

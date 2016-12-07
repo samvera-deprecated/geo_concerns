@@ -25,7 +25,8 @@ module GeoConcerns
           spatial_builder,
           date_builder,
           references_builder,
-          layer_info_builder
+          layer_info_builder,
+          slug_builder
         )
       end
 
@@ -62,6 +63,13 @@ module GeoConcerns
       # @return [LayerInfoBuilder] layer info builder for document
       def layer_info_builder
         LayerInfoBuilder.new(geo_concern)
+      end
+
+      # Instantiates a SlugBuilder object.
+      # Builds the Geoblacklight slug field
+      # @return [SlugBuilder] layer info builder for document
+      def slug_builder
+        SlugBuilder.new(geo_concern)
       end
     end
   end
