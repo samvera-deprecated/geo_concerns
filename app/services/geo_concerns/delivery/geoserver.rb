@@ -77,6 +77,10 @@ module GeoConcerns
           path.gsub(CurationConcerns.config.derivatives_path, '')
         end
 
+        def shapefile_dir
+          "#{File.dirname(file_path)}/#{File.basename(file_path, '.zip')}"
+        end
+
         def persist_coveragestore
           url = "file:///#{@config[:derivatives_path]}#{base_path(file_path)}"
           coveragestore.url = url
@@ -95,8 +99,6 @@ module GeoConcerns
         end
 
         def publish_vector
-          shapefile_dir = "#{File.dirname(file_path)}/shapefile"
-
           # Delete existing shapefile
           FileUtils.rm_rf(shapefile_dir)
 
