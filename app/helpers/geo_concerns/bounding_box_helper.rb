@@ -21,27 +21,27 @@ module GeoConcerns
     def bbox_display_inputs
       %(
         <div class="row bbox-inputs">
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-addon">North</span>
+              <span class="input-group-addon"><div>North</div></span>
               <input readonly id="bbox-north" type="text" class="form-control bbox-input">
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-addon">East</span>
+              <span class="input-group-addon"><div>East</div></span>
               <input readonly id="bbox-east" type="text" class="form-control bbox-input">
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-addon">South</span>
+              <span class="input-group-addon"><div>South</div></span>
               <input readonly id="bbox-south" type="text" class="form-control bbox-input">
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-addon">West</span>
+              <span class="input-group-addon"><div>West</div></span>
               <input readonly id="bbox-west" type="text" class="form-control bbox-input">
             </div>
           </div>
