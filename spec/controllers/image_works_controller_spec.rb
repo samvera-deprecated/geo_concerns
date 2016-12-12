@@ -2,10 +2,20 @@ require 'spec_helper'
 
 describe CurationConcerns::ImageWorksController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
+  let(:image_work) { FactoryGirl.create(:image_work, user: user, title: ['Image Work Title']) }
+  let!(:sipity_entity) do
+    create(:sipity_entity, proxy_for_global_id: image_work.to_global_id.to_s)
+  end
 
   describe "#show_presenter" do
     it "is a image work show presenter" do
       expect(described_class.new.show_presenter).to eq(::GeoConcerns::ImageWorkShowPresenter)
+    end
+  end
+
+  describe '#form_class' do
+    it 'returns the raster work form class' do
+      expect(described_class.new.form_class). to eq(CurationConcerns::ImageWorkForm)
     end
   end
 
@@ -15,9 +25,7 @@ describe CurationConcerns::ImageWorksController, type: :controller do
     end
     context "with an existing image work" do
       it "is a success" do
-        image = FactoryGirl.create(:image_work, user: user)
-
-        get :show, params: { id: image.id }
+        get :show, params: { id: image_work.id }
         expect(response).to be_success
       end
     end

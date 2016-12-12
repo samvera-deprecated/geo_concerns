@@ -6,8 +6,9 @@ module GeoConcerns
       self.show_presenter = GeoConcerns::ImageWorkShowPresenter
     end
 
+    # For backwards compatibility with CurationConcerns =< 1.6.3
     def form_class
-      GeoConcerns::ImageWorkForm
+      CurationConcerns::ImageWorkForm
     end
   end
 end
