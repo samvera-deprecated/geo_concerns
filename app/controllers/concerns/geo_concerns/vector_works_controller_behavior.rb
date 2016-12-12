@@ -6,8 +6,9 @@ module GeoConcerns
       self.show_presenter = GeoConcerns::VectorWorkShowPresenter
     end
 
+    # For backwards compatibility with CurationConcerns =< 1.6.3
     def form_class
-      GeoConcerns::VectorWorkForm
+      CurationConcerns::VectorWorkForm
     end
   end
 end

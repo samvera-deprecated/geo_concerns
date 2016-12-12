@@ -4,20 +4,25 @@ describe CurationConcerns::VectorWorksController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:vector_work) { FactoryGirl.create(:vector_work, user: user, title: ['Vector Work Title']) }
   let(:reloaded) { vector_work.reload }
+  let!(:sipity_entity) do
+    create(:sipity_entity, proxy_for_global_id: vector_work.to_global_id.to_s)
+  end
 
   describe "#show" do
     before do
       sign_in user
     end
     context "when there's a parent raster work" do
+      let(:parent_raster_work) { FactoryGirl.create(:raster_work, user: user) }
+      let!(:parent_sipity_entity) do
+        create(:sipity_entity, proxy_for_global_id: parent_raster_work.to_global_id.to_s)
+      end
       it "is a success" do
-        vector = FactoryGirl.create(:vector_work, user: user)
-        raster = FactoryGirl.create(:raster_work, user: user)
-        raster.ordered_members << vector
-        raster.save
-        vector.update_index
+        parent_raster_work.ordered_members << vector_work
+        parent_raster_work.save
+        vector_work.update_index
 
-        get :show, params: { id: vector.id }
+        get :show, params: { id: vector_work.id }
         expect(response).to be_success
       end
     end
@@ -26,6 +31,12 @@ describe CurationConcerns::VectorWorksController, type: :controller do
   describe "#show_presenter" do
     it "is a vector work show presenter" do
       expect(described_class.new.show_presenter.name).to eq("GeoConcerns::VectorWorkShowPresenter")
+    end
+  end
+
+  describe '#form_class' do
+    it 'returns the raster work form class' do
+      expect(described_class.new.form_class). to eq(CurationConcerns::VectorWorkForm)
     end
   end
 

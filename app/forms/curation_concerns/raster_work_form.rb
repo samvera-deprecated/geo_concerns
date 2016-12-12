@@ -1,8 +1,8 @@
-module GeoConcerns
-  class VectorWorkForm < CurationConcerns::Forms::WorkForm
+module CurationConcerns
+  class RasterWorkForm < CurationConcerns::Forms::WorkForm
     include ::GeoConcerns::BasicGeoMetadataForm
     include ::GeoConcerns::GeoreferencedForm
     include ::GeoConcerns::ExternalMetadataFileForm
-    self.model_class = ::VectorWork
+    self.model_class = ::RasterWork
   end
 end

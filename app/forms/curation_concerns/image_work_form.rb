@@ -1,4 +1,4 @@
-module GeoConcerns
+module CurationConcerns
   class ImageWorkForm < CurationConcerns::Forms::WorkForm
     include ::GeoConcerns::BasicGeoMetadataForm
     include ::GeoConcerns::ExternalMetadataFileForm

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeoConcerns::ImageWorkForm do
+describe CurationConcerns::ImageWorkForm do
   let(:coverage) { GeoConcerns::Coverage.new(43.039, -69.856, 42.943, -71.032) }
   let(:raw_attributes) { ActionController::Parameters.new(coverage: coverage.to_s) }
 
