@@ -1,9 +1,9 @@
 div.leaflet-marker-icon.location-filter.resize-marker {
-    background: url( img/resize-handle.png ) no-repeat;  
+    background: url(image_path('geo_concerns/images/resize-handle.png')) no-repeat;  
     cursor: move;
 }
 div.leaflet-marker-icon.location-filter.move-marker {
-    background: url( img/move-handle.png ) no-repeat;  
+    background: url(image_path('geo_concerns/images/move-handle.png')) no-repeat;  
     cursor: move;
 }
 
