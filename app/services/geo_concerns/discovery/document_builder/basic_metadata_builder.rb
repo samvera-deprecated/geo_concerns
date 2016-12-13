@@ -48,8 +48,14 @@ module GeoConcerns
           # If identifier is not set, the work id is used.
           # @return [String] identifier
           def identifier
-            indentifiers = geo_concern.identifier
-            indentifiers.empty? ? geo_concern.id : indentifiers.first
+            identifiers = geo_concern.identifier
+            if identifiers.nil? || identifiers.empty?
+              geo_concern.id
+            elsif identifiers.is_a?(String)
+              identifiers
+            else
+              identifiers.first
+            end
           end
 
           # Returns the work description. If none is available,
