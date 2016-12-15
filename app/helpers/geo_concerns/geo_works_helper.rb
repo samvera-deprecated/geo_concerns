@@ -5,9 +5,9 @@ module GeoConcerns
     # @return[String]
     def child_geo_works_type(presenter)
       case presenter.class.to_s
-      when 'GeoConcerns::ImageWorkShowPresenter'
+      when /ImageWorkShowPresenter/
         'Raster'
-      when 'GeoConcerns::RasterWorkShowPresenter'
+      when /RasterWorkShowPresenter/
         'Vector'
       end
     end
