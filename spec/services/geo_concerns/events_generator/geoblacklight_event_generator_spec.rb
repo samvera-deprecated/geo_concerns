@@ -17,7 +17,7 @@ RSpec.describe GeoConcerns::EventsGenerator::GeoblacklightEventGenerator do
   let(:layer_modified) do
     datetime = record.solr_document[:system_modified_dtsi]
     datetime = DateTime.parse(datetime.to_s).utc
-    Rails::VERSION::MAJOR == 4 ? datetime.utc.xmlschema : datetime.utc.strftime('%FT%TZ')
+    Rails::VERSION::MAJOR == 4 ? datetime.utc.strftime('%FT%TZ') : datetime.utc.xmlschema
   end
   let(:discovery_doc) { { "geoblacklight_version" => "1.0",
                           "dc_identifier_s" => "geo-work-1",

@@ -32,7 +32,9 @@ module GeoConcerns
           # Returns the date the work was modified.
           # @return [String] date in XMLSchema format.
           def layer_modified
-            geo_concern.layer_modified.try(:xmlschema)
+            datetime = geo_concern.layer_modified
+            # TODO: Rails 4 doesn't implement the timezone correctly -- it adds "+00:00" not "Z"
+            Rails::VERSION::MAJOR == 4 ? datetime.utc.strftime('%FT%TZ') : datetime.utc.xmlschema
           end
 
           # Returns the date the layer was issued.
