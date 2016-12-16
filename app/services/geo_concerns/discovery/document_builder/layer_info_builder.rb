@@ -22,11 +22,11 @@ module GeoConcerns
           # @return [String] file geometry type
           def geom_type
             case geo_concern.class.to_s
-            when "GeoConcerns::ImageWorkShowPresenter"
+            when /ImageWorkShowPresenter/
               'Scanned Map'
-            when "GeoConcerns::RasterWorkShowPresenter"
+            when /RasterWorkShowPresenter/
               'Raster'
-            when "GeoConcerns::VectorWorkShowPresenter"
+            when /VectorWorkShowPresenter/
               vector_geom_type
             end
           end
