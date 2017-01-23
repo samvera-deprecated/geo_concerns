@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash/indifferent_access'
+
 module GeoConcerns
   module Discovery
     class DocumentBuilder
@@ -5,7 +7,7 @@ module GeoConcerns
         attr_reader :geo_concern
         def initialize(geo_concern)
           @geo_concern = geo_concern
-          @config = fetch_config
+          @config = GeoConcerns::GeoServer.config[visibility].try(:with_indifferent_access)
         end
 
         # Returns the identifier to use with WMS/WFS/WCS services.
@@ -31,13 +33,6 @@ module GeoConcerns
         end
 
         private
-
-          # Fetch the geoserver configuration.
-          # @return [Hash] geoserver configuration
-          def fetch_config
-            data = ERB.new(File.read(Rails.root.join('config', 'geoserver.yml'))).result
-            YAML.load(data)['geoserver'][visibility].with_indifferent_access if visibility
-          end
 
           # Gets the representative file set.
           # @return [FileSet] representative file set

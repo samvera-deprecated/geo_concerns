@@ -54,6 +54,7 @@ describe GeoConcerns::Discovery::DocumentBuilder::Wxs do
 
   describe '#wfs_path' do
     context 'public document' do
+      let(:visibility) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
       it 'returns a valid wms path' do
         expect(subject.wfs_path).to eq 'http://localhost:8181/geoserver/public/wfs'
       end

@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash/indifferent_access'
+
 module Geoblacklight
   def config
     @config ||= config_yaml.with_indifferent_access
