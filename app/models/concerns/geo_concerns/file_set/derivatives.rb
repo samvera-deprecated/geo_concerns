@@ -48,10 +48,6 @@ module GeoConcerns
 
       private
 
-        def derivative_path_factory
-          GeoConcerns::DerivativePath
-        end
-
         def geo_concerns_messenger
           @geo_concerns_messenger ||= GeoConcerns::Messaging.messenger
         end

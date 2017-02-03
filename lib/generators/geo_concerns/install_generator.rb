@@ -49,9 +49,9 @@ module GeoConcerns
       copy_file 'controllers/curation_concerns/file_sets_controller.rb', file_path
     end
 
-    def install_downloads_controller
-      file_path = 'app/controllers/downloads_controller.rb'
-      copy_file 'controllers/downloads_controller.rb', file_path
+    def copy_curation_concerns_derivate_path_monkey_patch
+      file_path = 'config/initializers/curation_concerns_derivative_path_monkey_patch.rb'
+      copy_file file_path, file_path
     end
 
     def install_authorities
