@@ -61,32 +61,6 @@ module GeoConcerns
       end
     end
 
-    def install_simpler_tiles_config
-      initializer_path = 'config/initializers/simpler_tiles.rb'
-      yaml_path = 'config/simpler_tiles.yml'
-      copy_file yaml_path, yaml_path
-      copy_file initializer_path, initializer_path
-    end
-
-    def install_geoserver_config
-      file_path = 'config/geoserver.yml'
-      copy_file file_path, file_path
-    end
-
-    def install_messaging_config
-      config_file_path = 'config/geo_concerns_messaging.yml'
-      initializer_file_path = 'config/initializers/geo_concerns_messaging_config.rb'
-      copy_file config_file_path, config_file_path
-      copy_file initializer_file_path, initializer_file_path
-    end
-
-    def install_geoblacklight_config
-      config_file_path = 'config/geoblacklight.yml'
-      initializer_file_path = 'config/initializers/geoblacklight_config.rb'
-      copy_file config_file_path, config_file_path
-      copy_file initializer_file_path, initializer_file_path
-    end
-
     def inject_into_file_set
       file_path = 'app/models/file_set.rb'
       if File.exist?(file_path)

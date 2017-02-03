@@ -12,7 +12,7 @@ module GeoConcerns
         @file_set = file_set
         @file_path = file_path
         @config = fetch_config
-        @workspace_name = @config.delete(:workspace)
+        @workspace_name = @config[:workspace]
         validate!
       end
 
@@ -35,9 +35,7 @@ module GeoConcerns
 
         def fetch_config
           raise ArgumentError, "FileSet visibility must be open or authenticated" unless visibility
-
-          data = ERB.new(File.read(Rails.root.join('config', 'geoserver.yml'))).result
-          YAML.load(data)['geoserver'][visibility].with_indifferent_access
+          GeoConcerns::GeoServer.config[visibility]
         end
 
         def visibility
