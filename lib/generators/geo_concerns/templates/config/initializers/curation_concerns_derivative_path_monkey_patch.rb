@@ -1,5 +1,7 @@
-module GeoConcerns
-  class DerivativePath < CurationConcerns::DerivativePath
+# Undesirable monkey patch we don't want to do.
+require 'curation_concerns/derivative_path'
+module CurationConcerns
+  class DerivativePath
     def extension
       case destination_name
       when 'thumbnail'

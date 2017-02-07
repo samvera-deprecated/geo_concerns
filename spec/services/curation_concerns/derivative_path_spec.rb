@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeoConcerns::DerivativePath do
+describe CurationConcerns::DerivativePath do
   subject { described_class.derivative_path_for_reference('12', destination_name) }
   describe '#extension' do
     context 'with thumbnail destination' do
