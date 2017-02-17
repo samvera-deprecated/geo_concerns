@@ -22,10 +22,6 @@ module GeoConcerns
       end
     end
 
-    def actor
-      @actor ||= GeoConcerns::Actors::FileSetActor.new(@file_set, current_user)
-    end
-
     protected
 
       def geo?
