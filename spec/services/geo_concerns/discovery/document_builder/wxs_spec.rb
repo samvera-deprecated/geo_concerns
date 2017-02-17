@@ -13,6 +13,7 @@ describe GeoConcerns::Discovery::DocumentBuilder::Wxs do
   before do
     allow(geo_file_presenter.solr_document).to receive(:visibility).and_return(visibility)
     allow(geo_concern_presenter).to receive(:member_presenters).and_return([geo_file_presenter])
+    allow(geo_concern_presenter).to receive(:file_set_presenters).and_return([geo_file_presenter])
   end
 
   describe '#identifier' do
