@@ -46,7 +46,14 @@ module GeoConcerns
 
     def install_file_sets_controller
       file_path = 'app/controllers/curation_concerns/file_sets_controller.rb'
-      copy_file 'controllers/curation_concerns/file_sets_controller.rb', file_path
+      if File.exist?(file_path)
+        inject_into_file file_path, after: /include CurationConcerns::FileSetsControllerBehavior.*$/ do
+          "\n    include GeoConcerns::FileSetsControllerBehavior\n" \
+            "    include GeoConcerns::MessengerBehavior\n"
+        end
+      else
+        copy_file 'controllers/curation_concerns/file_sets_controller.rb', file_path
+      end
     end
 
     def copy_curation_concerns_derivate_path_monkey_patch
